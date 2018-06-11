@@ -3,3 +3,4 @@ eslinter-airbnb
 .vscode
 node_modules/
 master
+node_modules
