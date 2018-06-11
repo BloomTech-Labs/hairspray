@@ -1,2 +1,5 @@
+eslinter-airbnb
 /node_modules
 .vscode
+node_modules/
+master
