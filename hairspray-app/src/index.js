@@ -13,7 +13,7 @@ import "./index.css";
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
-	<Provider>
+	<Provider store={store}>
 		<Router>
 			<Route path="/" component={App} />
 			{/* <Route path="/client" component={} />

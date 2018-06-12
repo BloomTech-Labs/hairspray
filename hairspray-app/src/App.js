@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserSettings from './components/UserSettings.js';
+import TestRedux from './components/test.js';
 import './App.css';
 
 class App extends Component {
@@ -12,8 +13,8 @@ class App extends Component {
 
   render() {
     //return <div className="App">WIP</div>;
-    return <UserSettings user={this.user} />;
-
+    //return <UserSettings user={this.user} />;
+    return <TestRedux/>
   }
 }
 

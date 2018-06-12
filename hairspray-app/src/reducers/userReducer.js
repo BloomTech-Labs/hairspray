@@ -13,7 +13,7 @@ export const userReducer = (state = initialState, action) => {
       case USER_UPDATE_COMPLETE:
         return {
           ...state,
-          user: "update test",
+          user: state.user,
           updatingUser: false
         };
       case ERROR:
