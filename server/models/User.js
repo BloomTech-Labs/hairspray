@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
 const validate = require("mongoose-validator");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const Schema = mongoose.Schema;
 
-let UserSchema = new mongoose.Schema({
-  name: { type: String },
-  last: { type: String },
+let UserSchema = new Schema({
+  name: { required: true, type: String },
   phone: {
     type: String,
     lowercase: true,
@@ -34,7 +32,11 @@ let UserSchema = new mongoose.Schema({
       })
     ]
   },
-  password: { type: String }
+  password: { type: String },
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-UserSchema.pre("save", function(next) {});
+module.exports = mongoose.model("User", UserSchema);

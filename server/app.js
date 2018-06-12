@@ -1,41 +1,48 @@
-//the dependencies to make app work
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 const bodyParser = require("body-parser");
-const helmet = require("helmet");
+const CORS = require("cors");
+
+//Paste user api here
 
 const app = express();
-const router = express.Router();
-const mongoUrl =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/hairspray";
+const port = process.env.PORT || 5000;
+let db = "mongodb://localhost:27017/hairspray";
+const routes = require("./routes/routes");
 
-//Lets connect to the mongo database
+//connect to database
 
-try {
-  mongoose.connect(
-    mongoUrl,
-    {
-      //Deprecated Mongo Client
+mongoose
+  .connect(db)
+  .then(() => console.log("MongoDB is connected"))
+  .catch(err => console.log(err));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(CORS());
+
+const whitelist = ["http://localhost:5000"];
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
     }
-  );
-} catch (error) {
-  console.log(error);
+  },
+  methods: "GET, PUT, POST, DELETE"
+};
+
+// Static assets if in production
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
-let port = 8000 || process.env.PORT;
+routes(app);
 
-//middleware
-app.use(cors());
-app.use(bodyParser.json());
-app.use(helmet());
-
-app.listen(port, () => {
-  console.log(`Server started on ${port}`);
-});
-
-//Just to see if server is working
-
-app.get("/", (req, res) => {
-  res.json("Test works");
-});
+app.listen(port, () => console.log(`Server running on port ${port}`));
