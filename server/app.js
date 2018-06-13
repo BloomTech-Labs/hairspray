@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+
 const CORS = require("cors");
 
 //Paste user api here
@@ -44,5 +46,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 routes(app);
+
+app.get("/", (req, res) => {
+  res.json("This is a blank slate");
+});
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -1,14 +1,16 @@
+/* eslint-disable */
+
 const userControllerStrategy = require("../controllers/userController");
 const express = require("express");
-const middleAuth = require("../middleware/middleware");
+const { validateToken } = require("../config/auth");
+const { getUsers } = require("../controllers/userController");
 
 module.exports = app => {
   app
-    .route("/create-user")
-    .post(middleAuth.hashedPassword, userControllerStrategy.createUser);
+    .route("/signup")
+    .post(userControllerStrategy.createUser)
+    .get(validateToken, getUsers);
   app.route("/users/:id").get(userControllerStrategy.getUser);
   app.route("/users/:id").put(userControllerStrategy.updateUser);
-  app
-    .route("/login")
-    .post(middleAuth.authenticate, userControllerStrategy.userLogin);
+  app.route("/login").post(userControllerStrategy.userLogin);
 };

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validate = require("mongoose-validator");
+var bcrypt = require("bcrypt");
+
 const Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
@@ -38,5 +40,21 @@ let UserSchema = new Schema({
     default: Date.now
   }
 });
+
+UserSchema.pre("save", function(next) {
+  bcrypt.hash(this.password, 11, (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    next();
+  });
+});
+
+UserSchema.methods.checkPassword = function(potentialPassword, cb) {
+  // check passwords
+  bcrypt.compare(potentialPassword, this.password, (err, isMatch) => {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
 
 module.exports = mongoose.model("User", UserSchema);
