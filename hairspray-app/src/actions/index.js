@@ -21,7 +21,6 @@ export const userSettingsChange = updates => {
         axios
             .put(`${URL}/users/${id}`, {name, number, email, password })
             .then(updatedUser => {
-                console.log("ACTIONs: ", updatedUser.data);
                 dispatch({ type: USER_UPDATE_COMPLETE, payload: updatedUser.data});
             })
             .catch(err => {
