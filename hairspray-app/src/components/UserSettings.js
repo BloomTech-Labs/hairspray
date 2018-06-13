@@ -8,14 +8,6 @@ class UserSettings extends Component {
 		this.props.toggleUpdateForm();
 	}
 
-	componentDidMount() {
-		console.log("the props", this.props);
-	}
-
-	changeSuccessful() {
-		console.log("changes Successful");
-	}
-
 	render() {
 		return (
 			<div>

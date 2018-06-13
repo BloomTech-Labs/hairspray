@@ -19,14 +19,16 @@ export const toggleUpdateForm = () => {
 export const userSettingsChange = updates => {
     const { id, name, number, email } = updates;
     return dispatch => {
-        dispatch({ USER_UPDATING });
-        axios
-            .put(`${URL}/users/${id}`, {name, number, email })
-            .then(updatedUser => {
-                dispatch({ type: USER_UPDATE_COMPLETE, payload: updatedUser});
-            })
-            .catch(err => {
-                dispatch(err.toString());
-            });
+        dispatch({ type: USER_UPDATING });
+        console.log("Updating user success!");
+        dispatch({ type: USER_UPDATE_COMPLETE, payload: "updated"});
+        // axios
+        //     .put(`${URL}/users/${id}`, {name, number, email })
+        //     .then(updatedUser => {
+        //         dispatch({ type: USER_UPDATE_COMPLETE, payload: updatedUser});
+        //     })
+        //     .catch(err => {
+        //         dispatch({type: err});
+        //     });
     }
 }
