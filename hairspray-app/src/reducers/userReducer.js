@@ -1,9 +1,9 @@
-import { USER_UPDATING, USER_UPDATE_COMPLETE, ERROR } from '../actions';
+import { USER_UPDATING, USER_UPDATE_COMPLETE, TOGGLE_UPDATE_USER_FORM } from '../actions';
 
 const initialState = {
     user: [],
     updatingUser: false,
-    error: null
+    showForm: false
   };
 
 export const userReducer = (state = initialState, action) => {
@@ -16,13 +16,8 @@ export const userReducer = (state = initialState, action) => {
           user: state.user,
           updatingUser: false
         };
-      case ERROR:
-      console.log("ERROR OBJECT in reducer", action.payload);
-        return {
-          ...state,
-          updatingUser: false,
-          error: action.payload
-        };
+      case TOGGLE_UPDATE_USER_FORM:
+        return { ...state, showForm: !state.showForm };
       default:
         return state;
     }

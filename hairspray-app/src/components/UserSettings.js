@@ -1,14 +1,15 @@
 import React, { Component } from "react";
+import UserSettingsForm from "./UserSettingsForm.js";
+import { connect } from "react-redux";
+import { toggleUpdateForm } from '../actions';
 
-export default class UserSettings extends Component {
-	handleChange(value) {
-		if (value === "password")
-			console.log("Clicked button containing a password: ", value);
-		console.log("Clicked button containing not a password:", value);
-		// open form
-		// take value and submit to state change function
-		// recieve response upon success and generate success message
-		this.changeSuccessful();
+class UserSettings extends Component {
+	handleChange() {
+		this.props.toggleUpdateForm();
+	}
+
+	componentDidMount() {
+		console.log("the props", this.props);
 	}
 
 	changeSuccessful() {
@@ -18,37 +19,34 @@ export default class UserSettings extends Component {
 	render() {
 		return (
 			<div>
-				<div>
-					<div>
-						Name: {this.props.user.name}
-						<button onClick={() => this.handleChange(this.props.user.name)}>
-							Edit
-						</button>
-					</div>
-				</div>
-				<div>
-					<div>
-						Email: {this.props.user.email}{" "}
-						<button onClick={() => this.handleChange(this.props.user.email)}>
-							Edit
-						</button>
-					</div>
-				</div>
-				<div>
-					<div>
-						Number: {this.props.user.number}{" "}
-						<button onClick={() => this.handleChange(this.props.user.number)}>
-							Edit
-						</button>
-					</div>
-				</div>
-				<div>
-					<div>
-						Password: ********{" "}
-						<button onClick={() => this.handleChange("Password")}>Edit</button>
-					</div>
-				</div>
+				{Object.entries(this.props.user).map((value, i) => {
+					return (
+						<div id={i} key={value[0]}>
+							{value[0] + ": " + value[1]}
+						</div>
+					);
+				})}
+				<div>Password: ********</div>
+				<button
+					onClick={() => this.handleChange()}
+				>{`Update Your Info`}</button>
+				{this.props.showForm ? (
+					<UserSettingsForm
+						user={this.props.user}
+						handleShowNote={this.props.toggleForm}
+					/>
+				) : null}
 			</div>
 		);
 	}
 }
+
+const mapStateToProps = state => {
+    return {
+      showForm: state.user.showForm,
+    };
+  };
+  
+  export default connect(mapStateToProps, {
+    toggleUpdateForm
+  })(UserSettings);
