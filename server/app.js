@@ -5,43 +5,43 @@ var cookieParser = require("cookie-parser");
 
 const CORS = require("cors");
 
-//Paste user api here
+// Paste user api here
 
 const app = express();
 const port = process.env.PORT || 5000;
-let db = "mongodb://localhost:27017/hairspray";
-const routes = require("./routes/routes");
+const db = 'mongodb://localhost:27017/hairspray';
+const routes = require('./routes/routes');
 
-//connect to database
+// connect to database
 
 mongoose
   .connect(db)
-  .then(() => console.log("MongoDB is connected"))
+  .then(() => console.log('MongoDB is connected'))
   .catch(err => console.log(err));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(CORS());
 
-const whitelist = ["http://localhost:5000"];
+const whitelist = ['http://localhost:5000'];
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: "GET, PUT, POST, DELETE"
+  methods: 'GET, PUT, POST, DELETE',
 };
 
 // Static assets if in production
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  app.use(express.static("client/build"));
+  app.use(express.static('client/build'));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 

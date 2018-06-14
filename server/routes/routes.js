@@ -5,7 +5,7 @@ const express = require("express");
 const { validateToken } = require("../config/auth");
 const { getUsers } = require("../controllers/userController");
 
-module.exports = app => {
+module.exports = (app) => {
   app
     .route("/signup")
     .post(userControllerStrategy.createUser)
