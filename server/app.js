@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
+const passport = require("passport");
 
 const CORS = require("cors");
 
@@ -22,6 +23,7 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(CORS());
+app.use(passport.initialize());
 
 const whitelist = ["http://localhost:5000"];
 const corsOptions = {
