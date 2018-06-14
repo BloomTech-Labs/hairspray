@@ -1,7 +1,9 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const CORS = require('cors');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+
+const CORS = require("cors");
 
 // Paste user api here
 
