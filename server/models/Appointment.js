@@ -7,15 +7,18 @@ const AppointmentSchema = Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   // The Stylist for the Appointment
   stylist: {
     type: Schema.Types.ObjectId,
     ref: "Stylist",
+    required: true,
   },
   // The date and time for the Appointment
-  date_slot: {
+  session: {
     type: Date,
+    required: true,
   },
 });
 

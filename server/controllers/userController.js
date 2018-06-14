@@ -4,8 +4,8 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 var jwt = require("jsonwebtoken");
 const { requireAuth, getTokenForUser } = require("../config/auth");
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
-const keyPublish = process.env.PUBLISHABLE_KEY;
+// const stripe = require("stripe")(process.env.STRIPE_SECRET);
+// const keyPublish = process.env.PUBLISHABLE_KEY;
 
 const createUser = (req, res) => {
   const { name, phone, email, password } = req.body;
@@ -45,7 +45,6 @@ const userLogin = (req, res) => {
 };
 
 //Get profile if has one
-
 const getUser = (req, res) => {
   const { id } = req.params;
   User.findById(id).exec((err, user) => {
@@ -71,7 +70,7 @@ const getUsers = (req, res) => {
 const updateUser = (req, res) => {
   const { id } = req.params;
   const { name, phone, email } = req.body;
-  User.findByIdAndUpdate(id, req.body).exec((err, user) => {
+  User.findByIdAndUpdate(id, req.body, { new: true }).exec((err, user) => {
     if (err) {
       res.status(422).json({ "Could not find that user": err });
       return;

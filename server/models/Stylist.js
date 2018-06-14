@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 const validate = require("mongoose-validator");
+var bcrypt = require("bcrypt");
+
 const Schema = mongoose.Schema;
 
 const StylistSchema = Schema({
+  name: { required: true, type: String },
   email: {
     type: String,
     lowercase: true,
@@ -24,7 +27,7 @@ const StylistSchema = Schema({
   }
 });
 
-UserSchema.pre("save", function(next) {
+StylistSchema.pre("save", function(next) {
   bcrypt.hash(this.password, 11, (err, hash) => {
     if (err) return next(err);
     this.password = hash;
@@ -32,7 +35,7 @@ UserSchema.pre("save", function(next) {
   });
 });
 
-UserSchema.methods.checkPassword = function(potentialPassword, cb) {
+StylistSchema.methods.checkPassword = function(potentialPassword, cb) {
   // check passwords
   bcrypt.compare(potentialPassword, this.password, (err, isMatch) => {
     if (err) return cb(err);
