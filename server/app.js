@@ -44,5 +44,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 routes(app);
+// Message will show up in browser
+app.get("/", (req, res) => {
+  res.json("This is a blank slate");
+});
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

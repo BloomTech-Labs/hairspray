@@ -29,19 +29,19 @@ const getAdmin = (req, res) => {
             res.status(422).json({ "That admin doesn't exist": err});
             return;
         }
-        res.json(Admin);
+        res.json(admin);
     });
 };
 
 const updateAdmin = (req, res) => {
     const { id } = req.params;
     const { name, phone, email } = req.body;
-    Admin.findByIdAndUpdate(id, req.body).exec((err, admin) => {
+    Admin.findByIdAndUpdate(id, req.body, { new: true }).exec((err, admin) => {
         if (err) {
             res.status(422).json({ "Could not find that admin": err});
             return;
         }
-        res.json(Admin);
+        res.json(admin);
     });
 };
 
