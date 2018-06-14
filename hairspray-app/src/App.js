@@ -5,9 +5,11 @@ import './App.css';
 class App extends Component {
   
   user = {
+    id:"5b216c18fa2b7528d03db8b5",
     name: "test",
-    email: "testEmail",
-    number: "number",
+    email: "testEmail@test.com",
+    number: "1234567890",
+    password:"testPassword",
   }
 
   render() {

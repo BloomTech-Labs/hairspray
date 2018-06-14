@@ -65,7 +65,7 @@ const getUsers = (req, res) => {
 const updateUser = (req, res) => {
   const { id } = req.params;
   const { name, phone, email } = req.body;
-  User.findByIdAndUpdate(id, req.body).exec((err, user) => {
+  User.findByIdAndUpdate(id, req.body, { new: true }).exec((err, user) => {
     if (err) {
       res.status(422).json({ "Could not find that user": err });
       return;
