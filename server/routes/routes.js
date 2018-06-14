@@ -1,4 +1,5 @@
 const userControllerStrategy = require("../controllers/userController");
+const adminControllerStrategy = require("../controllers/adminController");
 const express = require("express");
 const middleAuth = require("../middleware/middleware");
 
