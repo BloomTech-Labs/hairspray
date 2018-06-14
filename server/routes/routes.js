@@ -27,7 +27,8 @@ module.exports = app => {
     .get(appointments.getAppointments) // list all appointments for specific user
     .post(appointments.createAppointment); // create a new Appointment
 	// TODO: PUT to change an appointment's details
-	// TODO: DELETE to erase appointment
+  app.route("/appointments/update/:id").put(appointments.updateAppointment); // deletes appointment by appointment ID
+  app.route("/appointments/remove/:id").delete(appointments.deleteAppointment); // deletes appointment by appointment ID
 
 	app
 		.route("/stylists/")
