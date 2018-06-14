@@ -4,9 +4,11 @@ var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
 
 // function to create a new appointment and save to database
-// must pass in a user, stylist, and date in format "2018-08-22T12:12:12.764Z"
+// user id should be passed in through :id params
+// must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
 const createAppointment = (req, res) => {
-	const { user, stylist, session } = req.body;
+	const user = req.params.id;
+	const { stylist, session } = req.body;
 	const appointment = new Appointment({ user, stylist, session });
 	appointment.save((err, appt) => {
 		if (err) res.status(400).send({ error: err });
@@ -18,6 +20,7 @@ const createAppointment = (req, res) => {
 };
 
 // function to get appointments for a user, specified by their id
+// user id should be passed in through :id params
 const getAppointments = (req, res) => {
 	const { userID } = req.params;
 	Appointment.find(userID)
@@ -35,6 +38,7 @@ const getAppointments = (req, res) => {
 };
 
 // function to update a single appointment by its ID
+// appointment id should be passed in through :id params
 // must pass in a user _id, stylist _id, and a date in format "2018-08-22T12:12:12.764Z"
 const updateAppointment = (req, res) => {
 	const { id } = req.params;
@@ -53,6 +57,7 @@ const updateAppointment = (req, res) => {
 };
 
 // function to delete an appointment by its id
+// appointment id should be passed in through :id params
 const deleteAppointment = (req, res) => {
 	const { id } = req.params;
 	Appointment.findByIdAndRemove(id)
@@ -70,8 +75,8 @@ const deleteAppointment = (req, res) => {
 };
 
 module.exports = {
-	createAppointment,
-	getAppointments,
-	updateAppointment,
-	deleteAppointment
+	POST: createAppointment,
+	GET: getAppointments,
+	PUT: updateAppointment,
+	DELETE: deleteAppointment
 };
