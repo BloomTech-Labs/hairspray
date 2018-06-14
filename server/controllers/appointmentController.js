@@ -3,6 +3,14 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
 
+
+// testing function to see all stylists
+const getAllAppointments = (req, res) => {
+  Appointment.find({}, (err, appt) => {
+    res.send(appt);
+  });
+}
+
 // function to create a new appointment and save to database
 // user id should be passed in through :id params
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
@@ -19,11 +27,29 @@ const createAppointment = (req, res) => {
 	});
 };
 
-// function to get appointments for a user, specified by their id
+// function to get appointments for a User, specified by their id
 // user id should be passed in through :id params
-const getAppointments = (req, res) => {
+const getUserAppointments = (req, res) => {
 	const { userID } = req.params;
 	Appointment.find(userID)
+		.populate({ path: "user", select: "name" })
+		.populate({ path: "stylist", select: "name" })
+		.then(appt => {
+			res.status(200).json({
+				success: "Appointment found",
+				appt
+			});
+		})
+		.catch(err => {
+			res.status(200).json({ error: err });
+		});
+};
+
+// function to get appointments for a Stylist, specified by their id
+// user id should be passed in through :id params
+const getStylistAppointments = (req, res) => {
+	const { stylistID } = req.params;
+	Appointment.find(stylistID)
 		.populate({ path: "user", select: "name" })
 		.populate({ path: "stylist", select: "name" })
 		.then(appt => {
@@ -76,7 +102,9 @@ const deleteAppointment = (req, res) => {
 
 module.exports = {
 	POST: createAppointment,
-	GET: getAppointments,
+	GET: getAllAppointments,
 	PUT: updateAppointment,
-	DELETE: deleteAppointment
+	DELETE: deleteAppointment,
+	USER_GET: getUserAppointments,
+	STYLIST_GET: getStylistAppointments
 };

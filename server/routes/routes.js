@@ -25,22 +25,26 @@ module.exports = app => {
 		.put(users.updateUser); // update User's information
 	// TODO: DELETE to erase user
 
+	// STYLISTS FUNCTIONS
+	app
+		.route("/stylist/")
+		.get(stylists.GET) // testing route to get a list of all stylists in database
+		.post(stylists.POST); // create a new stylist
+	app
+		.route("stylist/:id")
+		.get(stylists.STYLIST_GET) // get a stylist by their id
+		.put(stylists.PUT) // updates Stylist by Stylist ID
+		.delete(stylists.DELETE); // deletes Stylist by Stylist ID
+
 	// APPOINTMENTS FUNCTIONS
+	app.route("/appointments").get(appointments.GET); //testing route to get all appointments in database
 	app
 		.route("/user/:id/appointments")
 		.post(appointments.POST) // create a new Appointment
-		.get(appointments.GET); // list all appointments for specific user
+		.get(appointments.USER_GET); // list all Appointments for specific User
+	app.route("/stylist/:id/appointments").get(appointments.STYLIST_GET); // list all Appointments for specific Stylist
 	app
 		.route("/appointments/update/:id")
-		.put(appointments.PUT) // updates appointment by appointment ID
-		.delete(appointments.DELETE); // deletes appointment by appointment ID
-
-	// STYLISTS FUNCTIONS
-	app
-		.route("/stylists/")
-		.get(stylists.getAllStylists) // testing route to get a list of all stylists in database
-		.post(stylists.createStylist); // create a new stylist
-	app.route("/stylist/:id").get(stylists.getStylist); // get a stylist by their id
-	// TODO: PUT to change an stylist's details
-	// TODO: DELETE to erase stylist
+		.put(appointments.PUT) // updates Appointment by Appointment ID
+		.delete(appointments.DELETE); // deletes Appointment by Appointment ID
 };

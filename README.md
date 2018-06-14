@@ -15,16 +15,21 @@ GET - get all current users
 GET - get a specific user
 PUT - update a specific user
 
-### Appointments
-- /user/:id/appointments
-POST - create a new Appointment
-GET - list all appointments for specific user
-- /appointments/update/:id
-PUT - updates appointment by appointment ID
-DELETE - deletes appointment by appointment ID
 ### Stylists
-- /stylists/
+- /stylist/
 GET - testing route to get a list of all stylists in database
 POST - create a new stylist
 - /stylist/:id
 GET - get a stylist by their id
+PUT - updates Stylist by Stylist ID
+DELETE - deletes Stylist by Stylist ID
+
+### Appointments
+- /user/:id/appointments
+POST - create a new Appointment
+GET - list all appointments for specific user
+- /stylist/:id/appointments
+GET - lists all appointments for a Stylist
+- /appointments/update/:id
+PUT - updates appointment by appointment ID
+DELETE - deletes appointment by appointment ID
