@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const validate = require("mongoose-validator");
 const Schema = mongoose.Schema;
 
 const AppointmentSchema = Schema({
@@ -7,19 +6,19 @@ const AppointmentSchema = Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    required: true
   },
   // The Stylist for the Appointment
   stylist: {
     type: Schema.Types.ObjectId,
     ref: "Stylist",
-    required: true,
+    required: true
   },
   // The date and time for the Appointment
   session: {
     type: Date,
-    required: true,
-  },
+    required: true
+  }
 });
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);

@@ -7,9 +7,17 @@ const { requireAuth, getTokenForUser } = require("../config/auth");
 // const stripe = require("stripe")(process.env.STRIPE_SECRET);
 // const keyPublish = process.env.PUBLISHABLE_KEY;
 
+User.create({
+  name: "Jasons",
+  phone: "3104005212",
+  email: "test@test.com",
+  password: "cleartext",
+  admin: true
+});
+
 const createUser = (req, res) => {
-  const { name, phone, email, password } = req.body;
-  const user = new User({ name, phone, email, password });
+  const { name, phone, email, password, admin } = req.body;
+  const user = new User({ name, phone, email, password, admin });
   user.save((err, user) => {
     if (err) return res.send(err);
     res.json({
@@ -37,7 +45,7 @@ const userLogin = (req, res) => {
         return;
       }
       if (hashMatch) {
-        const token = getTokenForUser({ username: user.email });
+        const token = getTokenForUser({ username: user.email, admin: false });
         res.json({ token });
       }
     });
