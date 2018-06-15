@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
-export default class Header extends Component {
+class Header extends Component {
   render() {
     return (
       <Navbar>
@@ -19,3 +20,11 @@ export default class Header extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated,
+  };
+};
+
+export default connect(mapStateToProps)(Header);
