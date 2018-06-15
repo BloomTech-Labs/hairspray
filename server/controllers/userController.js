@@ -7,9 +7,17 @@ const { requireAuth, getTokenForUser } = require("../config/auth");
 // const stripe = require("stripe")(process.env.STRIPE_SECRET);
 // const keyPublish = process.env.PUBLISHABLE_KEY;
 
+User.create({
+  name: "Jasons",
+  phone: "3104005212",
+  email: "test@test.com",
+  password: "cleartext",
+  admin: true
+});
+
 const createUser = (req, res) => {
-  const { name, phone, email, password } = req.body;
-  const user = new User({ name, phone, email, password });
+  const { name, phone, email, password, admin } = req.body;
+  const user = new User({ name, phone, email, password, admin });
   user.save((err, user) => {
     if (err) return res.send(err);
     res.json({
@@ -60,6 +68,7 @@ const getUser = (req, res) => {
 const getUsers = (req, res) => {
   // This controller will not work until a user has sent up a valid JWT
   // check out what's going on in services/index.js in the `validate` token function
+  const { admin } = req.body;
   User.find({}, (err, users) => {
     if (err) return res.send(err);
     res.send(users);

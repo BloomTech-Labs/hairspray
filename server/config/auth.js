@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { secret } = require("../config/settings");
+const User = require("../models/User");
 
 const getTokenForUser = userObject => {
   // creating a JWT and returning it.
