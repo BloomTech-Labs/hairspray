@@ -1,16 +1,19 @@
 import { combineReducers } from 'redux';
 import { userReducer } from './userReducer.js';
+import { reducer as formReducer } from 'redux-form';
+import authReducer from './auth';
+
 // import reducer for client sign ups
 // import reducer for client feedback
-// import reducer for admin 
-
+// import reducer for admin
 
 const rootReducer = combineReducers({
-    user: userReducer,
-    // clientSignUp
-    // clientFeedbacki
-    // admin
-
+  user: userReducer,
+  auth: authReducer,
+  form: formReducer,
+  // clientSignUp
+  // clientFeedbacki
+  // admin
 });
 
 export default rootReducer;
