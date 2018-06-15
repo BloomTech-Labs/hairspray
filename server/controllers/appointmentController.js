@@ -3,13 +3,12 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
 
-
 // testing function to see all stylists
 const getAllAppointments = (req, res) => {
-  Appointment.find({}, (err, appt) => {
-    res.send(appt);
-  });
-}
+	Appointment.find({}, (err, appt) => {
+		res.send(appt);
+	});
+};
 
 // function to create a new appointment and save to database
 // user id should be passed in through :id params
@@ -18,38 +17,46 @@ const createAppointment = (req, res) => {
 	const user = req.params.id;
 	const { stylist, session } = req.body;
 	const appointment = new Appointment({ user, stylist, session });
-	appointment.save((err, appt) => {
-		if (err) res.status(400).send({ error: err });
-		res.status(200).json({
-			success: "Appointment saved",
-			appt
+	appointment
+		.save()
+		.then(appt => {
+			res.status(200).json({
+				success: "Appointment saved",
+				appt
+			});
+		})
+		.catch(err => {
+			res.status(400).send({ error: err });
 		});
-	});
 };
 
 // function to get appointments for a User, specified by their id
 // user id should be passed in through :id params
 const getUserAppointments = (req, res) => {
-	const { userID } = req.params;
-	Appointment.find(userID)
+	const userID = req.params.id;
+	Appointment.find({ user: userID })
 		.populate({ path: "user", select: "name" })
 		.populate({ path: "stylist", select: "name" })
 		.then(appt => {
-			res.status(200).json({
-				success: "Appointment found",
-				appt
-			});
+			if (appt.length === 0) {
+				res.json({ success: "There are no Appointments for this User" });
+			} else {
+				res.status(200).json({
+					success: "Appointment found",
+					appt
+				});
+			}
 		})
 		.catch(err => {
-			res.status(200).json({ error: err });
+			res.status(400).json({ error: err });
 		});
 };
 
 // function to get appointments for a Stylist, specified by their id
 // user id should be passed in through :id params
 const getStylistAppointments = (req, res) => {
-	const { stylistID } = req.params;
-	Appointment.find(stylistID)
+	const stylistID = req.params.id;
+	Appointment.find({ stylist: stylistID })
 		.populate({ path: "user", select: "name" })
 		.populate({ path: "stylist", select: "name" })
 		.then(appt => {
@@ -59,7 +66,7 @@ const getStylistAppointments = (req, res) => {
 			});
 		})
 		.catch(err => {
-			res.status(200).json({ error: err });
+			res.status(400).json({ error: err });
 		});
 };
 
@@ -69,17 +76,20 @@ const getStylistAppointments = (req, res) => {
 const updateAppointment = (req, res) => {
 	const { id } = req.params;
 	const { user, stylist, session } = req.body;
-	Appointment.findByIdAndUpdate(id, req.body, { new: true }).exec(
-		(err, appt) => {
-			if (err) {
-				res.status(404).json({ error: "Could not find that appt" });
+	Appointment.findByIdAndUpdate(id, req.body, { new: true })
+		.then(appt => {
+			if (appt === null) {
+				res.json({ error: "That Appointment does not exist" });
+			} else {
+				res.status(200).json({
+					success: "Appointment updated successfully",
+					appt
+				});
 			}
-			res.status(200).json({
-				success: "Appointment updated successfully",
-				appt
-			});
-		}
-	);
+		})
+		.catch(err => {
+			res.status(400).json({ error: err });
+		});
 };
 
 // function to delete an appointment by its id
@@ -90,10 +100,11 @@ const deleteAppointment = (req, res) => {
 		.then(deleted => {
 			if (deleted === null) {
 				res.status(404).json({ error: "Appointment not found" });
+			} else {
+				res.status(200).json({
+					success: "Deleted successfully"
+				});
 			}
-			res.status(200).json({
-				success: "Deleted successfully"
-			});
 		})
 		.catch(err => {
 			res.status(400).send({ error: err });

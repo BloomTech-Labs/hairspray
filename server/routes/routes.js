@@ -31,7 +31,7 @@ module.exports = app => {
 		.get(stylists.GET) // testing route to get a list of all stylists in database
 		.post(stylists.POST); // create a new stylist
 	app
-		.route("stylist/:id")
+		.route("/stylist/:id")
 		.get(stylists.STYLIST_GET) // get a stylist by their id
 		.put(stylists.PUT) // updates Stylist by Stylist ID
 		.delete(stylists.DELETE); // deletes Stylist by Stylist ID
