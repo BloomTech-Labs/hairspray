@@ -19,7 +19,6 @@ module.exports = app => {
 		//.get(getUsers); // testing route to get all users in database
 		.get(validateAdminToken, getUsers); // checks if user is an Admin, then gives priveledge to view all users
 	// .get(validateToken, getUsers); // commented out for now, just to test easier in postman
-
 	app.route("/login").post(users.userLogin); // login a user and return a JWT
 
 	app
