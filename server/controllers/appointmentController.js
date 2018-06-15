@@ -5,9 +5,18 @@ const Appointment = require("../models/Appointment.js");
 
 // testing function to see all stylists
 const getAllAppointments = (req, res) => {
-	Appointment.find({}, (err, appt) => {
-		res.send(appt);
-	});
+	Appointment.find({})
+		.populate({ path: "user", select: "name" })
+		.populate({ path: "stylist", select: "name" })
+		.then(appt => {
+			res.status(200).json({
+				success: "Appointments found",
+				appt
+			});
+		})
+		.catch(err => {
+			res.status(400).json({ error: err });
+		});
 };
 
 // function to create a new appointment and save to database

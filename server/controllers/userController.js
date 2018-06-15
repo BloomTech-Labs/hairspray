@@ -8,8 +8,8 @@ const { requireAuth, getTokenForUser } = require("../config/auth");
 // const keyPublish = process.env.PUBLISHABLE_KEY;
 
 const createUser = (req, res) => {
-  const { name, phone, email, password } = req.body;
-  const user = new User({ name, phone, email, password });
+  const { name, phone, email, password, admin } = req.body;
+  const user = new User({ name, phone, email, password, admin });
   user.save((err, user) => {
     if (err) return res.send(err);
     res.json({
@@ -37,7 +37,7 @@ const userLogin = (req, res) => {
         return;
       }
       if (hashMatch) {
-        const token = getTokenForUser({ username: user.email });
+        const token = getTokenForUser({ username: user.email, admin: user.admin });
         res.json({ token });
       }
     });
