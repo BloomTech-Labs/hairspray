@@ -1,102 +1,70 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { register } from '../actions';
+import { reduxForm, Field } from 'redux-form';
 
 class SignUp extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirmPassword: '',
-    };
-  }
-
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
-  }
-
-  handleChangeEmail = event => {
-    this.setState({
-      email: event.target.value,
-    });
+  handleFormSubmit = ({ name, phone, email, password, confirmPassword }) => {
+    this.props.register(
+      name,
+      phone,
+      email,
+      password,
+      confirmPassword,
+      this.props.history
+    );
   };
 
-  handleChangeName = event => {
-    this.setState({
-      name: event.target.value,
-    });
-  };
-
-  handleChangePhone = event => {
-    this.setState({
-      phone: event.target.value,
-    });
-  };
-
-  handleChangePassword = event => {
-    this.setState({
-      password: event.target.value,
-      confirmPassword: event.target.value,
-    });
+  renderAlert = () => {
+    if (!this.props.error) return null;
+    return <h3>{this.props.error}</h3>;
   };
 
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <div className="SignUp">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChangeEmail}
-            />
-          </FormGroup>
-
-          <FormGroup controlId="name" bsSize="large">
-            <ControlLabel>Name</ControlLabel>
-            <FormControl
-              autoFocus
-              type="text"
-              value={this.state.name}
-              onChange={this.handleChangeName}
-            />
-          </FormGroup>
-
-          <FormGroup controlId="phone" bsSize="large">
-            <ControlLabel>phone</ControlLabel>
-            <FormControl
-              autoFocus
-              type="text"
-              value={this.state.phone}
-              onChange={this.handleChangePhone}
-            />
-          </FormGroup>
-
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChangePassword}
-              type="password"
-            />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Sign Up for a New Account
-          </Button>
+      <div classname="signup-form">
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <fieldset>
+            <label>Name</label>
+            <Field name="name" component="input" type="text" />
+          </fieldset>
+          <fieldset>
+            <label>Phone</label>
+            <Field name="phone" component="input" type="text" />
+          </fieldset>
+          <fieldset>
+            <label>Email</label>
+            <Field name="email" component="input" type="email" />
+          </fieldset>
+          <fieldset>
+            <label>Password</label>
+            <Field name="password" component="input" type="password" />
+          </fieldset>
+          <fieldset>
+            <label>Confirm Password</label>
+            <Field name="confirmPassword" component="input" type="password" />
+          </fieldset>
+          <button action="submit">Sign Up</button>
+          {this.renderAlert()}
         </form>
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    error: state.auth.error,
+  };
+};
 
-export default SignUp;
+SignUp = connect(
+  mapStateToProps,
+  { register }
+)(SignUp);
+
+export default reduxForm({
+  form: 'signup',
+  fields: ['name', 'phone', 'email', 'password', 'confirmPassword'],
+})(SignUp);

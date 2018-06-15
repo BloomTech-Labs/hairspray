@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
+import UserSettings from './components/UserSettings.js';
 import './App.css';
 import LandPage from './components/LandPage';
+// import Header from './components/Header';
 
 class App extends Component {
   user = {
-<<<<<<< HEAD
+    id: '5b216c18fa2b7528d03db8b5',
     name: 'test',
-    email: 'testEmail',
-    number: 'number',
+    email: 'testEmail@test.com',
+    number: '1234567890',
+    password: 'testPassword',
   };
-=======
-    id:"5b216c18fa2b7528d03db8b5",
-    name: "test",
-    email: "testEmail@test.com",
-    number: "1234567890",
-    password:"testPassword",
-  }
->>>>>>> master
 
   render() {
+    //return <div className="App">WIP</div>;
     return (
-      <div className="App">
+      <div>
+        {/* <SignUp /> */}
+        {/* <Header /> */}
         <LandPage />
+        <UserSettings user={this.user} />;
       </div>
     );
   }

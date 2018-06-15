@@ -1,68 +1,53 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { login } from '../actions';
+import { reduxForm, Field } from 'redux-form';
 
 class SignIn extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
-  }
-  handleChangeEmail = event => {
-    this.setState({
-      email: event.target.value,
-    });
+  handleFormSubmit = ({ username, password }) => {
+    this.props.login(username, password, this.props.history);
   };
 
-  handleChangePassword = event => {
-    this.setState({
-      password: event.target.value,
-      confirmPassword: event.target.value,
-    });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
+  renderAlert = () => {
+    if (!this.props.error) return null;
+    return <h3>{this.props.error}</h3>;
   };
 
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChangeEmail}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChangePassword}
-              type="password"
-            />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
+      <div classname="signin-form">
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <fieldset>
+            <label>Name</label>
+            <Field name="name" component="input" type="text" />
+          </fieldset>
+          <fieldset>
+            <label>Password</label>
+            <Field name="password" component="input" type="password" />
+          </fieldset>
+          <button action="submit">Log In</button>
+          {this.renderAlert()}
         </form>
       </div>
     );
   }
 }
 
-export default SignIn;
+const mapStateToProps = state => {
+  return {
+    error: state.auth.error,
+    authenticated: state.auth.authenticated,
+  };
+};
+
+SignIn = connect(
+  mapStateToProps,
+  { login }
+)(SignIn);
+
+export default reduxForm({
+  form: 'signin',
+  fields: ['username', 'password'],
+})(SignIn);
