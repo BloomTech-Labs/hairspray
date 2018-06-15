@@ -4,6 +4,8 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 var jwt = require("jsonwebtoken");
 const { requireAuth, getTokenForUser } = require("../config/auth");
+// const stripe = require("stripe")(process.env.STRIPE_SECRET);
+// const keyPublish = process.env.PUBLISHABLE_KEY;
 
 const createUser = (req, res) => {
   const { name, phone, email, password } = req.body;
@@ -42,6 +44,7 @@ const userLogin = (req, res) => {
   });
 };
 
+//Get profile if has one
 const getUser = (req, res) => {
   const { id } = req.params;
   User.findById(id).exec((err, user) => {
@@ -53,6 +56,7 @@ const getUser = (req, res) => {
   });
 };
 
+//Useless route for now.
 const getUsers = (req, res) => {
   // This controller will not work until a user has sent up a valid JWT
   // check out what's going on in services/index.js in the `validate` token function
@@ -62,6 +66,7 @@ const getUsers = (req, res) => {
   });
 };
 
+//User profile update
 const updateUser = (req, res) => {
   const { id } = req.params;
   const { name, phone, email } = req.body;
@@ -74,10 +79,20 @@ const updateUser = (req, res) => {
   });
 };
 
+const makePayment = (req, res) => {
+  const makeCharge = stripe.charges.create({
+    amount: 20,
+    currency: "usd",
+    description: "Haircut cost",
+    source: token
+  });
+};
+
 module.exports = {
   createUser,
   getUser,
   getUsers,
   updateUser,
-  userLogin
+  userLogin,
+  makePayment
 };
