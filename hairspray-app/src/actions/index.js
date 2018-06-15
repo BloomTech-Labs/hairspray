@@ -57,7 +57,7 @@ export const register = (
       return;
     }
     axios
-      .post(`${URL}/create-user`, {
+      .post(`${URL}/signup`, {
         name,
         phone,
         email,
