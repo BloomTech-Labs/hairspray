@@ -15,8 +15,8 @@ module.exports = app => {
 	app
 		.route("/signup")
 		.post(users.createUser) // create a new User
-		.get(getUsers); // testing route to get all users in database
-	// .get(validateToken, getUsers); // commented out for now, just to test easier in postman
+		//.get(getUsers); // testing route to get all users in database
+		.get(validateToken, getUsers); // get all users in database
 	app.route("/login").post(users.userLogin); // login a user and return a JWT
 
 	app
