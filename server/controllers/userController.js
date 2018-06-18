@@ -4,6 +4,7 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 var jwt = require("jsonwebtoken");
 const { requireAuth, getTokenForUser } = require("../config/auth");
+var bcrypt = require("bcrypt");
 // const stripe = require("stripe")(process.env.STRIPE_SECRET);
 // const keyPublish = process.env.PUBLISHABLE_KEY;
 
@@ -69,13 +70,18 @@ const getUsers = (req, res) => {
 //User profile update
 const updateUser = (req, res) => {
   const { id } = req.params;
-  const { name, phone, email } = req.body;
-  User.findByIdAndUpdate(id, req.body, { new: true }).exec((err, user) => {
-    if (err) {
-      res.status(422).json({ "Could not find that user": err });
-      return;
-    }
-    res.json(user);
+  const { password } = req.body;
+  bcrypt.hash(password, 11, (err, hash) => {
+    if (err) return next(err);
+    req.body.password = hash;
+    
+    User.findByIdAndUpdate(id, req.body, { new: true }).exec((err, user) => {
+      if (err) {
+        res.status(422).json({ "Could not find that user": err });
+        return;
+      }
+      res.json(user);
+    });
   });
 };
 
