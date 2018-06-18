@@ -5,8 +5,8 @@ var settings = require("../config/settings");
 var jwt = require("jsonwebtoken");
 const { requireAuth, getTokenForUser } = require("../config/auth");
 const bcrypt = require("bcrypt");
-// const stripe = require("stripe")(process.env.STRIPE_SECRET);
-// const keyPublish = process.env.PUBLISHABLE_KEY;
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const keyPublish = process.env.PUBLISHABLE_KEY;
 
 User.create({
   name: "Admin",
@@ -95,13 +95,21 @@ const updateUser = (req, res) => {
   });
 };
 
-const makePayment = (req, res) => {
-  const makeCharge = stripe.charges.create({
-    amount: 20,
-    currency: "usd",
-    description: "Haircut cost",
-    source: token
-  });
+const createCharge = (req, res) => {
+  const token = req.body.stripeToken;
+  const { email, cart } = req.body;
+  const makeCharge = stripe.charges.create(
+    {
+      amount: 1200,
+      currency: "usd",
+      description: "This is a sample charge",
+      customer: email,
+      source: token
+    },
+    makeCharge
+      .then(createdCharge => res.json(createdCharge))
+      .catch(err => res.json(err))
+  );
 };
 
 module.exports = {
@@ -110,5 +118,5 @@ module.exports = {
   getUsers,
   updateUser,
   userLogin,
-  makePayment
+  createCharge
 };

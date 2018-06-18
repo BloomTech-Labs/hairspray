@@ -37,6 +37,7 @@ let UserSchema = new Schema({
     ]
   },
   password: { type: String },
+  cart: { type: Number, required: true, default: 0 },
   date: {
     type: Date,
     default: Date.now
