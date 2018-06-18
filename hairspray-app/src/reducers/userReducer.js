@@ -1,9 +1,12 @@
-import { USER_UPDATING, USER_UPDATE_COMPLETE, TOGGLE_UPDATE_USER_FORM  } from '../actions';
+import { USER_UPDATING, USER_UPDATE_COMPLETE, TOGGLE_UPDATE_USER_FORM, GETTING_USERS,
+ GOT_USERS} from '../actions';
 
 const initialState = {
   user: [],
+  users: [],
   updatingUser: false,
-  showForm: false
+  showForm: false,
+  gettingUsers: false
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -18,6 +21,10 @@ export const userReducer = (state = initialState, action) => {
     };
     case TOGGLE_UPDATE_USER_FORM:
       return { ...state, showForm: !state.showForm };
+    case GETTING_USERS:
+      return {...state, gettingUsers: true}
+    case GOT_USERS:
+      return {...state, gettingUsers: false, users: action.payload}
     default:
       return state;
   }

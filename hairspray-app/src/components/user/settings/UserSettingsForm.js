@@ -3,44 +3,25 @@ import { connect } from "react-redux";
 import { userSettingsChange } from "../../../actions";
 
 class UserSettingsForm extends Component {
-	constructor() {
-		super();
-		this.update_name = "";
-		this.update_number = "";
-		this.update_email = "";
-	}
+	componentDidMount() {}
 
-	componentDidMount() {
-	}
+	handleInputChange = event => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
 
-	handleName = event => {
-		this.update_name = event.target.value;
-	};
-
-	handleNumber = event => {
-		this.update_number = event.target.value;
-	};
-
-	handleEmail = event => {
-		this.update_email = event.target.value;
-	};
-
-	handlePassword = event => {
-		this.updatePassword = event.target.value;
-	};
-
-	confirmPass = event => {
-		this.handleConfirm = event.target.value;
+		this.setState({
+			[name]: value
+		});
+		console.log(this.state);
 	};
 
 	submitUpdates = () => {
-		this.props.userSettingsChange({
-			id: this.props.user.id,
-			name: "test",
-			number: "test",
-			email: "test",
-			password: "test"
-		});
+		if (this.state.password !== this.state.confirm) {
+			alert("Passwords do not match!");
+			return;
+		}
+		this.props.userSettingsChange(this.state);
 		alert("Changes successful!");
 	};
 
@@ -49,19 +30,23 @@ class UserSettingsForm extends Component {
 			<div>
 				<form>
 					<label>Name</label>
-					<input name="name" type="text" onChange={this.handleName} />
+					<input name="name" type="text" onChange={this.handleInputChange} />
 					<label>Number</label>
-					<input name="number" type="text" onChange={this.handleNumber} />
+					<input name="number" type="text" onChange={this.handleInputChange} />
 					<label>Email</label>
-					<input name="email" type="text" onChange={this.handleEmail} />
+					<input name="email" type="text" onChange={this.handleInputChange} />
 					<label>Password</label>
 					<input
 						name="password"
 						type="password"
-						onChange={this.handlePassword}
+						onChange={this.handleInputChange}
 					/>
 					<label>Confirm Password</label>
-					<input name="name" type="password" onChange={this.handleConfirm} />
+					<input
+						name="confirm"
+						type="password"
+						onChange={this.handleInputChange}
+					/>
 					<button onClick={() => this.submitUpdates()} type="button">
 						Submit
 					</button>
