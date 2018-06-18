@@ -63,4 +63,4 @@ module.exports = app => {
     .route("/feedback/update/:id")
     .put(feedback.PUT) // updates Feedback by Feedback ID
     .delete(feedback.DELETE); // deletes Feedback by Feedback ID
-};
+}

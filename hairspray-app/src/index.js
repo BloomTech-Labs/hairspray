@@ -16,6 +16,7 @@ import UserScheduling from './components/user/UserScheduling';
 import UserBilling from './components/user/UserBilling';
 import UserFeedback from './components/user/UserFeedback';
 import UserSettings from './components/user/settings/UserSettings';
+import DevUsers from './components/dev/DevUsers';
 
 
 import './index.css';
@@ -36,6 +37,8 @@ ReactDOM.render(
         <Route path="/user/billing" component={UserBilling} />
         <Route path="/user/feedback" component={UserFeedback} />
         <Route path="/user/settings" component={UserSettings} />
+
+        <Route path="/dev/users" component={DevUsers} />
 
 			  {/* <Route path="/admin" component={} /> */}
       </div>
