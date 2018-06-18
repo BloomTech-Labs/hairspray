@@ -21,6 +21,7 @@ module.exports = app => {
   app.route("/users/:id").get(users.getUser); // get a specific User
   // TODO: DELETE to erase user
   app.route("/charge").post(validateToken, users.createCharge);
+  app.route("/stripeuser").post(validateToken, users.createCustomer);
 
   //Admin routes
   app.route("/users").get(validateToken, users.getUsers); // checks if user is an Admin, then gives priveledge to view all users

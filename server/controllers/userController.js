@@ -96,14 +96,13 @@ const updateUser = (req, res) => {
 };
 
 const createCustomer = (req, res) => {
-  const { email, cart } = req.body;
   const token = req.body.stripeToken;
   const makeCustomer = stripe.customers.create({
-    email: email,
+    email: req.body.email,
     source: token
   });
   makeCustomer
-    .then(createdCustomer => res.json(createCustomer))
+    .then(createdCustomer => res.json(createdCustomer))
     .catch(err => res.json(err));
 };
 
@@ -114,7 +113,7 @@ const createCharge = (req, res) => {
     amount: 1200,
     currency: "usd",
     description: "This is a sample charge",
-    customer: email,
+    customer: "cus_D4dyUl0sODIls8",
     source: token
   });
   makeCharge
@@ -128,5 +127,6 @@ module.exports = {
   getUsers,
   updateUser,
   userLogin,
-  createCharge
+  createCharge,
+  createCustomer
 };
