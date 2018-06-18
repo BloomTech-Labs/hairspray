@@ -33,3 +33,16 @@ GET - lists all appointments for a Stylist
 - /appointments/update/:id
 PUT - updates appointment by appointment ID
 DELETE - deletes appointment by appointment ID
+
+### Feedback
+- /feedback
+GET - get all feedback in database
+- /appointment/:id/feedback
+POST - create new feedback
+- /user/:id/feedback
+GET - Gets an array of all the Feedback a User has submitted
+- /stylist/:id/feedback
+GET - Gets an array of all the Feedback a Stylist has received
+- /feedback/update/:id
+PUT - Updates previously submitted feedback but Feedback ID
+DELETE - Deletes Feedback by Feedback ID

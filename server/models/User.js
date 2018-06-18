@@ -41,10 +41,10 @@ let UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  // admin: {
-  //   type: Boolean,
-  //   default: false,
-  // }
+  admin: {
+    type: Boolean,
+    default: false
+  }
 });
 
 UserSchema.pre("save", function(next) {

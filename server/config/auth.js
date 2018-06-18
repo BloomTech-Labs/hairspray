@@ -3,7 +3,7 @@ const { secret } = require("../config/settings");
 
 const getTokenForUser = userObject => {
   // creating a JWT and returning it.
-
+  console.log("userobject", userObject);
   return jwt.sign(userObject, secret, { expiresIn: "1h" });
 };
 
