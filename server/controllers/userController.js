@@ -10,9 +10,11 @@ const { requireAuth, getTokenForUser } = require("../config/auth");
 const createUser = (req, res) => {
   const { name, phone, email, password } = req.body;
   const user = new User({ name, phone, email, password });
-  user.save((err, user) => {
-    if (err) return res.send(err);
-    res.json({
+    user.save((err, user) => {
+    if (err){
+      return res.status(400).send({err});
+    } 
+    res.status(200).json({
       success: "User was saved",
       user
     });
