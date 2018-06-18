@@ -1,8 +1,6 @@
-
-
-  import React, { Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { userSettingsChange } from "../actions";
+import { userSettingsChange } from "../../../actions";
 
 class UserSettingsForm extends Component {
 	constructor() {
@@ -13,7 +11,6 @@ class UserSettingsForm extends Component {
 	}
 
 	componentDidMount() {
-		console.log("props in UserSettingsForm", this.props);
 	}
 
 	handleName = event => {
@@ -52,23 +49,11 @@ class UserSettingsForm extends Component {
 			<div>
 				<form>
 					<label>Name</label>
-					<input
-						name="name"
-						type="text"
-						onChange={this.handleName}
-					/>
+					<input name="name" type="text" onChange={this.handleName} />
 					<label>Number</label>
-					<input
-						name="number"
-						type="text"
-						onChange={this.handleNumber}
-					/>
+					<input name="number" type="text" onChange={this.handleNumber} />
 					<label>Email</label>
-					<input
-						name="email"
-						type="text"
-						onChange={this.handleEmail}
-					/>
+					<input name="email" type="text" onChange={this.handleEmail} />
 					<label>Password</label>
 					<input
 						name="password"
@@ -76,11 +61,7 @@ class UserSettingsForm extends Component {
 						onChange={this.handlePassword}
 					/>
 					<label>Confirm Password</label>
-					<input
-						name="name"
-						type="password"
-						onChange={this.handleConfirm}
-					/>
+					<input name="name" type="password" onChange={this.handleConfirm} />
 					<button onClick={() => this.submitUpdates()} type="button">
 						Submit
 					</button>

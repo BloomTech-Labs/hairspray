@@ -7,9 +7,16 @@ import logger from 'redux-logger';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './reducers';
+
 import App from './App';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
+import UserHome from './components/user/UserHome';
+import UserScheduling from './components/user/UserScheduling';
+import UserBilling from './components/user/UserBilling';
+import UserFeedback from './components/user/UserFeedback';
+import UserSettings from './components/user/settings/UserSettings';
+
 
 import './index.css';
 
@@ -19,12 +26,18 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-        <Route path="/" component={App} />
-        {/* <Route path="/client" component={} /> */}
-        <Route path="/signup" component={SignUp} />
-        <Route path="/signin" component={SignIn} />
-        {/* <Route path="/feedback" component={} />
-			<Route path="/admin" component={} /> */}
+        {/* Landing Page, Sign in, and Sign Out */}
+        <Route exact path="/" component={App} />
+        <Route path="/user/signin" component={SignIn} />
+        <Route path="/user/signup" component={SignUp} />
+
+        <Route path="/user" component={UserHome} />
+        <Route path="/user/scheduling" component={UserScheduling} />
+        <Route path="/user/billing" component={UserBilling} />
+        <Route path="/user/feedback" component={UserFeedback} />
+        <Route path="/user/settings" component={UserSettings} />
+
+			  {/* <Route path="/admin" component={} /> */}
       </div>
     </Router>
   </Provider>,

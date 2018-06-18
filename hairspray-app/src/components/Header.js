@@ -10,10 +10,10 @@ class Header extends Component {
         <Navbar.Header />
         <Nav>
           <NavItem eventKey={1} href="#">
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/user/signup">Sign Up</Link>
           </NavItem>
           <NavItem eventKey={2} href="#">
-            <Link to="/signin">Sign In</Link>
+            <Link to="/user/signin">Sign In</Link>
           </NavItem>
         </Nav>
       </Navbar>
