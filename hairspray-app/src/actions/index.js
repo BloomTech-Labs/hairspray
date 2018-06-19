@@ -1,39 +1,24 @@
 import axios from "axios";
+import * as actiontype from './actiontypes';
+export * from './actiontypes';
+export * from './serviceActions';
+
+
+// The list of action variables was getting very long,
+// so I moved them all to a seperate file 'actiontypes.js'
+// if you need to add action variables, do so in that file
 
 const URL = "http://localhost:5000";
-// Todo: make actions and variables for all actions
-export const ERROR = "ERROR";
-
-export const GETTING_USERS = "GETTING_USERS";
-export const GOT_USERS = "GOT_USERS";
-export const USER_REGISTERED = "USER_REGISTERED";
-export const USER_UPDATING = "USER_UPDATING";
-export const USER_UPDATE_COMPLETE = "USER_UPDATE_COMPLETE";
-export const TOGGLE_UPDATE_USER_FORM = "TOGGLE_UPDATE_USER_FORM";
-
-export const USER_AUTHENTICATED = "USER_AUTHENTICATED";
-export const CHECK_IF_AUTHENTICATED = "CHECK_IF_AUTHENTICATED";
-export const USER_UNAUTHENTICATED = "USER_UNAUTHENTICATED";
-export const AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR";
-
-export const SETTING_APPOINTMENT = "SETTING_APPOINTMENT";
-export const APPOINTMENT_SET = "APPOINTMENT_SET";
-
-export const STYLIST_UPDATING = "STYLIST_UPDATING";
-export const STYLIST_UPDATE_COMPLETE = "STYLIST_UPDATE_COMPLETE";
-export const TOGGLE_UPDATE_STYLIST_FORM = "TOGGLE_UPDATE_STYLIST_FORM";
-export const GETTING_STYLISTS = "GETTING_STYLISTS";
-export const GOT_STYLISTS = "GOT_STYLISTS";
 
 // Scheduling Actions
 export const setApppointment = (data) => {
-	const user = localStorage.getItem("uuID");
+	const user = localStorage.getItem("userID");
 	return dispatch => {
-		dispatch({ type: SETTING_APPOINTMENT });
+		dispatch({ type: actiontype.SETTING_APPOINTMENT });
 		axios
-			.post(`${URL}/user/${user}/appointments`, {session: data.session, user, stylist: data.stylist})
+			.post(`${URL}/user/${user}/appointments`, {session: data.session, user, stylist: data.stylist, service: data.service})
 			.then(appointment => {
-				dispatch({ type: APPOINTMENT_SET, payload: appointment.data});
+				dispatch({ type: actiontype.APPOINTMENT_SET, payload: appointment.data});
 				alert("Appointment set!");
 				data.history.push("/user/billing");
 			})
@@ -48,11 +33,11 @@ export const setApppointment = (data) => {
 
 export const getAllStylists = () => {
 	return dispatch => {
-		dispatch({ type: GETTING_STYLISTS });
+		dispatch({ type: actiontype.GETTING_STYLISTS });
 		axios
 			.get(`${URL}/stylist`)
 			.then(stylists => {
-				dispatch({ type: GOT_STYLISTS, payload: stylists.data });
+				dispatch({ type: actiontype.GOT_STYLISTS, payload: stylists.data });
 			})
 			.catch(err => {
 				dispatch({ type: err });
@@ -63,11 +48,11 @@ export const getAllStylists = () => {
 // User Actions
 export const getAllUsers = () => {
 	return dispatch => {
-		dispatch({ type: GETTING_USERS });
+		dispatch({ type: actiontype.GETTING_USERS });
 		axios
 			.get(`${URL}/signup`)
 			.then(users => {
-				dispatch({ type: GOT_USERS, payload: users.data });
+				dispatch({ type: actiontype.GOT_USERS, payload: users.data });
 			})
 			.catch(err => {
 				dispatch({ type: err });
@@ -77,7 +62,7 @@ export const getAllUsers = () => {
 
 export const toggleUpdateForm = () => {
 	return {
-		type: TOGGLE_UPDATE_USER_FORM
+		type: actiontype.TOGGLE_UPDATE_USER_FORM
 	};
 };
 
@@ -85,11 +70,11 @@ export const toggleUpdateForm = () => {
 export const userSettingsChange = updates => {
 	const { id, name, number, email, password } = updates;
 	return dispatch => {
-		dispatch({ type: USER_UPDATING });
+		dispatch({ type: actiontype.USER_UPDATING });
 		axios
 			.put(`${URL}/users/${id}`, { name, number, email, password })
 			.then(updatedUser => {
-				dispatch({ type: USER_UPDATE_COMPLETE, payload: updatedUser.data });
+				dispatch({ type: actiontype.USER_UPDATE_COMPLETE, payload: updatedUser.data });
 			})
 			.catch(err => {
 				dispatch({ type: err });
@@ -99,7 +84,7 @@ export const userSettingsChange = updates => {
 
 export const authError = error => {
 	return {
-		type: AUTHENTICATION_ERROR,
+		type: actiontype.AUTHENTICATION_ERROR,
 		payload: error
 	};
 };
@@ -121,7 +106,7 @@ export const register = (user, history) => {
 			})
 			.then(user => {
 				dispatch({
-					type: USER_REGISTERED
+					type: actiontype.USER_REGISTERED
 				});
 				history.push("/user/signin");
 			})
@@ -141,7 +126,7 @@ export const login = (user, history) => {
 				localStorage.setItem("token", response.data.token);
 				localStorage.setItem("userID", response.data.userID);
 				dispatch({
-					type: USER_AUTHENTICATED
+					type: actiontype.USER_AUTHENTICATED
 				});
 				history.push("/user");
 			})
