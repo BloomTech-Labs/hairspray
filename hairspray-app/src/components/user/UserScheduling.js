@@ -41,7 +41,7 @@ class UserScheduling extends Component {
 
 	handleStylistChange = event => {
 		const option = event.target.value;
-		this.userstylist = this.props.stylists[option]._id;
+		this.userstylist = this.props.stylists[option];
 	};
 
 	handleTimeChange = event => {

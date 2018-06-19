@@ -1,7 +1,15 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const User = require("../models/User.js");
 var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
+
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioNumber = process.env.TWILIO_NUMBER;
+const myNumber = process.env.MY_NUMBER;
+const twilio = require("twilio");
+const client = new twilio(accountSid, authToken);
 
 // testing function to see all stylists
 const getAllAppointments = (req, res) => {
@@ -22,13 +30,34 @@ const getAllAppointments = (req, res) => {
 // function to create a new appointment and save to database
 // user id should be passed in through :id params
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
+// will send a text message to my cell phone for now confirming appointment
+// Will hook up user's number when closer to production build
 const createAppointment = (req, res) => {
 	const user = req.params.id;
 	const { stylist, session } = req.body;
-	const appointment = new Appointment({ user, stylist, session });
+	console.log("stylist is: ", stylist);
+	const appointment = new Appointment({ user, stylist: stylist._id, session });
 	appointment
 		.save()
 		.then(appt => {
+			let apptDay = session.slice(5, 7) + "/" + session.slice(8, 10);
+			let apptTime = session.slice(11, 16);
+			if (Number(apptTime.slice(0, 2)) > 12)
+				apptTime =
+					apptTime.replace(
+						apptTime.slice(0, 2),
+						Number(apptTime.slice(0, 2)) - 12
+					) + " PM";
+			else apptTime += " AM";
+			client.messages
+				.create({
+					body: `Your appointment with ${stylist.name} on ${apptDay} at ${apptTime} has been scheduled!`,
+					to: myNumber, // Text this number
+					from: twilioNumber // From a valid Twilio number
+				})
+				.then(message => console.log(message.sid))
+				.catch(err => console.log(err));
+			
 			res.status(200).json({
 				success: "Appointment saved",
 				appt
