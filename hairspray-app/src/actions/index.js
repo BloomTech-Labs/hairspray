@@ -2,6 +2,7 @@ import axios from "axios";
 import * as actiontype from './actiontypes';
 export * from './actiontypes';
 export * from './serviceActions';
+export * from './feedbackActions';
 
 
 // The list of action variables was getting very long,

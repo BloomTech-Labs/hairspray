@@ -28,6 +28,23 @@ const getAllAppointments = (req, res) => {
 		});
 };
 
+const getAppointment = (req, res) => {
+	const { apptID } = req.params;
+	Appointment.findById({ apptID })
+	.populate({ path: "user", select: "name email phone" })
+	.populate({ path: "stylist", select: "name email" })
+	.populate('service')
+	.then(appt => {
+			res.status(200).json({
+				success: "Appointment found",
+				appt
+			});
+		})
+		.catch(err => {
+			res.status(400).json({ error: err });
+		});
+};
+
 // function to create a new appointment and save to database
 // user id should be passed in through :id params
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
@@ -164,6 +181,7 @@ const deleteAppointment = (req, res) => {
 module.exports = {
 	POST: createAppointment,
 	GET: getAllAppointments,
+	GET_ONE: getAppointment,
 	PUT: updateAppointment,
 	DELETE: deleteAppointment,
 	USER_GET: getUserAppointments,
