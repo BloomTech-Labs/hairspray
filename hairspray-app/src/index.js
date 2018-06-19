@@ -12,7 +12,7 @@ import App from './App';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import UserHome from './components/user/UserHome';
-import UserScheduling from './components/user/UserScheduling';
+import UserScheduling from './components/user/schedule/UserScheduling';
 import UserBilling from './components/user/UserBilling';
 import UserFeedback from './components/user/UserFeedback';
 import UserSettings from './components/user/settings/UserSettings';

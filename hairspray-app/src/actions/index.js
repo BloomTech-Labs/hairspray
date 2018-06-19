@@ -28,7 +28,6 @@ export const GOT_STYLISTS = "GOT_STYLISTS";
 // Scheduling Actions
 export const setApppointment = (data) => {
 	const user = localStorage.getItem("uuID");
-	console.log("data", data)
 	return dispatch => {
 		dispatch({ type: SETTING_APPOINTMENT });
 		axios

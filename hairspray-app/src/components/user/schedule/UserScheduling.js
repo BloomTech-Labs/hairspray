@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { setApppointment, getAllStylists } from "../../actions";
+import { setApppointment, getAllStylists } from "../../../actions";
+import Calendar from "react-calendar";
 
 class UserScheduling extends Component {
 	constructor() {
@@ -8,8 +9,6 @@ class UserScheduling extends Component {
 		this.userstylist = "";
 		this.userdate = "";
 		this.usertime = "";
-		this.date = {};
-		this.session = "";
 	}
 
 	renderStylists() {
@@ -18,7 +17,11 @@ class UserScheduling extends Component {
 		} else {
 			this.userstylist = Object.values(this.props.stylists)[0];
 			return this.props.stylists.map((stylist, i) => {
-				return <option value={i} key={i}>{stylist.name}</option>;
+				return (
+					<option value={i} key={i}>
+						{stylist.name}
+					</option>
+				);
 			});
 		}
 	}
@@ -32,10 +35,9 @@ class UserScheduling extends Component {
 			alert("All fields required!");
 			return;
 		}
-		this.session = this.userdate + "T" + this.usertime + ":00.00Z";
 		this.props.setApppointment({
 			history: this.props.history,
-			session: this.session,
+			session: this.userdate + "T" + this.usertime + ":00.00Z",
 			stylist: this.userstylist
 		});
 	}
@@ -47,12 +49,10 @@ class UserScheduling extends Component {
 
 	handleTimeChange = event => {
 		this.usertime = event.target.value;
-		console.log(this.usertime);
 	};
 
-	handleDateChange = event => {
-		this.userdate = event.target.value;
-		console.log(this.userdate);
+	handleDateChange = date => {
+		this.userdate = date.toISOString().slice(0,10);
 	};
 
 	componentDidMount() {
@@ -66,7 +66,12 @@ class UserScheduling extends Component {
 				<div>
 					<label>Date</label>
 					<form>
-						<input onChange={this.handleDateChange} type="date" />
+						<Calendar
+						minDetail="month"
+						onChange={value => this.handleDateChange(value)}
+						calendarType="US"
+						// TODO: Makea max date and min date limit
+						/>
 						<input onChange={this.handleTimeChange} type="time" />
 						<select onChange={this.handleStylistChange}>
 							{this.renderStylists()}

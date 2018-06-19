@@ -19,6 +19,7 @@ const AppointmentSchema = Schema({
   session: {
     type: Date,
     required: true,
+    unique: true,
   },
 });
 

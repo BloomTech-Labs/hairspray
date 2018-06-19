@@ -30,7 +30,6 @@ const getAllAppointments = (req, res) => {
 // function to create a new appointment and save to database
 // user id should be passed in through :id params
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
-// will send a text message to my cell phone for now confirming appointment
 // Will hook up user's number when closer to production build
 const createAppointment = (req, res) => {
 	const user = req.params.id;
@@ -40,6 +39,8 @@ const createAppointment = (req, res) => {
 	appointment
 		.save()
 		.then(appt => {
+
+			// This trims the date and time to send to the user through text
 			let apptDay = session.slice(5, 7) + "/" + session.slice(8, 10);
 			let apptTime = session.slice(11, 16);
 			if (Number(apptTime.slice(0, 2)) > 12)
@@ -49,16 +50,19 @@ const createAppointment = (req, res) => {
 						Number(apptTime.slice(0, 2)) - 12
 					) + " PM";
 			else apptTime += " AM";
-			client.messages
-				.create({
-					body: `Your appointment with ${
-						stylist.name
-					} on ${apptDay} at ${apptTime} has been scheduled!`,
-					to: myNumber, // Text this number
-					from: twilioNumber // From a valid Twilio number
-				})
-				.then(message => console.log(message.sid))
-				.catch(err => console.log(err));
+
+			// Twilio integration
+			// send text here
+			// client.messages
+			// 	.create({
+			// 		body: `Your appointment with ${
+			// 			stylist.name
+			// 		} on ${apptDay} at ${apptTime} has been scheduled!`,
+			// 		to: myNumber, // Number to send text to. Put your number here to test
+			// 		from: twilioNumber // From a valid Twilio number
+			// 	})
+			// 	.then(message => console.log(message.sid))
+			// 	.catch(err => console.log(err));
 
 			res.status(200).json({
 				success: "Appointment saved",
