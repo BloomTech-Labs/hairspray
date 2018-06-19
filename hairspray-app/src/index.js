@@ -29,8 +29,8 @@ ReactDOM.render(
       <div>
         {/* Landing Page, Sign in, and Sign Out */}
         <Route exact path="/" component={App} />
-        <Route path="/user/signin" component={SignIn} />
-        <Route path="/user/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
+        <Route path="/signup" component={SignUp} />
 
         <Route path="/user" component={UserHome} />
         <Route path="/user/scheduling" component={UserScheduling} />

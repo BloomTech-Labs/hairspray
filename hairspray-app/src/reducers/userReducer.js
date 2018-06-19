@@ -24,6 +24,7 @@ export const userReducer = (state = initialState, action) => {
     case GETTING_USERS:
       return {...state, gettingUsers: true}
     case GOT_USERS:
+    console.log("payload",action.payload);
       return {...state, gettingUsers: false, users: action.payload}
     default:
       return state;

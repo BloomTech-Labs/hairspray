@@ -12,6 +12,7 @@ let UserSchema = new Schema({
     type: String,
     lowercase: true,
     trim: true,
+    required: true,
     unique: true,
     sparse: true,
     validate: [
@@ -26,6 +27,7 @@ let UserSchema = new Schema({
     type: String,
     lowercase: true,
     trim: true,
+    required: true,
     index: true,
     unique: true,
     sparse: true,
