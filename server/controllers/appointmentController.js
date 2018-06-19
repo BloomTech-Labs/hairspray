@@ -11,7 +11,7 @@ const myNumber = process.env.MY_NUMBER;
 const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
 
-// testing function to see all stylists
+// testing function to see all Appointments
 const getAllAppointments = (req, res) => {
 	Appointment.find({})
 		.populate({ path: "user", select: "name" })
@@ -33,9 +33,9 @@ const getAllAppointments = (req, res) => {
 // Will hook up user's number when closer to production build
 const createAppointment = (req, res) => {
 	const user = req.params.id;
-	const { stylist, session } = req.body;
+	const { stylist, session, service } = req.body;
 	console.log("stylist is: ", stylist);
-	const appointment = new Appointment({ user, stylist: stylist._id, session });
+	const appointment = new Appointment({ user, stylist: stylist._id, session, service });
 	appointment
 		.save()
 		.then(appt => {
@@ -120,7 +120,7 @@ const getStylistAppointments = (req, res) => {
 // must pass in a user _id, stylist _id, and a date in format "2018-08-22T12:12:12.764Z"
 const updateAppointment = (req, res) => {
 	const { id } = req.params;
-	const { user, stylist, session } = req.body;
+	const { user, stylist, session, service } = req.body;
 	Appointment.findByIdAndUpdate(id, req.body, { new: true })
 		.then(appt => {
 			if (appt === null) {

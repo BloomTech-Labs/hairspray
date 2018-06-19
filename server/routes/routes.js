@@ -6,6 +6,7 @@ const users = require("../controllers/userController");
 const stylists = require("../controllers/stylistController");
 const appointments = require("../controllers/appointmentController");
 const feedback = require("../controllers/feedbackController");
+const service = require("../controllers/serviceController");
 
 const express = require("express");
 const { validateToken } = require("../config/auth");
@@ -65,4 +66,16 @@ module.exports = app => {
 		.route("/feedback/update/:id")
 		.put(feedback.PUT) // updates Feedback by Feedback ID
 		.delete(feedback.DELETE); // deletes Feedback by Feedback ID
+
+	// SERVICES FUNCTIONS
+	app
+	.route("/service")
+	.get(service.GET) // testing route to get all Services in database
+	.post(service.POST); // create a new Service
+
+	app.route("/service/:id").get(service.SERVICE_GET); // Get specific Service
+	app
+		.route("/service/update/:id")
+		.put(service.PUT) // updates Service by Service ID
+		.delete(service.DELETE); // deletes Service by Service ID
 };
