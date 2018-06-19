@@ -19,7 +19,6 @@ import UserSettings from './components/user/settings/UserSettings';
 import DevUsers from './components/dev/DevUsers';
 import Calendar from "react-material-calender";
 
-
 import './index.css';
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));

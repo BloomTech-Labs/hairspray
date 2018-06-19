@@ -35,6 +35,8 @@ export const setApppointment = (data) => {
 			.post(`${URL}/user/${user}/appointments`, {session: data.session, user, stylist: data.stylist})
 			.then(appointment => {
 				dispatch({ type: APPOINTMENT_SET, payload: appointment.data});
+				alert("Appointment set!");
+				data.history.push("/user/billing");
 			})
 			.catch(err => {
 				console.log("Appointment failed: ", err);

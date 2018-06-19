@@ -34,6 +34,7 @@ class UserScheduling extends Component {
 		}
 		this.session = this.userdate + "T" + this.usertime + ":00.00Z";
 		this.props.setApppointment({
+			history: this.props.history,
 			session: this.session,
 			stylist: this.userstylist
 		});
