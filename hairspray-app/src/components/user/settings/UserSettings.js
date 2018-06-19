@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import UserSettingsForm from "./UserSettingsForm.js";
 import { connect } from "react-redux";
-import { toggleUpdateForm } from '../actions';
+import { toggleUpdateForm } from '../../../actions';
 
 class UserSettings extends Component {
+	componentDidMount() {
+	}
 	handleChange() {
 		this.props.toggleUpdateForm();
 	}
@@ -11,13 +13,14 @@ class UserSettings extends Component {
 	render() {
 		return (
 			<div>
-				{Object.entries(this.props.user).map((value, i) => {
+				{/* {Object.entries(this.props.user).map((value, i) => {
 					return (
 						<div id={i} key={value[0]}>
 							{value[0] + ": " + value[1]}
 						</div>
 					);
-				})}
+				})} */}
+				<div>User Info here</div>
 				<div>Password: ********</div>
 				<button
 					onClick={() => this.handleChange()}

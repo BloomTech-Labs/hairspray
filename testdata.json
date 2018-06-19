@@ -1,0 +1,61 @@
+{
+	"users": [
+		{
+			"name": "Alex",
+			"phone": "1111111111",
+			"email": "Alex@user.com",
+			"password": "12345",
+			"admin": "false"
+		},
+		{
+			"name": "Barry",
+			"phone": "2222222222",
+			"email": "Barry@user.com",
+			"password": "12345",
+			"admin": "false"
+		},
+		{
+			"name": "Carmen",
+			"phone": "3333333333",
+			"email": "Carmen@user.com",
+			"password": "12345",
+			"admin": "false"
+		},
+		{
+			"name": "Darlene",
+			"phone": "4444444444",
+			"email": "Darlene@user.com",
+			"password": "12345",
+			"admin": "false"
+		},
+		{
+			"name": "Enway",
+			"phone": "5555555555",
+			"email": "Enway@user.com",
+			"password": "12345",
+			"admin": "false"
+		}
+  ],
+  "stylists":[
+    {
+      "name": "Elizabeth",
+			"email": "Elizabeth@stylist.com",
+			"password": "54321"
+    },
+    {
+      "name": "Magdelena",
+			"email": "Magdelena@stylist.com",
+			"password": "54321"
+    },
+    {
+      "name": "Richard",
+			"email": "Richard@stylist.com",
+			"password": "54321"
+    },
+    {
+      "name": "Stu",
+			"email": "Stu@stylist.com",
+			"password": "54321"
+    }
+  ]
+}
