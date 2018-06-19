@@ -17,7 +17,6 @@ import UserBilling from './components/user/UserBilling';
 import UserFeedback from './components/user/UserFeedback';
 import UserSettings from './components/user/settings/UserSettings';
 import DevUsers from './components/dev/DevUsers';
-import Calendar from "react-material-calender";
 
 import './index.css';
 
@@ -29,7 +28,6 @@ ReactDOM.render(
       <div>
         {/* Landing Page, Sign in, and Sign Out */}
         <Route exact path="/" component={App} />
-        <Calendar />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
 
