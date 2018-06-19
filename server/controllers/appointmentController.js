@@ -51,13 +51,15 @@ const createAppointment = (req, res) => {
 			else apptTime += " AM";
 			client.messages
 				.create({
-					body: `Your appointment with ${stylist.name} on ${apptDay} at ${apptTime} has been scheduled!`,
+					body: `Your appointment with ${
+						stylist.name
+					} on ${apptDay} at ${apptTime} has been scheduled!`,
 					to: myNumber, // Text this number
 					from: twilioNumber // From a valid Twilio number
 				})
 				.then(message => console.log(message.sid))
 				.catch(err => console.log(err));
-			
+
 			res.status(200).json({
 				success: "Appointment saved",
 				appt

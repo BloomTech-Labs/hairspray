@@ -18,7 +18,6 @@ import UserFeedback from './components/user/UserFeedback';
 import UserSettings from './components/user/settings/UserSettings';
 import DevUsers from './components/dev/DevUsers';
 
-
 import './index.css';
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
