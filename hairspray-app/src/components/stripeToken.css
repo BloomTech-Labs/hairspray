@@ -1,0 +1,69 @@
+.stripeButton {
+  white-space: nowrap;
+  border: 0;
+  outline: 0;
+  display: inline-block;
+  height: 40px;
+  width: 100%;
+  line-height: 40px;
+  padding: 0 14px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: #666666;
+  border-radius: 0px;
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  background-color: white;
+  text-decoration: none;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+  margin-top: 10px;
+}
+
+.stripeButton:hover {
+  cursor: pointer;
+  transform: scale(1.02) perspective(1px);
+  background-color: #666666;
+  color: #ffffff;
+}
+
+.stripeInput {
+  display: block;
+  margin: 10px 0 20px 0;
+  max-width: 500px;
+  padding: 10px 14px;
+  box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
+    rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+  border-radius: 4px;
+  background: white;
+}
+
+.stripeInput--focus {
+  box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px,
+    rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+}
+
+.formBox {
+  font-family: Open Sans;
+  background-color: #ffffff;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 60%;
+  max-width: 500px;
+  min-width: 280px;
+  border: 0.1px solid #e8e8e8;
+  margin-bottom: 100px;
+}
+
+.stripeLogo {
+  margin-top: 20px;
+}
+
+form {
+  width: 80%;
+}
