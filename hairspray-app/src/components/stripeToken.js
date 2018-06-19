@@ -71,6 +71,23 @@ createNewUser = () => {
 
 
 
+return (
+    <div className="formBox">
+      <Form>
+          <FormGroup>
+            <Input className="input" type="email" name="email" id="email" placeholder="Email"/>
+          </FormGroup>
+          <FormGroup>
+            <Input className="input" type="password" name="password" id="pass" placeholder="Password"/>
+          </FormGroup>
+          <CardElement className='stripeInput' style={ style }/>
+        <Button className="stripeButton" onClick={this.handleSubmit}>
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
+
 
 
 
