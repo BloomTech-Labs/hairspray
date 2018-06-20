@@ -147,7 +147,3 @@ export default connect(
 		toggleFeedbackForm
 	}
 )(FeedbackForm);
-
-// <span className="star_unselected" onClick={() => this.handleStarClick(1, label)}>★</span>
-// <span className="star_unselected" onClick={() => this.handleStarClick(2, label)}>★</span>
-// <span className="star_unselected" onClick={() => this.handleStarClick(3, label)}>★</span>
