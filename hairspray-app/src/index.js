@@ -33,7 +33,7 @@ ReactDOM.render(
 				<Route path="/user" component={UserHome} />
 				<Route path="/user/scheduling" component={UserScheduling} />
 				<Route path="/user/billing" component={UserBilling} />
-				<Route path="/user/feedback/:id" component={UserFeedback} />
+				<Route path="/user/feedback" component={UserFeedback} />
 				<Route path="/user/settings" component={UserSettings} />
 				<Route path="/dev/users" component={DevUsers} />
 				{/* <Route path="/admin" component={} /> */}

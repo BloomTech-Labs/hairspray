@@ -3,6 +3,7 @@ import * as actiontype from './actiontypes';
 export * from './actiontypes';
 export * from './serviceActions';
 export * from './feedbackActions';
+export * from './appointmentActions';
 
 
 // The list of action variables was getting very long,
@@ -10,25 +11,6 @@ export * from './feedbackActions';
 // if you need to add action variables, do so in that file
 
 const URL = "http://localhost:5000";
-
-// Scheduling Actions
-export const setApppointment = (data) => {
-	const user = localStorage.getItem("userID");
-	return dispatch => {
-		dispatch({ type: actiontype.SETTING_APPOINTMENT });
-		axios
-			.post(`${URL}/user/${user}/appointments`, {session: data.session, user, stylist: data.stylist, service: data.service})
-			.then(appointment => {
-				dispatch({ type: actiontype.APPOINTMENT_SET, payload: appointment.data});
-				alert("Appointment set!");
-				data.history.push("/user/billing");
-			})
-			.catch(err => {
-				console.log("Appointment failed: ", err);
-				dispatch({ type: err });
-			});
-	};
-};
 
 // Stylist Actions
 

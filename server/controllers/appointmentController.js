@@ -29,8 +29,8 @@ const getAllAppointments = (req, res) => {
 };
 
 const getAppointment = (req, res) => {
-	const { apptID } = req.params;
-	Appointment.findById({ apptID })
+	const apptID  = req.params.id;
+	Appointment.findById(apptID)
 	.populate({ path: "user", select: "name email phone" })
 	.populate({ path: "stylist", select: "name email" })
 	.populate('service')
@@ -104,6 +104,7 @@ const getUserAppointments = (req, res) => {
 	Appointment.find({ user: userID })
 		.populate({ path: "user", select: "name" })
 		.populate({ path: "stylist", select: "name" })
+		.populate('service')
 		.then(appt => {
 			if (appt.length === 0) {
 				res.json({ success: "There are no Appointments for this User" });
@@ -126,6 +127,7 @@ const getStylistAppointments = (req, res) => {
 	Appointment.find({ stylist: stylistID })
 		.populate({ path: "user", select: "name" })
 		.populate({ path: "stylist", select: "name" })
+		.populate('service')
 		.then(appt => {
 			res.status(200).json({
 				success: "Appointment found",
