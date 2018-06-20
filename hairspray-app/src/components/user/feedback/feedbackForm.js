@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createFeedback, toggleFeedbackForm } from "../../../actions";
+import "../../../styles/feedbackForm.css";
 
 class FeedbackForm extends Component {
 	constructor(props) {
@@ -8,7 +9,9 @@ class FeedbackForm extends Component {
 		this.user = {};
 		this.user.scores = {};
 		this.user.feedback = {};
-		this.appointment = props.appointment;
+    this.appointment = props.appointment;
+    this.rating = null;
+    this.temp_rating = 0;
 	}
 
 	closeModal() {
@@ -30,23 +33,44 @@ class FeedbackForm extends Component {
 		);
 	};
 
-	handleStarClick(star, label) {
-		this.user.scores[label] = star;
-		console.log(this.user)
-  }
+	rate(label, rating) {
+    this.user.scores[label] = rating + 1;
+    this.temp_rating = this.user.scores[label];
+
+	}
   
-  handleStarChange() {
-    //change color of star here
-  }
+	star_over(label, rating) {
+    this.temp_rating = this.user.scores[label];
+    this.user.scores[label] = rating + 1;
+    this.forceUpdate();
+	}
+  
+	star_out(label) {
+    this.user.scores[label] = this.temp_rating;
+    this.forceUpdate();
+	}
 
 	renderStarRating(label) {
-		return (
-			<div>
-				<span onClick={() => this.handleStarClick(1, label)}>☆</span>
-				<span onClick={() => this.handleStarClick(2, label)}>☆</span>
-				<span onClick={() => this.handleStarClick(3, label)}>☆</span>
-			</div>
-		);
+		let stars = [];
+		for (let i = 0; i < 3; i++) {
+      let starClass = "star_rating";
+
+      if (this.user.scores[label] > i && this.user.scores[label] != null) {
+				starClass += " is-selected";
+      }
+      
+			stars.push(
+				<label
+					className={starClass}
+					onClick={() => this.rate(label, i)}
+					onMouseOver={() => this.star_over(label, i)}
+					onMouseOut={() => this.star_out(label, i)}
+				>
+					★
+				</label>
+			);
+		}
+		return <div>{stars}</div>;
 	}
 
 	render() {
@@ -123,3 +147,7 @@ export default connect(
 		toggleFeedbackForm
 	}
 )(FeedbackForm);
+
+// <span className="star_unselected" onClick={() => this.handleStarClick(1, label)}>★</span>
+// <span className="star_unselected" onClick={() => this.handleStarClick(2, label)}>★</span>
+// <span className="star_unselected" onClick={() => this.handleStarClick(3, label)}>★</span>
