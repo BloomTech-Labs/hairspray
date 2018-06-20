@@ -4,3 +4,4 @@ eslinter-airbnb
 node_modules/
 master
 node_modules
+.env

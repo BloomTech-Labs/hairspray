@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import UserSettings from './components/UserSettings.js';
 import './App.css';
+import LandPage from './components/LandPage';
+// import Header from './components/Header';
 
 class App extends Component {
-  
-  user = {
-    name: "test",
-    email: "testEmail",
-    number: "number",
-  }
-
   render() {
-    //return <div className="App">WIP</div>;
-    return <UserSettings user={this.user} />;
+    return (
+      <div>
+        <LandPage />
+      </div>
+    );
   }
 }
 
