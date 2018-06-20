@@ -54,7 +54,7 @@ const userLogin = (req, res) => {
   });
 };
 
-//Get profile if has one
+//  Get profile if has one
 const getUser = (req, res) => {
   const { id } = req.params;
   User.findById(id).exec((err, user) => {
@@ -66,7 +66,7 @@ const getUser = (req, res) => {
   });
 };
 
-//Useless route for now.
+//  Useless route for now.
 const getUsers = (req, res) => {
   // This controller will not work until a user has sent up a valid JWT
   // check out what's going on in services/index.js in the `validate` token function

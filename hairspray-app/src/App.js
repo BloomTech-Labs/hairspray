@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserSettings from "./components/UserSettings.js";
 import "./App.css";
 import LandPage from "./components/LandPage";
-import { StripeProvider } from "react-stripe-elements";
+import Checkout from "./components/stripeCheckout";
 
 // import Header from './components/Header';
 
@@ -23,6 +23,11 @@ class App extends Component {
         {/* <Header /> */}
         <LandPage />
         <UserSettings user={this.user} />;
+        <Checkout
+          name={"Checkout form"}
+          description={"To checkout things for stripe"}
+          amount={1}
+        />
       </div>
     );
   }
