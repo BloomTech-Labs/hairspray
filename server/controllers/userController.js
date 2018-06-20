@@ -8,19 +8,21 @@ const bcrypt = require("bcrypt");
 const stripe = require("stripe")("sk_test_vY2PFCv47VGRTiS3Cb9c7uky");
 const keyPublish = process.env.PUBLISHABLE_KEY;
 
-User.create({
-  name: "Admin",
-  phone: "3104567683",
-  email: "admin@admin.com",
-  password: "automatichash"
-});
+// User.create({
+//   name: "Admin",
+//   phone: "3104567683",
+//   email: "admin@admin.com",
+//   password: "automatichash"
+// });
 
 const createUser = (req, res) => {
   const { name, phone, email, password } = req.body;
   const user = new User({ name, phone, email, password });
-  user.save((err, user) => {
-    if (err) return res.send(err);
-    res.json({
+    user.save((err, user) => {
+    if (err){
+      return res.status(400).send({err});
+    } 
+    res.status(200).json({
       success: "User was saved",
       user
     });
@@ -38,6 +40,7 @@ const userLogin = (req, res) => {
       res.status(422).json({ error: "No user with that username in our DB" });
       return;
     }
+    const userID = user._id;
     user.checkPassword(password, (nonMatch, hashMatch) => {
       // This is an example of using our User.method from our model.
       if (nonMatch !== null) {
@@ -48,7 +51,7 @@ const userLogin = (req, res) => {
         const token = getTokenForUser({
           username: user.email
         });
-        res.json({ token });
+        res.json({ token, userID });
       }
     });
   });

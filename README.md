@@ -44,5 +44,15 @@ GET - Gets an array of all the Feedback a User has submitted
 - /stylist/:id/feedback
 GET - Gets an array of all the Feedback a Stylist has received
 - /feedback/update/:id
-PUT - Updates previously submitted feedback but Feedback ID
+PUT - Updates previously submitted feedback via Feedback ID
 DELETE - Deletes Feedback by Feedback ID
+
+### Service
+- /service
+GET - get all Services in database
+POST - create new Service
+- /service/:id/
+GET - Gets a specific Service
+- /service/update/:id
+PUT - Updates a Service via Service ID
+DELETE - Deletes a Service via Service ID
