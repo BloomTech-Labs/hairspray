@@ -19,8 +19,6 @@ class FeedbackForm extends Component {
 		const value = event.target.value;
 		const name = event.target.name;
 		this.user.feedback[name] = value;
-
-		console.log(this.user);
 	};
 
 	submitUpdates = () => {
@@ -32,6 +30,25 @@ class FeedbackForm extends Component {
 		);
 	};
 
+	handleStarClick(star, label) {
+		this.user.scores[label] = star;
+		console.log(this.user)
+  }
+  
+  handleStarChange() {
+    //change color of star here
+  }
+
+	renderStarRating(label) {
+		return (
+			<div>
+				<span onClick={() => this.handleStarClick(1, label)}>☆</span>
+				<span onClick={() => this.handleStarClick(2, label)}>☆</span>
+				<span onClick={() => this.handleStarClick(3, label)}>☆</span>
+			</div>
+		);
+	}
+
 	render() {
 		return (
 			<div>
@@ -41,6 +58,7 @@ class FeedbackForm extends Component {
 				<form>
 					<section>
 						<label>Consultation</label>
+						{this.renderStarRating("consultation")}
 						<input
 							name="consultation"
 							type="text"
@@ -49,6 +67,7 @@ class FeedbackForm extends Component {
 					</section>
 					<section>
 						<label>On Time</label>
+						{this.renderStarRating("ontime")}
 						<input
 							name="ontime"
 							type="text"
@@ -57,6 +76,7 @@ class FeedbackForm extends Component {
 					</section>
 					<section>
 						<label>Styling</label>
+						{this.renderStarRating("styling")}
 						<input
 							name="styling"
 							type="text"
@@ -65,6 +85,7 @@ class FeedbackForm extends Component {
 					</section>
 					<section>
 						<label>Customer Service</label>
+						{this.renderStarRating("customerservice")}
 						<input
 							name="customerservice"
 							type="text"
@@ -73,6 +94,7 @@ class FeedbackForm extends Component {
 					</section>
 					<section>
 						<label>Overall</label>
+						{this.renderStarRating("overall")}
 						<input
 							name="overall"
 							type="text"
