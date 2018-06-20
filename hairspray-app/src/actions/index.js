@@ -1,21 +1,21 @@
-import axios from "axios";
+import axios from 'axios';
 
-const URL = "http://localhost:5000";
+const URL = 'http://localhost:5000';
 // Todo: make actions and variables for all actions
-export const TOGGLE_UPDATE_USER_FORM = "TOGGLE_UPDATE_USER_FORM";
-export const USER_UPDATING = "USER_UPDATING";
-export const USER_UPDATE_COMPLETE = "USER_UPDATE_COMPLETE";
-export const ERROR = "ERROR";
+export const TOGGLE_UPDATE_USER_FORM = 'TOGGLE_UPDATE_USER_FORM';
+export const USER_UPDATING = 'USER_UPDATING';
+export const USER_UPDATE_COMPLETE = 'USER_UPDATE_COMPLETE';
+export const ERROR = 'ERROR';
 
-export const USER_REGISTERED = "USER_REGISTERED";
-export const USER_AUTHENTICATED = "USER_AUTHENTICATED";
-export const CHECK_IF_AUTHENTICATED = "CHECK_IF_AUTHENTICATED";
-export const USER_UNAUTHENTICATED = "USER_UNAUTHENTICATED";
-export const AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR";
+export const USER_REGISTERED = 'USER_REGISTERED';
+export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
+export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
+export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
+export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 
 export const toggleUpdateForm = () => {
   return {
-    type: TOGGLE_UPDATE_USER_FORM
+    type: TOGGLE_UPDATE_USER_FORM,
   };
 };
 
@@ -38,7 +38,7 @@ export const userSettingsChange = updates => {
 export const authError = error => {
   return {
     type: AUTHENTICATION_ERROR,
-    payload: error
+    payload: error,
   };
 };
 
@@ -53,7 +53,7 @@ export const register = (
 ) => {
   return dispatch => {
     if (password !== confirmPassword) {
-      dispatch(authError("Please Re-enter Your Password"));
+      dispatch(authError('Please Re-enter Your Password'));
       return;
     }
     axios
@@ -61,16 +61,16 @@ export const register = (
         name,
         phone,
         email,
-        password
+        password,
       })
       .then(() => {
         dispatch({
-          type: USER_REGISTERED
+          type: USER_REGISTERED,
         });
-        history.push("/signin");
+        history.push('/signin');
       })
       .catch(err => {
-        dispatch(authError("Did Not Register, Try Again"));
+        dispatch(authError('Did Not Register, Try Again'));
       });
   };
 };
@@ -81,15 +81,15 @@ export const login = (username, password, history) => {
     axios
       .post(`${URL}/login`, { username, password })
       .then(response => {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem('token', response.data.token);
         dispatch({
-          type: USER_AUTHENTICATED
+          type: USER_AUTHENTICATED,
         });
-        history.push("/signup"); //TODO:
+        history.push('/signup'); //TODO:
       })
       .catch(err => {
         dispatch(
-          authError("Your Username and/or Password is Incorrect, Try Again")
+          authError('Your Username and/or Password is Incorrect, Try Again')
         );
       });
   };
