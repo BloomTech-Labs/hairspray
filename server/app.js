@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(CORS());
 
-const REACT_WHITELIST = require("../hairspray-app/src/components/stripeCheckout");
+const REACT_WHITELIST = require("../hairspray-app/src/components/StripeCheckout");
 
 const whitelist = ["http://localhost:5000", REACT_WHITELIST];
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserSettings from "./components/UserSettings.js";
 import "./App.css";
 import LandPage from "./components/LandPage";
-import Checkout from "./components/stripeCheckout";
+import Checkout from "./components/StripeCheckout";
 
 // import Header from './components/Header';
 
