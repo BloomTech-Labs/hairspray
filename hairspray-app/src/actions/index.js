@@ -5,7 +5,7 @@ export * from './serviceActions';
 export * from './feedbackActions';
 export * from './appointmentActions';
 
-
+const URL = 'http://localhost:5000';
 // The list of action variables was getting very long,
 // so I moved them all to a seperate file 'actiontypes.js'
 // if you need to add action variables, do so in that file
@@ -44,79 +44,83 @@ export const getAllUsers = () => {
 };
 
 export const toggleUpdateForm = () => {
-	return {
-		type: actiontype.TOGGLE_UPDATE_USER_FORM
-	};
+  return {
+    type: TOGGLE_UPDATE_USER_FORM,
+  };
 };
 
 // Change user settings
 export const userSettingsChange = updates => {
-	const { id, name, number, email, password } = updates;
-	return dispatch => {
-		dispatch({ type: actiontype.USER_UPDATING });
-		axios
-			.put(`${URL}/users/${id}`, { name, number, email, password })
-			.then(updatedUser => {
-				dispatch({ type: actiontype.USER_UPDATE_COMPLETE, payload: updatedUser.data });
-			})
-			.catch(err => {
-				dispatch({ type: err });
-			});
-	};
+  const { id, name, number, email, password } = updates;
+  return dispatch => {
+    dispatch({ type: USER_UPDATING });
+    axios
+      .put(`${URL}/users/${id}`, { name, number, email, password })
+      .then(updatedUser => {
+        dispatch({ type: USER_UPDATE_COMPLETE, payload: updatedUser.data });
+      })
+      .catch(err => {
+        dispatch({ type: err });
+      });
+  };
 };
 
 export const authError = error => {
-	return {
-		type: actiontype.AUTHENTICATION_ERROR,
-		payload: error
-	};
+  return {
+    type: AUTHENTICATION_ERROR,
+    payload: error,
+  };
 };
 
 // Register a new user
-export const register = (user, history) => {
-	const { name, phone, email, password, confirmPassword } = user;
-	return dispatch => {
-		if (password !== confirmPassword) {
-			dispatch(authError("Please Re-enter Your Password"));
-			return;
-		}
-		axios
-			.post(`${URL}/signup`, {
-				name,
-				phone,
-				email,
-				password
-			})
-			.then(user => {
-				dispatch({
-					type: actiontype.USER_REGISTERED
-				});
-				history.push("/user/signin");
-			})
-			.catch(err => {
-				dispatch(authError(`${err}, Try Again`));
-			});
-	};
+export const register = (
+  name,
+  email,
+  phone,
+  password,
+  confirmPassword,
+  history
+) => {
+  return dispatch => {
+    if (password !== confirmPassword) {
+      dispatch(authError('Please Re-enter Your Password'));
+      return;
+    }
+    axios
+      .post(`${URL}/signup`, {
+        name,
+        phone,
+        email,
+        password,
+      })
+      .then(() => {
+        dispatch({
+          type: USER_REGISTERED,
+        });
+        history.push('/signin');
+      })
+      .catch(err => {
+        dispatch(authError('Did Not Register, Try Again'));
+      });
+  };
 };
 
 // login user
-export const login = (user, history) => {
-	const { email, password } = user;
-	return dispatch => {
-		axios
-			.post(`${URL}/login`, { email, password })
-			.then(response => {
-				localStorage.setItem("token", response.data.token);
-				localStorage.setItem("userID", response.data.userID);
-				dispatch({
-					type: actiontype.USER_AUTHENTICATED
-				});
-				history.push("/user");
-			})
-			.catch(err => {
-				dispatch(
-					authError("Your Email and/or Password is Incorrect, Try Again")
-				);
-			});
-	};
+export const login = (username, password, history) => {
+  return dispatch => {
+    axios
+      .post(`${URL}/login`, { username, password })
+      .then(response => {
+        localStorage.setItem('token', response.data.token);
+        dispatch({
+          type: USER_AUTHENTICATED,
+        });
+        history.push('/signup'); //TODO:
+      })
+      .catch(err => {
+        dispatch(
+          authError('Your Username and/or Password is Incorrect, Try Again')
+        );
+      });
+  };
 };
