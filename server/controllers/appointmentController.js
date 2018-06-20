@@ -14,9 +14,10 @@ const client = new twilio(accountSid, authToken);
 // testing function to see all Appointments
 const getAllAppointments = (req, res) => {
 	Appointment.find({})
-		.populate({ path: "user", select: "name" })
-		.populate({ path: "stylist", select: "name" })
-		.then(appt => {
+	.populate({ path: "user", select: "name email phone" })
+	.populate({ path: "stylist", select: "name email" })
+	.populate('service')
+	.then(appt => {
 			res.status(200).json({
 				success: "Appointments found",
 				appt
@@ -34,12 +35,16 @@ const getAllAppointments = (req, res) => {
 const createAppointment = (req, res) => {
 	const user = req.params.id;
 	const { stylist, session, service } = req.body;
-	console.log("stylist is: ", stylist);
-	const appointment = new Appointment({ user, stylist: stylist._id, session, service });
+	console.log(req.body);
+	const appointment = new Appointment({
+		user,
+		stylist: stylist._id,
+		session,
+		service
+	});
 	appointment
 		.save()
 		.then(appt => {
-
 			// This trims the date and time to send to the user through text
 			let apptDay = session.slice(5, 7) + "/" + session.slice(8, 10);
 			let apptTime = session.slice(11, 16);
