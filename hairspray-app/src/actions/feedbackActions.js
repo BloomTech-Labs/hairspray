@@ -8,6 +8,7 @@ export const createFeedback = (appointmentID, scores, feedback) => {
   const apptID = appointmentID;
 
   const userFeedback = {
+    appointment: apptID,
     consultationScore: scores.consultationScore,
     ontimeScore: scores.ontimeScore,
     stylingScore: scores.stylingScore,
@@ -19,8 +20,6 @@ export const createFeedback = (appointmentID, scores, feedback) => {
     customerservice: feedback.customerservice, 
     overall: feedback.overall
   }
-
-
 	return dispatch => {
 		dispatch({ type: actiontype.CREATING_FEEDBACK });
 		axios
@@ -32,4 +31,10 @@ export const createFeedback = (appointmentID, scores, feedback) => {
 				dispatch({ type: err });
 			});
   }
+}
+
+export const toggleFeedbackForm = () => {
+  return {
+		type: actiontype.TOGGLE_FEEDBACK_FORM
+	};
 }

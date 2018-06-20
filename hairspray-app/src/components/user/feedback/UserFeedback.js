@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createFeedback, getUserAppointments } from "../../../actions";
+import { createFeedback, getUserAppointments, toggleFeedbackForm } from "../../../actions";
+import FeedbackForm from './feedbackForm';
+import Modal from '../../misc/Modal';
 
 class UserFeedback extends Component {
 	constructor() {
@@ -8,6 +10,7 @@ class UserFeedback extends Component {
 		this.user = {};
 		this.user.scores = {};
 		this.user.feedback = {};
+		this.apppointment = "";
 	}
 
 	timeTrimmer(session) {
@@ -24,7 +27,9 @@ class UserFeedback extends Component {
 	}
 
 	handleButton(appointment) {
-		console.log(appointment);
+		this.apppointment = appointment;
+		console.log("appointment in button handler",this.apppointment)
+		this.props.toggleFeedbackForm();
 	}
 
 	renderAppointments() {
@@ -60,6 +65,7 @@ class UserFeedback extends Component {
 		return (
 			<div>
 				<div>User Feedback</div>
+				{this.props.showFeedbackForm ? <Modal><FeedbackForm appointment={this.apppointment}/></Modal> : null}
 				<div>{this.renderAppointments()}</div>
 			</div>
 		);
@@ -71,7 +77,8 @@ const mapStateToProps = state => {
 		feedback: state.feedback.feedback,
 		appointments: state.appt.appointments.appt,
 		gettingFeedback: state.feedback.gettingFeedback,
-		gettingAppointments: state.appt.gettingAppointments
+		gettingAppointments: state.appt.gettingAppointments,
+		showFeedbackForm: state.feedback.showFeedbackForm
 	};
 };
 
@@ -79,6 +86,7 @@ export default connect(
 	mapStateToProps,
 	{
 		createFeedback,
-		getUserAppointments
+		getUserAppointments,
+		toggleFeedbackForm
 	}
 )(UserFeedback);
