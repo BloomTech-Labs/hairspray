@@ -8,6 +8,7 @@ const FeedbackSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: "Appointment",
     required: true,
+    unique: true,
   },
   consultation: {
     type: String

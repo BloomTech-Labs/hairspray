@@ -41,7 +41,9 @@ module.exports = app => {
 
 	// APPOINTMENTS FUNCTIONS
 	app.route("/appointments").get(appointments.GET); //testing route to get all appointments in database
-
+	
+	app.route("/appointments/:id").get(appointments.GET_ONE); //get a specific Appointment
+	
 	app
 		.route("/user/:id/appointments")
 		.post(appointments.POST) // create a new Appointment
