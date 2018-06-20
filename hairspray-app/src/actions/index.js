@@ -1,17 +1,47 @@
-import axios from 'axios';
+import axios from "axios";
+import * as actiontype from './actiontypes';
+export * from './actiontypes';
+export * from './serviceActions';
+export * from './feedbackActions';
+export * from './appointmentActions';
 
 const URL = 'http://localhost:5000';
-// Todo: make actions and variables for all actions
-export const TOGGLE_UPDATE_USER_FORM = 'TOGGLE_UPDATE_USER_FORM';
-export const USER_UPDATING = 'USER_UPDATING';
-export const USER_UPDATE_COMPLETE = 'USER_UPDATE_COMPLETE';
-export const ERROR = 'ERROR';
+// The list of action variables was getting very long,
+// so I moved them all to a seperate file 'actiontypes.js'
+// if you need to add action variables, do so in that file
 
-export const USER_REGISTERED = 'USER_REGISTERED';
-export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
-export const CHECK_IF_AUTHENTICATED = 'CHECK_IF_AUTHENTICATED';
-export const USER_UNAUTHENTICATED = 'USER_UNAUTHENTICATED';
-export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+const URL = "http://localhost:5000";
+
+// Stylist Actions
+
+export const getAllStylists = () => {
+	return dispatch => {
+		dispatch({ type: actiontype.GETTING_STYLISTS });
+		axios
+			.get(`${URL}/stylist`)
+			.then(stylists => {
+				dispatch({ type: actiontype.GOT_STYLISTS, payload: stylists.data });
+			})
+			.catch(err => {
+				dispatch({ type: err });
+			});
+	};
+};
+
+// User Actions
+export const getAllUsers = () => {
+	return dispatch => {
+		dispatch({ type: actiontype.GETTING_USERS });
+		axios
+			.get(`${URL}/signup`)
+			.then(users => {
+				dispatch({ type: actiontype.GOT_USERS, payload: users.data });
+			})
+			.catch(err => {
+				dispatch({ type: err });
+			});
+	};
+};
 
 export const toggleUpdateForm = () => {
   return {

@@ -34,7 +34,7 @@ class UserScheduling extends Component {
 
 	renderServices() {
 		if (this.props.gettingService) {
-			return <button>Getting Services</button>;
+			return <div>Getting Services</div>;
 		} else {
 			return this.props.services.map((service, i) => {
 				return (
