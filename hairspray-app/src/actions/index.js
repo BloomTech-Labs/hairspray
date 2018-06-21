@@ -1,51 +1,49 @@
 import axios from "axios";
-import * as actiontype from './actiontypes';
-export * from './actiontypes';
-export * from './serviceActions';
-export * from './feedbackActions';
-export * from './appointmentActions';
+import * as actiontype from "./actiontypes";
+export * from "./actiontypes";
+export * from "./serviceActions";
+export * from "./feedbackActions";
+export * from "./appointmentActions";
 
-const URL = 'http://localhost:5000';
+const URL = "http://localhost:5000";
 // The list of action variables was getting very long,
 // so I moved them all to a seperate file 'actiontypes.js'
 // if you need to add action variables, do so in that file
 
-const URL = "http://localhost:5000";
-
 // Stylist Actions
 
 export const getAllStylists = () => {
-	return dispatch => {
-		dispatch({ type: actiontype.GETTING_STYLISTS });
-		axios
-			.get(`${URL}/stylist`)
-			.then(stylists => {
-				dispatch({ type: actiontype.GOT_STYLISTS, payload: stylists.data });
-			})
-			.catch(err => {
-				dispatch({ type: err });
-			});
-	};
+  return dispatch => {
+    dispatch({ type: actiontype.GETTING_STYLISTS });
+    axios
+      .get(`${URL}/stylist`)
+      .then(stylists => {
+        dispatch({ type: actiontype.GOT_STYLISTS, payload: stylists.data });
+      })
+      .catch(err => {
+        dispatch({ type: err });
+      });
+  };
 };
 
 // User Actions
 export const getAllUsers = () => {
-	return dispatch => {
-		dispatch({ type: actiontype.GETTING_USERS });
-		axios
-			.get(`${URL}/signup`)
-			.then(users => {
-				dispatch({ type: actiontype.GOT_USERS, payload: users.data });
-			})
-			.catch(err => {
-				dispatch({ type: err });
-			});
-	};
+  return dispatch => {
+    dispatch({ type: actiontype.GETTING_USERS });
+    axios
+      .get(`${URL}/signup`)
+      .then(users => {
+        dispatch({ type: actiontype.GOT_USERS, payload: users.data });
+      })
+      .catch(err => {
+        dispatch({ type: err });
+      });
+  };
 };
 
 export const toggleUpdateForm = () => {
   return {
-    type: TOGGLE_UPDATE_USER_FORM,
+    type: actiontype.TOGGLE_UPDATE_USER_FORM
   };
 };
 
@@ -53,11 +51,14 @@ export const toggleUpdateForm = () => {
 export const userSettingsChange = updates => {
   const { id, name, number, email, password } = updates;
   return dispatch => {
-    dispatch({ type: USER_UPDATING });
+    dispatch({ type: actiontype.USER_UPDATING });
     axios
       .put(`${URL}/users/${id}`, { name, number, email, password })
       .then(updatedUser => {
-        dispatch({ type: USER_UPDATE_COMPLETE, payload: updatedUser.data });
+        dispatch({
+          type: actiontype.USER_UPDATE_COMPLETE,
+          payload: updatedUser.data
+        });
       })
       .catch(err => {
         dispatch({ type: err });
@@ -67,8 +68,8 @@ export const userSettingsChange = updates => {
 
 export const authError = error => {
   return {
-    type: AUTHENTICATION_ERROR,
-    payload: error,
+    type: actiontype.AUTHENTICATION_ERROR,
+    payload: error
   };
 };
 
@@ -83,7 +84,7 @@ export const register = (
 ) => {
   return dispatch => {
     if (password !== confirmPassword) {
-      dispatch(authError('Please Re-enter Your Password'));
+      dispatch(authError("Please Re-enter Your Password"));
       return;
     }
     axios
@@ -91,16 +92,16 @@ export const register = (
         name,
         phone,
         email,
-        password,
+        password
       })
       .then(() => {
         dispatch({
-          type: USER_REGISTERED,
+          type: actiontype.USER_REGISTERED
         });
-        history.push('/signin');
+        history.push("/signin");
       })
       .catch(err => {
-        dispatch(authError('Did Not Register, Try Again'));
+        dispatch(authError("Did Not Register, Try Again"));
       });
   };
 };
@@ -111,15 +112,15 @@ export const login = (username, password, history) => {
     axios
       .post(`${URL}/login`, { username, password })
       .then(response => {
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem("token", response.data.token);
         dispatch({
-          type: USER_AUTHENTICATED,
+          type: actiontype.USER_AUTHENTICATED
         });
-        history.push('/signup'); //TODO:
+        history.push("/signup"); //TODO:
       })
       .catch(err => {
         dispatch(
-          authError('Your Username and/or Password is Incorrect, Try Again')
+          authError("Your Username and/or Password is Incorrect, Try Again")
         );
       });
   };
