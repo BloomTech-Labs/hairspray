@@ -6,34 +6,36 @@ export * from './serviceActions';
 export * from './feedbackActions';
 export * from './appointmentActions';
 
-
+const URL = "http://localhost:5000";
 // The list of action variables was getting very long,
 // so I moved them all to a seperate file 'actiontypes.js'
 // if you need to add action variables, do so in that file
+// and them import them here by preceding the variable with
+// 'actiontype.' example: actiontype.GOT_STYLIST
 
 const URL = "http://localhost:5000";
 
 // Stylist Actions
 
 export const getAllStylists = () => {
-	return dispatch => {
-		dispatch({ type: actiontype.GETTING_STYLISTS });
-		axios
-			.get(`${URL}/stylist`)
-			.then(stylists => {
-				dispatch({ type: actiontype.GOT_STYLISTS, payload: stylists.data });
-			})
-			.catch(err => {
-				dispatch({ type: err });
-			});
-	};
+  return dispatch => {
+    dispatch({ type: actiontype.GETTING_STYLISTS });
+    axios
+      .get(`${URL}/stylist`)
+      .then(stylists => {
+        dispatch({ type: actiontype.GOT_STYLISTS, payload: stylists.data });
+      })
+      .catch(err => {
+        dispatch({ type: err });
+      });
+  };
 };
 
 export const authError = error => {
-	return {
-		type: actiontype.AUTHENTICATION_ERROR,
-		payload: error
-	};
+  return {
+    type: actiontype.AUTHENTICATION_ERROR,
+    payload: error
+  };
 };
 
 // Register a new user
