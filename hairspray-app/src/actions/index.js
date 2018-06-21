@@ -10,8 +10,6 @@ const URL = "http://localhost:5000";
 // so I moved them all to a seperate file 'actiontypes.js'
 // if you need to add action variables, do so in that file
 
-const URL = "http://localhost:5000";
-
 // Stylist Actions
 
 export const getAllStylists = () => {
