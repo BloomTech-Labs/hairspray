@@ -4,12 +4,12 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
 
-const accountSid = process.env.TWILIO_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioNumber = process.env.TWILIO_NUMBER;
-const myNumber = process.env.MY_NUMBER;
-const twilio = require("twilio");
-const client = new twilio(accountSid, authToken);
+// const accountSid = process.env.TWILIO_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const twilioNumber = process.env.TWILIO_NUMBER;
+// const myNumber = process.env.MY_NUMBER;
+// const twilio = require("twilio");
+// const client = new twilio(accountSid, authToken);
 
 // testing function to see all Appointments
 const getAllAppointments = (req, res) => {
@@ -52,7 +52,6 @@ const getAppointment = (req, res) => {
 const createAppointment = (req, res) => {
 	const user = req.params.id;
 	const { stylist, session, service } = req.body;
-	console.log(req.body);
 	const appointment = new Appointment({
 		user,
 		stylist: stylist._id,
@@ -92,7 +91,6 @@ const createAppointment = (req, res) => {
 			});
 		})
 		.catch(err => {
-			console.log(err);
 			res.status(400).send({ error: err });
 		});
 };

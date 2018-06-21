@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as actiontype from './actiontypes';
 export * from './actiontypes';
+export * from './userActions';
 export * from './serviceActions';
 export * from './feedbackActions';
 export * from './appointmentActions';
@@ -21,43 +22,6 @@ export const getAllStylists = () => {
 			.get(`${URL}/stylist`)
 			.then(stylists => {
 				dispatch({ type: actiontype.GOT_STYLISTS, payload: stylists.data });
-			})
-			.catch(err => {
-				dispatch({ type: err });
-			});
-	};
-};
-
-// User Actions
-export const getAllUsers = () => {
-	return dispatch => {
-		dispatch({ type: actiontype.GETTING_USERS });
-		axios
-			.get(`${URL}/signup`)
-			.then(users => {
-				dispatch({ type: actiontype.GOT_USERS, payload: users.data });
-			})
-			.catch(err => {
-				dispatch({ type: err });
-			});
-	};
-};
-
-export const toggleUpdateForm = () => {
-	return {
-		type: actiontype.TOGGLE_UPDATE_USER_FORM
-	};
-};
-
-// Change user settings
-export const userSettingsChange = updates => {
-	const { id, name, number, email, password } = updates;
-	return dispatch => {
-		dispatch({ type: actiontype.USER_UPDATING });
-		axios
-			.put(`${URL}/users/${id}`, { name, number, email, password })
-			.then(updatedUser => {
-				dispatch({ type: actiontype.USER_UPDATE_COMPLETE, payload: updatedUser.data });
 			})
 			.catch(err => {
 				dispatch({ type: err });
@@ -87,27 +51,35 @@ export const register = (user, history) => {
 				email,
 				password
 			})
-			.then(user => {
+			.then(res => {
+				console.log("token",res.data.token)
+				const token = res.data.token;
+				axios.defaults.headers.common["Authorization"] = token;
+				localStorage.setItem("userID", res.data.user._id);
+				console.log("userID", res.data.user._id);
 				dispatch({
 					type: actiontype.USER_REGISTERED
 				});
-				history.push("/user/signin");
+				history.push("/user");
 			})
 			.catch(err => {
 				dispatch(authError(`${err}, Try Again`));
 			});
+		};
 	};
-};
-
-// login user
-export const login = (user, history) => {
-	const { email, password } = user;
-	return dispatch => {
-		axios
+	
+	// login user
+	export const login = (user, history) => {
+		const { email, password } = user;
+		return dispatch => {
+			axios
 			.post(`${URL}/login`, { email, password })
-			.then(response => {
-				localStorage.setItem("token", response.data.token);
-				localStorage.setItem("userID", response.data.userID);
+			.then(res => {
+				console.log("token",res.data.token)
+				const token = res.data.token;
+				axios.defaults.headers.common["Authorization"] = token;
+				localStorage.setItem("userID", res.data.userID);
+				console.log("userID", res.data.userID)
 				dispatch({
 					type: actiontype.USER_AUTHENTICATED
 				});

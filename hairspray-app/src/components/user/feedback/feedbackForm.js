@@ -9,9 +9,9 @@ class FeedbackForm extends Component {
 		this.user = {};
 		this.user.scores = {};
 		this.user.feedback = {};
-    this.appointment = props.appointment;
-    this.rating = null;
-    this.temp_rating = 0;
+		this.appointment = props.appointment;
+		this.rating = null;
+		this.temp_rating = 0;
 	}
 
 	closeModal() {
@@ -34,33 +34,33 @@ class FeedbackForm extends Component {
 	};
 
 	rate(label, rating) {
-    this.user.scores[label] = rating + 1;
-    this.temp_rating = this.user.scores[label];
+		this.user.scores[label] = rating + 1;
+		this.temp_rating = this.user.scores[label];
+	}
 
-	}
-  
 	star_over(label, rating) {
-    this.temp_rating = this.user.scores[label];
-    this.user.scores[label] = rating + 1;
-    this.forceUpdate();
+		this.temp_rating = this.user.scores[label];
+		this.user.scores[label] = rating + 1;
+		this.forceUpdate();
 	}
-  
+
 	star_out(label) {
-    this.user.scores[label] = this.temp_rating;
-    this.forceUpdate();
+		this.user.scores[label] = this.temp_rating;
+		this.forceUpdate();
 	}
 
 	renderStarRating(label) {
 		let stars = [];
 		for (let i = 0; i < 3; i++) {
-      let starClass = "star_rating";
+			let starClass = "star_rating";
 
-      if (this.user.scores[label] > i && this.user.scores[label] != null) {
+			if (this.user.scores[label] > i && this.user.scores[label] != null) {
 				starClass += " is-selected";
-      }
-      
+			}
+
 			stars.push(
 				<label
+					key={i}
 					className={starClass}
 					onClick={() => this.rate(label, i)}
 					onMouseOver={() => this.star_over(label, i)}
