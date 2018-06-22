@@ -46,7 +46,7 @@ app.use(
 );
 app.options("*", CORS());
 
-routes("/api", app);
+routes(app);
 
 app.get("*", (req, res) => {
 	res.sendFile(path.join(`${__dirname}/hairspray-app/build/index.html`));
