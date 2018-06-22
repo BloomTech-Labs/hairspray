@@ -5,3 +5,4 @@ node_modules/
 master
 node_modules
 .env
+/server/config/settings.js
