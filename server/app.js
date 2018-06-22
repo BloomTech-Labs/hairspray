@@ -13,7 +13,7 @@ const CORS = require("cors");
 
 const app = express();
 const port = process.env.PORT || 5000;
-const db = "mongodb://Hairspray:hairspray123@ds117061.mlab.com:17061/hairspray";
+const db = "mongodb://hairspray:password123@ds117061.mlab.com:17061/hairspray";
 const routes = require("./routes/routes");
 
 app.use(express.static(path.join(__dirname, "../hairspray-app/build")));
