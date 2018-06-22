@@ -1,7 +1,7 @@
 import * as actiontype from "./actiontypes";
 import axios from "axios";
 
-const URL = "https://obscure-island-58835.herokuapp.com";
+const URL = "https://obscure-island-58835.herokuapp.com/api";
 
 export const getUserAppointments = () => {
 	const user = localStorage.getItem("userID");
