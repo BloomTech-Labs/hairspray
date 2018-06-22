@@ -32,9 +32,9 @@ app.use(CORS());
 //const REACT_WHITELIST = require("../hairspray-app/src/components/StripeCheckout");
 
 const whitelist = [
+	"https://obscure-island-58835.herokuapp.com/",
 	"http://localhost:5000",
 	//REACT_WHITELIST,
-	"https://obscure-island-58835.herokuapp.com/"
 ];
 
 app.use(
