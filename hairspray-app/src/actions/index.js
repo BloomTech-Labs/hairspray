@@ -74,14 +74,8 @@ export const authError = error => {
 };
 
 // Register a new user
-export const register = (
-  name,
-  email,
-  phone,
-  password,
-  confirmPassword,
-  history
-) => {
+export const register = (user, history) => {
+	const { name, phone, email, password, confirmPassword } = user;
   return dispatch => {
     if (password !== confirmPassword) {
       dispatch(authError("Please Re-enter Your Password"));

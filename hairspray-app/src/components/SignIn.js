@@ -21,7 +21,7 @@ class SignIn extends Component {
 				<div>
 					<Link to="/signup">Sign Up</Link>
 				</div>
-				<div classname="signin-form">
+				<div className="signin-form">
 					<form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 						<fieldset>
 							<label>Email</label>
