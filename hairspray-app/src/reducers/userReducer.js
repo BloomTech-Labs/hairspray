@@ -1,12 +1,13 @@
 import { USER_UPDATING, USER_UPDATE_COMPLETE, TOGGLE_UPDATE_USER_FORM, GETTING_USERS,
- GOT_USERS} from '../actions';
+ GOT_USERS, GETTING_SINGLE_USER, GOT_SINGLE_USER} from '../actions';
 
 const initialState = {
-  user: [],
+  singleUser: [],
   users: [],
   updatingUser: false,
   showForm: false,
-  gettingUsers: false
+  gettingUsers: false,
+  gettingSingleUser: false
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -14,9 +15,10 @@ export const userReducer = (state = initialState, action) => {
     case USER_UPDATING:
       return { ...state, updatingUser: true };
     case USER_UPDATE_COMPLETE:
+    console.log("update user", action.payload)
     return {
       ...state,
-      user: action.payload,
+      singleUser: action.payload,
       updatingNote: false
     };
     case TOGGLE_UPDATE_USER_FORM:
@@ -25,6 +27,11 @@ export const userReducer = (state = initialState, action) => {
       return {...state, gettingUsers: true}
     case GOT_USERS:
       return {...state, gettingUsers: false, users: action.payload}
+    case GETTING_SINGLE_USER:
+      return {...state, gettingSingleUser: true}
+    case GOT_SINGLE_USER:
+    console.log("the payload",action.payload)
+      return {...state, gettingSingleUser: false, singleUser: action.payload}
     default:
       return state;
   }
