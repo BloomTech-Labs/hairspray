@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import UserSettings from "./components/UserSettings.js";
 import "./App.css";
 import LandPage from "./components/LandPage";
 import Checkout from "./components/StripeCheckout";
@@ -22,7 +21,6 @@ class App extends Component {
         {/* <SignUp /> */}
         {/* <Header /> */}
         <LandPage />
-        <UserSettings user={this.user} />;
         <Checkout
           name={"Checkout form"}
           description={"To checkout things for stripe"}

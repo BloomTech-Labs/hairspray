@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
-let cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 
 const CORS = require("cors");
@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000;
 const db = "mongodb://localhost:27017/hairspray";
 const routes = require("./routes/routes");
 
-app.use(express.static(path.join(__dirname, "hairspray-app/build")));
+app.use(express.static(path.join(__dirname, "../hairspray-app/build")));
 
 // connect to database
 
@@ -47,7 +47,7 @@ app.options("*", CORS());
 routes(app);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/hairspray-app/build/index.html"));
+  res.sendFile(path.join(`${__dirname  }/hairspray-app/build/index.html`));
 });
 
 app.listen(port, () => console.log(`app running on port ${port}`));
