@@ -92,7 +92,7 @@ export const register = (user, history) => {
         dispatch({
           type: actiontype.USER_REGISTERED
         });
-        history.push("/signin");
+        history.push("https://obscure-island-58835.herokuapp.com/user");
       })
       .catch(err => {
         dispatch(authError("Did Not Register, Try Again"));
@@ -110,7 +110,7 @@ export const login = (username, password, history) => {
         dispatch({
           type: actiontype.USER_AUTHENTICATED
         });
-        history.push("/signup"); //TODO:
+        history.push("https://obscure-island-58835.herokuapp.com/user");
       })
       .catch(err => {
         dispatch(
