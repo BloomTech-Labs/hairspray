@@ -13,8 +13,6 @@ const URL = "http://localhost:5000";
 // and them import them here by preceding the variable with
 // 'actiontype.' example: actiontype.GOT_STYLIST
 
-const URL = "http://localhost:5000";
-
 // Stylist Actions
 
 export const getAllStylists = () => {
