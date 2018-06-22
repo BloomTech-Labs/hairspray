@@ -18,10 +18,11 @@ module.exports = app => {
 		.post(users.createUser) // create a new User
 		.get(users.getUsers); // testing route to get all users in database
 	// .get(validateToken, getUsers); // commented out for now, just to test easier in postman
-	app.route("/api/login").post(users.userLogin); // login a user and return a JWT
-	app.route("/api/users/:id").put(validateToken, users.updateUser);
-
-	app.route("/api/users/:id").get(users.getUser); // get a specific User
+	app.route("/login").post(users.userLogin); // login a user and return a JWT
+	app
+		.route("/users/:id")
+		.put(validateToken, users.updateUser)
+		.get(users.getUser); // get a specific User
 	// TODO: DELETE to erase user
 
 	//Admin routes
@@ -40,10 +41,17 @@ module.exports = app => {
 		.delete(stylists.DELETE); // deletes Stylist by Stylist ID
 
 	// APPOINTMENTS FUNCTIONS
+<<<<<<< HEAD
 	app.route("/api/appointments").get(appointments.GET); //testing route to get all appointments in database
 	
 	app.route("/api/appointments/:id").get(appointments.GET_ONE); //get a specific Appointment
 	
+=======
+	app.route("/appointments").get(appointments.GET); //testing route to get all appointments in database
+
+	app.route("/appointments/:id").get(appointments.GET_ONE); //get a specific Appointment
+
+>>>>>>> master
 	app
 		.route("/api/user/:id/appointments")
 		.post(appointments.POST) // create a new Appointment
@@ -71,9 +79,15 @@ module.exports = app => {
 
 	// SERVICES FUNCTIONS
 	app
+<<<<<<< HEAD
 	.route("/api/service")
 	.get(service.GET) // testing route to get all Services in database
 	.post(service.POST); // create a new Service
+=======
+		.route("/service")
+		.get(service.GET) // testing route to get all Services in database
+		.post(service.POST); // create a new Service
+>>>>>>> master
 
 	app.route("/api/service/:id").get(service.SERVICE_GET); // Get specific Service
 	app

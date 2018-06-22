@@ -1,14 +1,17 @@
 import axios from "axios";
-import * as actiontype from "./actiontypes";
-export * from "./actiontypes";
-export * from "./serviceActions";
-export * from "./feedbackActions";
-export * from "./appointmentActions";
+import * as actiontype from './actiontypes';
+export * from './actiontypes';
+export * from './userActions';
+export * from './serviceActions';
+export * from './feedbackActions';
+export * from './appointmentActions';
 
 const URL = "https://obscure-island-58835.herokuapp.com/api";
 // The list of action variables was getting very long,
 // so I moved them all to a seperate file 'actiontypes.js'
 // if you need to add action variables, do so in that file
+// and them import them here by preceding the variable with
+// 'actiontype.' example: actiontype.GOT_STYLIST
 
 // Stylist Actions
 
@@ -26,46 +29,6 @@ export const getAllStylists = () => {
   };
 };
 
-// User Actions
-export const getAllUsers = () => {
-  return dispatch => {
-    dispatch({ type: actiontype.GETTING_USERS });
-    axios
-      .get(`${URL}/signup`)
-      .then(users => {
-        dispatch({ type: actiontype.GOT_USERS, payload: users.data });
-      })
-      .catch(err => {
-        dispatch({ type: err });
-      });
-  };
-};
-
-export const toggleUpdateForm = () => {
-  return {
-    type: actiontype.TOGGLE_UPDATE_USER_FORM
-  };
-};
-
-// Change user settings
-export const userSettingsChange = updates => {
-  const { id, name, number, email, password } = updates;
-  return dispatch => {
-    dispatch({ type: actiontype.USER_UPDATING });
-    axios
-      .put(`${URL}/users/${id}`, { name, number, email, password })
-      .then(updatedUser => {
-        dispatch({
-          type: actiontype.USER_UPDATE_COMPLETE,
-          payload: updatedUser.data
-        });
-      })
-      .catch(err => {
-        dispatch({ type: err });
-      });
-  };
-};
-
 export const authError = error => {
   return {
     type: actiontype.AUTHENTICATION_ERROR,
@@ -76,46 +39,56 @@ export const authError = error => {
 // Register a new user
 export const register = (user, history) => {
 	const { name, phone, email, password, confirmPassword } = user;
-  return dispatch => {
-    if (password !== confirmPassword) {
-      dispatch(authError("Please Re-enter Your Password"));
-      return;
-    }
-    axios
-      .post(`${URL}/signup`, {
-        name,
-        phone,
-        email,
-        password
-      })
-      .then(() => {
-        dispatch({
-          type: actiontype.USER_REGISTERED
-        });
-        history.push("https://obscure-island-58835.herokuapp.com/user");
-      })
-      .catch(err => {
-        dispatch(authError("Did Not Register, Try Again"));
-      });
-  };
-};
-
-// login user
-export const login = (username, password, history) => {
-  return dispatch => {
-    axios
-      .post(`${URL}/login`, { username, password })
-      .then(response => {
-        localStorage.setItem("token", response.data.token);
-        dispatch({
-          type: actiontype.USER_AUTHENTICATED
-        });
-        history.push("https://obscure-island-58835.herokuapp.com/user");
-      })
-      .catch(err => {
-        dispatch(
-          authError("Your Username and/or Password is Incorrect, Try Again")
-        );
-      });
-  };
+	return dispatch => {
+		if (password !== confirmPassword) {
+			dispatch(authError("Please Re-enter Your Password"));
+			return;
+		}
+		axios
+			.post(`${URL}/signup`, {
+				name,
+				phone,
+				email,
+				password
+			})
+			.then(res => {
+				console.log("token",res.data.token)
+				const token = res.data.token;
+				axios.defaults.headers.common["Authorization"] = token;
+				localStorage.setItem("userID", res.data.user._id);
+				console.log("userID", res.data.user._id);
+				dispatch({
+					type: actiontype.USER_REGISTERED
+				});
+				history.push("https://obscure-island-58835.herokuapp.com/user");
+			})
+			.catch(err => {
+				dispatch(authError(`${err}, Try Again`));
+			});
+		};
+	};
+	
+	// login user
+	export const login = (user, history) => {
+		const { email, password } = user;
+		return dispatch => {
+			axios
+			.post(`${URL}/login`, { email, password })
+			.then(res => {
+				console.log("token",res.data.token)
+				const token = res.data.token;
+				axios.defaults.headers.common["Authorization"] = token;
+				localStorage.setItem("userID", res.data.userID);
+				console.log("userID", res.data.userID)
+				dispatch({
+					type: actiontype.USER_AUTHENTICATED
+				});
+				history.push("https://obscure-island-58835.herokuapp.com/user");
+			})
+			.catch(err => {
+				dispatch(
+					authError("Your Email and/or Password is Incorrect, Try Again")
+				);
+			});
+	};
 };

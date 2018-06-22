@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createFeedback, getUserAppointments, toggleFeedbackForm } from "../../../actions";
-import FeedbackForm from './feedbackForm';
-import Modal from '../../misc/Modal';
+import {
+	createFeedback,
+	getUserAppointments,
+	toggleFeedbackForm
+} from "../../../actions";
+import FeedbackForm from "./feedbackForm";
+import Modal from "../../misc/Modal";
 
 class UserFeedback extends Component {
 	constructor() {
@@ -28,32 +32,33 @@ class UserFeedback extends Component {
 
 	handleButton(appointment) {
 		this.apppointment = appointment;
-		console.log("appointment in button handler",this.apppointment)
+		console.log("appointment in button handler", this.apppointment);
 		this.props.toggleFeedbackForm();
 	}
 
 	renderAppointments() {
-		if (this.props.gettingAppointments) {
+		if (this.props.gettingAppointments || this.props.appointments === undefined) {
 			return <div>Getting your Appointments</div>;
 		} else {
-			if (this.props.appointments === undefined) {
-				return <div>Getting your Appointments</div>;
-			} else {
-				return this.props.appointments.map((appointment, i) => {
-					return (
-						<div key={i}>
-							<div>{this.timeTrimmer(appointment.session)}</div>
-							<div>{appointment.stylist.name}</div>
-							<div>
-								{appointment.service.map((el, i) => {
-									return <div key={i}>{el.type + ": " + el.price}</div>;
-								})}
-							</div>
-							<button type="button" onClick={() => this.handleButton(appointment._id)}>Leave Feedback</button>
+			return this.props.appointments.map((appointment, i) => {
+				return (
+					<div key={i}>
+						<div>{this.timeTrimmer(appointment.session)}</div>
+						<div>{appointment.stylist.name}</div>
+						<div>
+							{appointment.service.map((el, i) => {
+								return <div key={i}>{el.type + ": " + el.price}</div>;
+							})}
 						</div>
-					);
-				});
-			}
+						<button
+							type="button"
+							onClick={() => this.handleButton(appointment._id)}
+						>
+							Leave Feedback
+						</button>
+					</div>
+				);
+			});
 		}
 	}
 
@@ -65,7 +70,11 @@ class UserFeedback extends Component {
 		return (
 			<div>
 				<div>User Feedback</div>
-				{this.props.showFeedbackForm ? <Modal><FeedbackForm appointment={this.apppointment}/></Modal> : null}
+				{this.props.showFeedbackForm ? (
+					<Modal>
+						<FeedbackForm appointment={this.apppointment} />
+					</Modal>
+				) : null}
 				<div>{this.renderAppointments()}</div>
 			</div>
 		);
