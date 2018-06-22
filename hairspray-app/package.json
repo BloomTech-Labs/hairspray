@@ -5,6 +5,8 @@
   "dependencies": {
     "ajv": "^6.5.1",
     "axios": "^0.18.0",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
     "react-calendar": "^2.15.2",
@@ -13,6 +15,8 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-stripe-elements": "^2.0.0",
+    "reactstrap": "^6.1.0",
     "redux": "^4.0.0",
     "redux-form": "^7.4.0",
     "redux-logger": "^3.0.6",
@@ -30,5 +34,6 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }
