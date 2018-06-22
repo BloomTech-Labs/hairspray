@@ -29,11 +29,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(CORS());
 
-const REACT_WHITELIST = require("../hairspray-app/src/components/StripeCheckout");
+//const REACT_WHITELIST = require("../hairspray-app/src/components/StripeCheckout");
 
 const whitelist = [
   "http://localhost:5000",
-  REACT_WHITELIST,
+  //REACT_WHITELIST,
   "https://obscure-island-58835.herokuapp.com/"
 ];
 
