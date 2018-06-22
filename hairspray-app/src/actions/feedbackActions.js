@@ -1,7 +1,7 @@
 import * as actiontype from './actiontypes';
 import axios from "axios";
 
-const URL = "http://localhost:5000" || "https://obscure-island-58835.herokuapp.com";
+const URL = "https://obscure-island-58835.herokuapp.com";
 
 // function accepts an ID for the appointment, an object of scores, and an object of feedback notes
 export const createFeedback = (appointmentID, scores, feedback) => {
