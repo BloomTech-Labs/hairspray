@@ -52,11 +52,9 @@ export const register = (user, history) => {
 				password
 			})
 			.then(res => {
-				console.log("token",res.data.token)
 				const token = res.data.token;
 				axios.defaults.headers.common["Authorization"] = token;
 				localStorage.setItem("userID", res.data.user._id);
-				console.log("userID", res.data.user._id);
 				dispatch({
 					type: actiontype.USER_REGISTERED
 				});
@@ -75,11 +73,9 @@ export const register = (user, history) => {
 			axios
 			.post(`${URL}/login`, { email, password })
 			.then(res => {
-				console.log("token",res.data.token)
 				const token = res.data.token;
 				axios.defaults.headers.common["Authorization"] = token;
 				localStorage.setItem("userID", res.data.userID);
-				console.log("userID", res.data.userID)
 				dispatch({
 					type: actiontype.USER_AUTHENTICATED
 				});

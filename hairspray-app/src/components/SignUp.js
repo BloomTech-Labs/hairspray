@@ -5,7 +5,6 @@ import { reduxForm, Field } from "redux-form";
 import { register } from "../actions";
 class SignUp extends Component {
 	handleFormSubmit = values => {
-		console.log(values);
 		this.props.register(values, this.props.history);
 	};
 

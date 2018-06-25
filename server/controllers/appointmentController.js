@@ -74,16 +74,16 @@ const createAppointment = (req, res) => {
 			else apptTime += " AM";
       // Twilio integration
       // send text here
-      // client.messages
-      // 	.create({
-      // 		body: `Your appointment with ${
-      // 			stylist.name
-      // 		} on ${apptDay} at ${apptTime} has been scheduled!`,
-      // 		to: myNumber, // Number to send text to. Put your number here to test
-      // 		from: twilioNumber // From a valid Twilio number
-      // 	})
-      // 	.then(message => console.log(message.sid))
-      // 	.catch(err => console.log(err));
+      client.messages
+      	.create({
+      		body: `Your appointment with ${
+      			stylist.name
+      		} on ${apptDay} at ${apptTime} has been scheduled!`,
+      		to: myNumber, // Number to send text to. Put your number here to test
+      		from: twilioNumber // From a valid Twilio number
+      	})
+      	.then(message => console.log(message.sid))
+      	.catch(err => console.log(err));
 			res.status(200).json({
 				success: "Appointment saved",
 				appt
@@ -94,7 +94,7 @@ const createAppointment = (req, res) => {
 		});
 };
 
-let twilioReminder = new CronJob("0 18 * * * * *", function() {
+let twilioReminder = new CronJob("0 45 15 * * *", function() {
   client.messages.create({
     to: myNumber,
     from: twilioNumber,

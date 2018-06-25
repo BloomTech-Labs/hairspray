@@ -96,7 +96,6 @@ const updateUser = (req, res) => {
 					res.json({ success: updatedUser });
 				})
 				.catch(err => {
-					console.log("in user update", err);
 					res.json({ error: err });
 				});
 		});

@@ -15,7 +15,6 @@ export const userReducer = (state = initialState, action) => {
     case USER_UPDATING:
       return { ...state, updatingUser: true };
     case USER_UPDATE_COMPLETE:
-    console.log("update user", action.payload)
     return {
       ...state,
       singleUser: action.payload,
@@ -30,7 +29,6 @@ export const userReducer = (state = initialState, action) => {
     case GETTING_SINGLE_USER:
       return {...state, gettingSingleUser: true}
     case GOT_SINGLE_USER:
-    console.log("the payload",action.payload)
       return {...state, gettingSingleUser: false, singleUser: action.payload}
     default:
       return state;

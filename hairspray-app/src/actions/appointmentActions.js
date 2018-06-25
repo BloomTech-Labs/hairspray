@@ -38,7 +38,6 @@ export const setApppointment = data => {
 				data.history.push("/user/billing");
 			})
 			.catch(err => {
-				console.log("Appointment failed: ", err);
 				dispatch({ type: err });
 			});
 	};

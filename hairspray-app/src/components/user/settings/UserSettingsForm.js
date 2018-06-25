@@ -21,11 +21,9 @@ class UserSettingsForm extends Component {
 		const name = target.name;
 
 		this.userUpdates[name] = value;
-		console.log(this.userUpdates);
 	};
 
 	submitUpdates = () => {
-		console.log("history",this.props.history);
 		if (this.userUpdates.password !== this.userUpdates.confirm) {
 			alert("Passwords do not match!");
 			return;

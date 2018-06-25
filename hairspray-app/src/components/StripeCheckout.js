@@ -33,7 +33,7 @@ const Checkout = ({ name, description, amount }) => (
     amount={amount}
     token={onToken(amount, description)}
     currency={CURRENCY}
-    stripeKey={"sk_test_vY2PFCv47VGRTiS3Cb9c7uky"}
+    stripeKey={"pk_test_GrN1cUmXTG8g6u5D9sFoRUgp"}
   />
 );
 

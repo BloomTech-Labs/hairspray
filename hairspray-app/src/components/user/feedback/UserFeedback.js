@@ -32,7 +32,6 @@ class UserFeedback extends Component {
 
 	handleButton(appointment) {
 		this.apppointment = appointment;
-		console.log("appointment in button handler", this.apppointment);
 		this.props.toggleFeedbackForm();
 	}
 
