@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -9,10 +10,10 @@ const CORS = require("cors");
 
 // Paste user api here
 
-
+console.log(process.env.PORT);
 const app = express();
 const port = process.env.PORT || 5000;
-const db = "mongodb://localhost:27017/hairspray";
+const db = process.env.MONGODB_URI;
 const routes = require("./routes/routes");
 
 app.use(express.static(path.join(__dirname, "../hairspray-app/build")));

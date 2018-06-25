@@ -2,7 +2,7 @@ import * as actiontype from './actiontypes';
 import axios from "axios";
 import { authError } from './index.js';
 
-const URL = "http://localhost:5000";
+const URL = "http://localhost:5000/api";
 
 export const getAllUsers = () => {
 	return dispatch => {
