@@ -12,7 +12,7 @@ const myNumber = process.env.MY_NUMBER;
 const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
 const CronJob = require("cron").CronJob;
-// testing function to see all Appointments
+
 const getAllAppointments = (req, res) => {
   Appointment.find({})
     .populate({ path: "user", select: "name email phone" })
