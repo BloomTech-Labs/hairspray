@@ -11,8 +11,8 @@ const getAllStylists = (req, res) => {
 
 // endpoint to create a new stylist and save to database
 const createStylist = (req, res) => {
-	const { name, email, password } = req.body;
-	const stylist = new Stylist({ name, email, password });
+	const { name, email, password, image } = req.body;
+	const stylist = new Stylist({ name, email, password, image });
 	stylist.save((err, stylist) => {
 		if (err) return res.send(err);
 		res.json({
