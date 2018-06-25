@@ -1,7 +1,7 @@
 import * as actiontype from './actiontypes';
 import axios from "axios";
 
-const URL = "http://localhost:5000/api";
+const URL = "https://obscure-island-58835.herokuapp.com/api";
 
 export const getAllServices = () => {
 	return dispatch => {
