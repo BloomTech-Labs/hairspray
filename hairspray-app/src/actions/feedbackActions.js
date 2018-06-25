@@ -1,11 +1,10 @@
 import * as actiontype from './actiontypes';
 import axios from "axios";
 
-const URL = "http://localhost:5000";
+const URL = "https://obscure-island-58835.herokuapp.com/api";
 
 // function accepts an ID for the appointment, an object of scores, and an object of feedback notes
 export const createFeedback = (appointmentID, scores, feedback) => {
-  console.log("in actions", appointmentID, scores, feedback);
   const apptID = appointmentID;
 
   const userFeedback = {
@@ -21,7 +20,6 @@ export const createFeedback = (appointmentID, scores, feedback) => {
     customerservice: feedback.customerservice, 
     overall: feedback.overall
   }
-  console.log("feedback",userFeedback)
 	return dispatch => {
 		dispatch({ type: actiontype.CREATING_FEEDBACK });
 		axios

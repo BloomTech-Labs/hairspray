@@ -5,7 +5,6 @@ import { getAllUsers } from "../../actions";
 class DevUsers extends Component {
 	componentDidMount() {
 		this.props.getAllUsers();
-		console.log("the props are", this.props);
 	}
 
 	mapUsers() {

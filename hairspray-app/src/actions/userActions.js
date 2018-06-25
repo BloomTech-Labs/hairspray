@@ -2,7 +2,7 @@ import * as actiontype from './actiontypes';
 import axios from "axios";
 import { authError } from './index.js';
 
-const URL = "http://localhost:5000";
+const URL = "https://obscure-island-58835.herokuapp.com/api";
 
 export const getAllUsers = () => {
 	return dispatch => {
@@ -20,7 +20,6 @@ export const getAllUsers = () => {
 
 export const getSingleUser = () => {
 	const user = localStorage.getItem("userID");
-	console.log("user ID is", user)
 	return dispatch => {
 		dispatch({ type: actiontype.GETTING_SINGLE_USER });
 		axios
@@ -42,10 +41,8 @@ export const toggleUpdateForm = () => {
 
 // Change user settings
 export const userSettingsChange = (updates, history) => {
-	console.log("updates are", updates)
 	const id = localStorage.getItem("userID");
 	const { name, phone, email, password } = updates;
-	console.log("id is", id)
 	return dispatch => {
 		dispatch({ type: actiontype.USER_UPDATING });
 		axios

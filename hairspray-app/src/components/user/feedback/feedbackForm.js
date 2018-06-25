@@ -25,7 +25,6 @@ class FeedbackForm extends Component {
 	};
 
 	submitUpdates = () => {
-		console.log(this.props.appointment, this.user.scores, this.user.feedback);
 		this.props.createFeedback(
 			this.props.appointment,
 			this.user.scores,
