@@ -4,11 +4,12 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
 
-
-const accountSid = process.env.TWILIO_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioNumber = process.env.TWILIO_NUMBER;
-const myNumber = process.env.MY_NUMBER;
+const accountSid =
+  process.env.TWILIO_SID || "AC36d19ba27029a1d09b7a07b45aaaf46b";
+const authToken =
+  process.env.TWILIO_AUTH_TOKEN || "3373172e17546045de35663f8b054d9e";
+const twilioNumber = process.env.TWILIO_NUMBER || "3107658329";
+const myNumber = process.env.MY_NUMBER || "3105005350";
 const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
 const CronJob = require("cron").CronJob;
@@ -51,47 +52,47 @@ const getAppointment = (req, res) => {
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
 // Will hook up user's number when closer to production build
 const createAppointment = (req, res) => {
-	const user = req.params.id;
-	const { stylist, session, service } = req.body;
-	const appointment = new Appointment({
-		user,
-		stylist: stylist._id,
-		session,
-		service
-	});
-	appointment
-		.save()
-		.then(appt => {
-			// This trims the date and time to send to the user through text
-			let apptDay = session.slice(5, 7) + "/" + session.slice(8, 10);
-			let apptTime = session.slice(11, 16);
-			if (Number(apptTime.slice(0, 2)) > 12)
-				apptTime =
-					apptTime.replace(
-						apptTime.slice(0, 2),
-						Number(apptTime.slice(0, 2)) - 12
-					) + " PM";
-			else apptTime += " AM";
+  const user = req.params.id;
+  const { stylist, session, service } = req.body;
+  const appointment = new Appointment({
+    user,
+    stylist: stylist._id,
+    session,
+    service
+  });
+  appointment
+    .save()
+    .then(appt => {
+      // This trims the date and time to send to the user through text
+      let apptDay = session.slice(5, 7) + "/" + session.slice(8, 10);
+      let apptTime = session.slice(11, 16);
+      if (Number(apptTime.slice(0, 2)) > 12)
+        apptTime =
+          apptTime.replace(
+            apptTime.slice(0, 2),
+            Number(apptTime.slice(0, 2)) - 12
+          ) + " PM";
+      else apptTime += " AM";
       // Twilio integration
       // send text here
       client.messages
-      	.create({
-      		body: `Your appointment with ${
-      			stylist.name
-      		} on ${apptDay} at ${apptTime} has been scheduled!`,
-      		to: myNumber, // Number to send text to. Put your number here to test
-      		from: twilioNumber // From a valid Twilio number
-      	})
-      	.then(message => console.log(message.sid))
-      	.catch(err => console.log(err));
-			res.status(200).json({
-				success: "Appointment saved",
-				appt
-			});
-		})
-		.catch(err => {
-			res.status(400).send({ error: err });
-		});
+        .create({
+          body: `Your appointment with ${
+            stylist.name
+          } on ${apptDay} at ${apptTime} has been scheduled!`,
+          to: myNumber, // Number to send text to. Put your number here to test
+          from: twilioNumber // From a valid Twilio number
+        })
+        .then(message => console.log(message.sid))
+        .catch(err => console.log(err));
+      res.status(200).json({
+        success: "Appointment saved",
+        appt
+      });
+    })
+    .catch(err => {
+      res.status(400).send({ error: err });
+    });
 };
 
 let twilioReminder = new CronJob("0 45 15 * * *", function() {
