@@ -11,20 +11,18 @@ class UserScheduling extends Component {
   constructor() {
     super();
     this.user = {};
-    this.user.stylist = "";
-    this.user.date = "";
-    this.user.time = "";
+    this.user.stylist = {};
+    this.user.date = "Please Select a Date";
+    this.user.time = "Please Select a Time";
     this.user.services = [];
-	this.tempStylist = "Please Select a stylist";
-	this.tempStylistPic = "test";
-	
+    this.stylistName = "Please Select a stylist";
+    this.stylistImage = "";
   }
 
   renderStylists() {
     if (this.props.gettingStylists) {
       return <option>Getting Stylists</option>;
-    } else {
-      this.user.stylist = Object.values(this.props.stylists)[0];
+    } else if (this.props.stylists !== undefined) {
       return this.props.stylists.map((stylist, i) => {
         return (
           <option value={i} key={i}>
@@ -90,8 +88,14 @@ class UserScheduling extends Component {
 
   handleStylistChange = event => {
     const option = event.target.value;
-    this.user.stylist = this.props.stylists[option];
-    console.log(this.user.stylist);
+    if (option !== "Please Select a Stylist") {
+      this.user.stylist = this.props.stylists[option];
+      this.stylistName = this.user.stylist.name;
+      this.stylistImage = this.user.stylist.image;
+    } else {
+      this.stylistName = "Please Select a stylist";
+    this.stylistImage = "";
+    }
     this.forceUpdate();
   };
 
@@ -120,25 +124,16 @@ class UserScheduling extends Component {
   // ===============================================
 
   renderAppointment() {
-	  let stylist = {};
-    if (this.props.gettingStylists) {
-    } else if (
-      !this.props.gettingStylists &&
-      this.tempStylist !== this.user.stylist.name
-    ) {
-      console.log("names are not equal", this.tempStylist, this.user.stylist.name);
-    }
-    console.log("after if else", this.tempStylist);
     return (
       <div>
-        <div>{this.tempStylist}</div>
+        <div>{this.stylistName}</div>
         <div>
-          <img src={this.tempStylistPic} alt={this.tempStylist} width="200px" />
+          {this.stylistImage === "" ? null : <img src={this.stylistImage} alt={this.stylistName} width="200px" />}
         </div>
         <div>{this.user.date}</div>
         <div>{this.user.time}</div>
         <div>
-          {this.user.services.map((service, i) => (
+          {this.user.service ? "Please select a service" : this.user.services.map((service, i) => (
             <div key={i}>{service.type}</div>
           ))}
         </div>
@@ -161,6 +156,7 @@ class UserScheduling extends Component {
             />
             <input onChange={this.handleTimeChange} type="time" />
             <select onChange={this.handleStylistChange}>
+            <option value="Please Select a Stylist">Select Stylist</option>
               {this.renderStylists()}
             </select>
             <button onClick={this.handleSubmit.bind(this)} type="button">
