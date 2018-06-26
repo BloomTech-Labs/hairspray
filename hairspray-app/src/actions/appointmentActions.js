@@ -18,6 +18,20 @@ export const getUserAppointments = () => {
 	};
 };
 
+export const getAllAppointments = () => {
+	return dispatch => {
+		dispatch({ type: actiontype.GETTING_APPOINTMENTS });
+		axios
+			.get(`${URL}/api/appointments`)
+			.then(appointments => {
+				dispatch({ type: actiontype.APPOINTMENTS_GOT, payload: appointments.data });
+			})
+			.catch(err => {
+				dispatch({ type: err });
+			});
+	};
+};
+
 export const setApppointment = data => {
 	const user = localStorage.getItem("userID");
 	return dispatch => {
