@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
-import "../styles/style.less";
 
 export default class Header extends Component {
   render() {
@@ -15,7 +14,6 @@ export default class Header extends Component {
             <Button to="/signin">Sign In</Button>
           </Link>
         </div>
-		<div className="header"> TEST</div>
       </div>
     );
   }

@@ -6,6 +6,17 @@ import {
   getAllServices
 } from "../../../actions";
 import Calendar from "react-calendar";
+import {
+  Button,
+  ButtonGroup,
+  Form,
+  FormGroup,
+  Input,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 class UserScheduling extends Component {
   constructor() {
@@ -17,17 +28,25 @@ class UserScheduling extends Component {
     this.user.services = [];
     this.stylistName = "Please Select a stylist";
     this.stylistImage = "";
+    this.dropdownOpen = false;
+  }
+
+  toggle() {
+    this.dropdownOpen === false
+      ? (this.dropdownOpen = true)
+      : (this.dropdownOpen = false);
+    this.forceUpdate();
   }
 
   renderStylists() {
     if (this.props.gettingStylists) {
-      return <option>Getting Stylists</option>;
+      return <DropdownItem>Getting Stylists</DropdownItem>;
     } else if (this.props.stylists !== undefined) {
       return this.props.stylists.map((stylist, i) => {
         return (
-          <option value={i} key={i}>
+          <DropdownItem onClick={this.handleStylistChange} value={i} key={i}>
             {stylist.name}
-          </option>
+          </DropdownItem>
         );
       });
     }
@@ -37,24 +56,27 @@ class UserScheduling extends Component {
     if (this.props.gettingService) {
       return <div>Getting Services</div>;
     } else {
-      return this.props.services.map((service, i) => {
-        return (
-          <button
-            value="false"
-            name={i}
-            key={i}
-            type="button"
-            onClick={this.buttonServiceHandler.bind(this)}
-          >
-            {service.type + ": " + service.price}
-          </button>
-        );
-      });
+      return (
+        <ButtonGroup vertical>
+          {this.props.services.map((service, i) => {
+            return (
+              <Button
+                value="false"
+                name={i}
+                key={i}
+                type="button"
+                onClick={this.buttonServiceHandler.bind(this)}
+                active={this.user.services.includes(service)}
+              >
+                {service.type + ": " + service.price}
+              </Button>
+            );
+          })}
+        </ButtonGroup>
+      );
     }
   }
 
-  // When a user clicks a button for a service, this either
-  // adds or removes a Service object to the this.user object
   buttonServiceHandler(event) {
     if (event.target.value === "false") {
       event.target.value = "true";
@@ -94,7 +116,7 @@ class UserScheduling extends Component {
       this.stylistImage = this.user.stylist.image;
     } else {
       this.stylistName = "Please Select a stylist";
-    this.stylistImage = "";
+      this.stylistImage = "";
     }
     this.forceUpdate();
   };
@@ -118,24 +140,32 @@ class UserScheduling extends Component {
     console.log(event.target.value);
   }
 
-  // ===============================================
-  // Current issue:
-  // Cannot get stylists to appear properly when selecting from dropdown menu
-  // ===============================================
-
   renderAppointment() {
     return (
-      <div>
-        <div>{this.stylistName}</div>
-        <div>
-          {this.stylistImage === "" ? null : <img src={this.stylistImage} alt={this.stylistName} width="200px" />}
+      <div className="appointment">
+        <div className="image_container">
+          {this.stylistImage === "" ? null : (
+            <img
+              src={this.stylistImage}
+              alt={this.stylistName}
+              className="stylist_image"
+            />
+          )}
         </div>
+        <div>{this.stylistName}</div>
         <div>{this.user.date}</div>
         <div>{this.user.time}</div>
         <div>
-          {this.user.service ? "Please select a service" : this.user.services.map((service, i) => (
-            <div key={i}>{service.type}</div>
-          ))}
+          {this.user.service === [] ? (
+            "Please select a service"
+          ) : (
+            <div>
+              {this.user.services.map((service, i) => {
+                if (i === 0) return service.type;
+                else return ", " + service.type;
+              })}
+            </div>
+          )}
         </div>
       </div>
     );
@@ -143,28 +173,43 @@ class UserScheduling extends Component {
 
   render() {
     return (
-      <div>
-        <div>User Scheduling</div>
-        <div>
-          <form>
-            {this.renderServices()}
-            <Calendar
-              minDetail="month"
-              onChange={value => this.handleDateChange(value)}
-              calendarType="US"
-              // TODO: Makea max date and min date limit
-            />
-            <input onChange={this.handleTimeChange} type="time" />
-            <select onChange={this.handleStylistChange}>
-            <option value="Please Select a Stylist">Select Stylist</option>
-              {this.renderStylists()}
-            </select>
-            <button onClick={this.handleSubmit.bind(this)} type="button">
-              Set Appointment
-            </button>
-          </form>
+      <div className="scheduling">
+        <div className="title">Schedule Your Next Appointment</div>
+        <div className="form-container">
+          <Form className="form">
+            <FormGroup>{this.renderServices()}</FormGroup>
+            <FormGroup>
+              <Dropdown
+                isOpen={this.dropdownOpen}
+                toggle={this.toggle.bind(this)}
+              >
+                <DropdownToggle value="Please Select a Stylist" caret>
+                  Select Stylist
+                </DropdownToggle>
+                <DropdownMenu>{this.renderStylists()}</DropdownMenu>
+              </Dropdown>
+            </FormGroup>
+            <FormGroup>
+              <Calendar
+                minDetail="month"
+                onChange={value => this.handleDateChange(value)}
+                calendarType="US"
+                // TODO: Makea max date and min date limit
+              />
+              <Input onChange={this.handleTimeChange} type="time" />
+            </FormGroup>
+            <div className="appointment__container">
+              {this.renderAppointment()}
+              <Button
+                className="submitButton"
+                onClick={this.handleSubmit.bind(this)}
+                type="button"
+              >
+                Set Appointment
+              </Button>
+            </div>
+          </Form>
         </div>
-        {this.renderAppointment()}
       </div>
     );
   }
