@@ -52,6 +52,19 @@ class UserScheduling extends Component {
     }
   }
 
+  handleStylistChange = event => {
+    const option = event.target.value;
+    if (option !== "Please Select a Stylist") {
+      this.user.stylist = this.props.stylists[option];
+      this.stylistName = this.user.stylist.name;
+      this.stylistImage = this.user.stylist.image;
+    } else {
+      this.stylistName = "Please Select a stylist";
+      this.stylistImage = "";
+    }
+    this.forceUpdate();
+  };
+
   renderServices() {
     if (this.props.gettingService) {
       return <div>Getting Services</div>;
@@ -89,37 +102,6 @@ class UserScheduling extends Component {
     }
     this.forceUpdate();
   }
-
-  handleSubmit() {
-    if (
-      this.user.stylist === "" ||
-      this.user.date === "" ||
-      this.user.time === "" ||
-      this.user.services.length === 0
-    ) {
-      alert("All fields required!");
-      return;
-    }
-    this.props.setApppointment({
-      history: this.props.history,
-      session: this.user.date + "T" + this.user.time + ":00.00Z",
-      stylist: this.user.stylist,
-      service: this.user.services.map(el => el._id)
-    });
-  }
-
-  handleStylistChange = event => {
-    const option = event.target.value;
-    if (option !== "Please Select a Stylist") {
-      this.user.stylist = this.props.stylists[option];
-      this.stylistName = this.user.stylist.name;
-      this.stylistImage = this.user.stylist.image;
-    } else {
-      this.stylistName = "Please Select a stylist";
-      this.stylistImage = "";
-    }
-    this.forceUpdate();
-  };
 
   handleTimeChange = event => {
     this.user.time = event.target.value;
@@ -169,6 +151,24 @@ class UserScheduling extends Component {
         </div>
       </div>
     );
+  }
+
+  handleSubmit() {
+    if (
+      this.user.stylist === "" ||
+      this.user.date === "" ||
+      this.user.time === "" ||
+      this.user.services.length === 0
+    ) {
+      alert("All fields required!");
+      return;
+    }
+    this.props.setApppointment({
+      history: this.props.history,
+      session: this.user.date + "T" + this.user.time + ":00.00Z",
+      stylist: this.user.stylist,
+      service: this.user.services.map(el => el._id)
+    });
   }
 
   render() {

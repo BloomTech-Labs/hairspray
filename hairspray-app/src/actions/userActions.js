@@ -2,8 +2,8 @@ import * as actiontype from "./actiontypes";
 import axios from "axios";
 import { authError } from "./index.js";
 
-const URL = "https://obscure-island-58835.herokuapp.com/api";
-// const URL = "http://localhost:5000/api";
+// const URL = "https://obscure-island-58835.herokuapp.com/api";
+const URL = "http://localhost:5000/api";
 
 // Register a new user
 export const register = (user, history) => {
