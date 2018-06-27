@@ -5,10 +5,10 @@ var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
 
 
-const accountSid = process.env.TWILIO_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioNumber = process.env.TWILIO_NUMBER;
-const myNumber = process.env.MY_NUMBER;
+const accountSid = process.env.TWILIO_SID || "AC36d19ba27029a1d09b7a07b45aaaf46b";
+const authToken = process.env.TWILIO_AUTH_TOKEN || "3373172e17546045de35663f8b054d9e";
+const twilioNumber = process.env.TWILIO_NUMBER || "3107658329";
+const myNumber = process.env.MY_NUMBER || "3105005350";
 const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
 const CronJob = require("cron").CronJob;
@@ -55,7 +55,7 @@ const createAppointment = (req, res) => {
 	const { stylist, session, service } = req.body;
 	const appointment = new Appointment({
 		user,
-		stylist: stylist._id,
+		stylist,
 		session,
 		service
 	});
@@ -74,6 +74,7 @@ const createAppointment = (req, res) => {
 			else apptTime += " AM";
       // Twilio integration
       // send text here
+        
       client.messages
       	.create({
       		body: `Your appointment with ${
@@ -101,6 +102,7 @@ let twilioReminder = new CronJob("0 45 15 * * *", function() {
     body: "How would you rate your experience with the stylist?"
   });
 });
+
 
 // function to get appointments for a User, specified by their id
 // user id should be passed in through :id params
