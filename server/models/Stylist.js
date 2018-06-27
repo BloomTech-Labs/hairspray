@@ -24,7 +24,8 @@ const StylistSchema = Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  image: {type: String}
 });
 
 StylistSchema.pre("save", function(next) {

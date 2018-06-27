@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./styles/css/index.css";
 import LandPage from "./components/LandPage";
 
 // import Header from './components/Header';

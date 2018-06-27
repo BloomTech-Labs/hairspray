@@ -5,3 +5,5 @@ node_modules/
 master
 node_modules
 .env
+./build
+./assets

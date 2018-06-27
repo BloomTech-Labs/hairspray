@@ -29,7 +29,7 @@ class UserSettings extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="settings">
 				<div>{this.renderUser()}</div>
 				<div>Password: ********</div>
 				<button

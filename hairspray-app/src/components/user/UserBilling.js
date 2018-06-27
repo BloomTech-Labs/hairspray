@@ -4,7 +4,7 @@ import Checkout from "../StripeCheckout";
 export default class UserBilling extends Component {
 	render() {
 		return (
-			<div>
+			<div className="billing">
 				<div>User Billing</div>
 				<Checkout
 					name={"Checkout form"}

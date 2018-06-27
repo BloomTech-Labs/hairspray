@@ -1,0 +1,75 @@
+.sidebar {
+  height: 100%;
+  width: 15%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #FFF;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.scheduling {
+  margin-left: 15%;
+}
+.scheduling .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.scheduling .form-container .form {
+  margin-top: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+.scheduling .form-container .form .appointment__container {
+  display: flex;
+  flex-direction: column;
+}
+.scheduling .form-container .form .appointment__container .appointment {
+  width: 200px;
+  text-align: right;
+}
+.scheduling .form-container .form .appointment__container .appointment .image_container {
+  min-height: 150px;
+}
+.scheduling .form-container .form .appointment__container .appointment .stylist_image {
+  width: 200px;
+}
+.billing {
+  margin-left: 15%;
+}
+.feedback {
+  margin-left: 15%;
+}
+.settings {
+  margin-left: 15%;
+}
+.App {
+  text-align: center;
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+.App-title {
+  font-size: 1.5em;
+}
+.App-intro {
+  font-size: large;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

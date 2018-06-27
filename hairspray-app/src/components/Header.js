@@ -1,26 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { Button } from "reactstrap";
 
-class Header extends Component {
-	render() {
-		return (
-			<div>
-				<div>
-					<Link to="/signup">Sign Up</Link>
-				</div>
-				<div>
-					<Link to="/signin">Sign In</Link>
-				</div>
-			</div>
-		);
-	}
+export default class Header extends Component {
+  render() {
+    return (
+      <div>
+        <div>
+          <Link to="/signup">
+            <Button to="/signup">Sign Up</Button>
+          </Link>
+          <Link to="/signin">
+            <Button to="/signin">Sign In</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 }
-
-const mapStateToProps = state => {
-	return {
-		authenticated: state.auth.authenticated
-	};
-};
-
-export default connect(mapStateToProps)(Header);

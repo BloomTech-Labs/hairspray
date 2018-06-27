@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import rootReducer from "./reducers";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from "./App";
 import SignUp from "./components/SignUp";
@@ -16,8 +17,6 @@ import UserBilling from "./components/user/UserBilling";
 import UserFeedback from "./components/user/feedback/UserFeedback";
 import UserSettings from "./components/user/settings/UserSettings";
 import DevUsers from "./components/dev/DevUsers";
-
-import "./index.css";
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 

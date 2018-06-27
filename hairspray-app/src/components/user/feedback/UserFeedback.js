@@ -67,7 +67,7 @@ class UserFeedback extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="feedback">
 				<div>User Feedback</div>
 				{this.props.showFeedbackForm ? (
 					<Modal>
