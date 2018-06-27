@@ -100,30 +100,24 @@ const updateUser = (req, res) => {
   });
 };
 
-const createCustomer = (req, res) => {
-  const token = req.body.stripeToken;
-  const makeCustomer = stripe.customers.create({
-    email: req.body.email,
-    source: token
-  });
-  makeCustomer
-    .then(createdCustomer => res.json(createdCustomer))
-    .catch(err => res.json(err));
-};
-
 const createCharge = (req, res) => {
   const token = req.body.stripeToken;
   const { email } = req.body;
-  const makeCharge = stripe.charges.create({
-    amount: 1200,
-    currency: "usd",
-    description: "This is a sample charge",
-    customer: "cus_D4dyUl0sODIls8",
-    source: token
-  });
-  makeCharge
-    .then(createdCharge => res.json(createdCharge))
-    .catch(err => res.json(err));
+  const stripeCustomer = stripe.customers
+    .create({
+      email: req.body.email,
+      source: token
+    })
+    .then(customer => {
+      stripe.charges.create({
+        amount: 1200,
+        currency: "usd",
+        description: "The service cost",
+        customer: customer.id
+      });
+    })
+    .then(customer => res.json(customer))
+    .catch(err => res.status(500).json(err));
 };
 
 module.exports = {
@@ -132,6 +126,5 @@ module.exports = {
   getUsers,
   updateUser,
   userLogin,
-  createCharge,
-  createCustomer
+  createCharge
 };

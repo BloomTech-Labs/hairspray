@@ -23,7 +23,7 @@ module.exports = app => {
     .route("/api/users/:id")
     .put(validateToken, users.updateUser)
     .get(users.getUser); // get a specific User
-  app.route("/api/charge").post(validateToken, users.createCustomer);
+  app.route("/api/charge").post(validateToken, users.createCharge);
   // TODO: DELETE to erase user
 
   //Admin routes

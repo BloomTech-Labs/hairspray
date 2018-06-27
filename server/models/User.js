@@ -38,7 +38,16 @@ let UserSchema = new Schema({
       })
     ]
   },
-  password: { type: String },
+  password: {
+    type: String,
+    validate: [
+      validate({
+        validator: "isLength",
+        arguments: [6, 80],
+        message: "Password must at least have 6 characters"
+      })
+    ]
+  },
   cart: { type: Number, required: true, default: 0 },
   date: {
     type: Date,
