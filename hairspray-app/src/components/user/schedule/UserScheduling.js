@@ -1,32 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-	setApppointment,
-	getAllStylists,
-	getAllServices
-} from "../../../actions";
+import { setApppointment } from "../../../actions";
 import Calendar from "react-calendar";
 import {
 	Button,
-	ButtonGroup,
 	Form,
 	FormGroup,
 	Input,
 	Dropdown,
 	DropdownToggle,
-	DropdownMenu,
-	DropdownItem
+	DropdownMenu
 } from "reactstrap";
-import Stylists from './Stylists';
+import Stylists from "./Stylists";
+import Services from "./Services";
 
 class UserScheduling extends Component {
 	constructor() {
 		super();
 		this.user = {};
-		this.user.stylist = { name: "Please Select a stylist", image: "" };
+		this.user.stylist = { name: "Please Select a Stylist", image: "" };
 		this.user.date = "Please Select a Date";
 		this.user.time = "Please Select a Time";
-		this.user.service = "";
+		this.user.service = { _id: "", type: "Please Select a Service", price: "" };
 		this.dropdownOpen = false;
 	}
 
@@ -37,56 +32,15 @@ class UserScheduling extends Component {
 		this.forceUpdate();
 	}
 
-	renderStylists() {
-		if (this.props.gettingStylists) {
-			return <DropdownItem>Getting Stylists</DropdownItem>;
-		} else {
-			return this.props.stylists.map((stylist, i) => {
-				return (
-					<DropdownItem onClick={this.handleStylistChange} value={i} key={i}>
-						{stylist.name}
-					</DropdownItem>
-				);
-			});
-		}
-	}
-
-	handleStylistChange = event => {
-		const option = event.target.value;
-		if (option !== "Please Select a Stylist")
-			this.user.stylist = this.props.stylists[option];
+	handleStylistChild = data => {
+		this.user.stylist = data;
 	};
 
-	renderServices() {
-		if (this.props.gettingService) {
-			return <div>Getting Services</div>;
-		} else {
-			return (
-				<ButtonGroup vertical>
-					{this.props.services.map((service, i) => {
-            console.log("in map",this.user.service);
-						return (
-							<Button
-								value={i}
-								key={i}
-								type="button"
-								onClick={this.buttonServiceHandler.bind(this)}
-								active={this.user.service._id === service._id}
-							>
-								{service.type + ": " + service.price}
-							</Button>
-						);
-					})}
-				</ButtonGroup>
-			);
-		}
-	}
-
-	buttonServiceHandler(event) {
-    this.user.service = this.props.services[event.target.value];
-    console.log("service", this.user.service)
+	handleServicesChild = data => {
+		console.log(data);
+		this.user.service = data;
 		this.forceUpdate();
-	}
+	};
 
 	handleTimeChange = event => {
 		this.user.time = event.target.value;
@@ -97,11 +51,6 @@ class UserScheduling extends Component {
 		this.user.date = date.toISOString().slice(0, 10);
 		this.forceUpdate();
 	};
-
-	componentDidMount() {
-		this.props.getAllStylists();
-		this.props.getAllServices();
-	}
 
 	renderAppointment() {
 		return (
@@ -122,7 +71,7 @@ class UserScheduling extends Component {
 					{this.user.service === "" ? (
 						"Please select a service"
 					) : (
-						<div>{this.user.service.type + ': ' + this.user.service.price}</div>
+						<div>{this.user.service.type + ": " + this.user.service.price}</div>
 					)}
 				</div>
 			</div>
@@ -134,7 +83,7 @@ class UserScheduling extends Component {
 			this.user.stylist === "" ||
 			this.user.date === "" ||
 			this.user.time === "" ||
-			this.user.services.length === 0
+			this.user.service._id === ""
 		) {
 			alert("All fields required!");
 			return;
@@ -153,7 +102,10 @@ class UserScheduling extends Component {
 				<div className="title">Schedule Your Next Appointment</div>
 				<div className="form-container">
 					<Form className="form">
-						<FormGroup>{this.renderServices()}</FormGroup>
+						<FormGroup>
+							<Services cbFromParent={this.handleServicesChild.bind(this)} />
+						</FormGroup>
+
 						<FormGroup>
 							<Dropdown
 								isOpen={this.dropdownOpen}
@@ -163,10 +115,11 @@ class UserScheduling extends Component {
 									Select Stylist
 								</DropdownToggle>
 								<DropdownMenu>
-									<Stylists stylist={this.user.stylist}/>
+									<Stylists cbFromParent={this.handleStylistChild.bind(this)} />
 								</DropdownMenu>
 							</Dropdown>
 						</FormGroup>
+
 						<FormGroup>
 							<Calendar
 								minDetail="month"
@@ -176,6 +129,7 @@ class UserScheduling extends Component {
 							/>
 							<Input onChange={this.handleTimeChange} type="time" />
 						</FormGroup>
+						
 						<div className="appointment__container">
 							{this.renderAppointment()}
 							<Button
@@ -195,19 +149,13 @@ class UserScheduling extends Component {
 
 const mapStateToProps = state => {
 	return {
-		settingAppointment: state.appt.settingAppointment,
-		gettingStylists: state.stylist.gettingStylists,
-		stylists: state.stylist.stylists,
-		gettingService: state.services.gettingService,
-		services: state.services.services
+		settingAppointment: state.appt.settingAppointment
 	};
 };
 
 export default connect(
 	mapStateToProps,
 	{
-		setApppointment,
-		getAllStylists,
-		getAllServices
+		setApppointment
 	}
 )(UserScheduling);

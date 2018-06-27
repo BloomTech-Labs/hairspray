@@ -1,23 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-	DropdownItem
-} from "reactstrap";
+import { DropdownItem } from "reactstrap";
 
 import { getAllStylists } from "../../../actions";
 
 class Stylists extends Component {
 	constructor(props) {
-    super();
-    console.log("props", props)
+		super();
 		this.user = {};
 		this.user.stylist = { name: "Please Select a stylist", image: "" };
-  }
-  
+	}
+
 	handleStylistChange = event => {
 		const option = event.target.value;
 		if (option !== "Please Select a Stylist")
-			this.user.stylist = this.props.stylists[option];
+			this.props.cbFromParent(this.props.stylists[option]);
 	};
 
 	componentDidMount() {
