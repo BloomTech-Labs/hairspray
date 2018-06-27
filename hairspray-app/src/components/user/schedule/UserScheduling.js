@@ -17,6 +17,7 @@ import {
 	DropdownMenu,
 	DropdownItem
 } from "reactstrap";
+import Stylists from './Stylists';
 
 class UserScheduling extends Component {
 	constructor() {
@@ -25,9 +26,7 @@ class UserScheduling extends Component {
 		this.user.stylist = { name: "Please Select a stylist", image: "" };
 		this.user.date = "Please Select a Date";
 		this.user.time = "Please Select a Time";
-		this.stylistName = "Please Select a stylist";
 		this.user.service = "";
-		this.stylistImage = "";
 		this.dropdownOpen = false;
 	}
 
@@ -163,7 +162,9 @@ class UserScheduling extends Component {
 								<DropdownToggle value="Please Select a Stylist" caret>
 									Select Stylist
 								</DropdownToggle>
-								<DropdownMenu>{this.renderStylists()}</DropdownMenu>
+								<DropdownMenu>
+									<Stylists stylist={this.user.stylist}/>
+								</DropdownMenu>
 							</Dropdown>
 						</FormGroup>
 						<FormGroup>
