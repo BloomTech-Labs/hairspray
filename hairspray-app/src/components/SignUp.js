@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import { register } from "../actions";
+import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+
 class SignUp extends Component {
   handleFormSubmit = values => {
     this.props.register(values, this.props.history);
