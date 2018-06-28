@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import Stylists from "./Stylists";
 import Services from "./Services";
+import AppointmentTimes from "./AppointmentTimes";
 
 class UserScheduling extends Component {
 	constructor() {
@@ -23,6 +24,9 @@ class UserScheduling extends Component {
 		this.user.time = "Please Select a Time";
 		this.user.service = { _id: "", type: "Please Select a Service", price: "" };
 		this.dropdownOpen = false;
+		this.maxDate = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth() + 6);
+		this.minDate = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate() + 1);
+
 	}
 
 	toggle() {
@@ -37,10 +41,13 @@ class UserScheduling extends Component {
 	};
 
 	handleServicesChild = data => {
-		console.log(data);
 		this.user.service = data;
 		this.forceUpdate();
 	};
+
+	handleAppointmentTimesChild = data => {
+		console.log("In UserScheduling:", data);
+	}
 
 	handleTimeChange = event => {
 		this.user.time = event.target.value;
@@ -123,13 +130,19 @@ class UserScheduling extends Component {
 						<FormGroup>
 							<Calendar
 								minDetail="month"
+								minDate={this.minDate}
+								maxDate={this.maxDate}
 								onChange={value => this.handleDateChange(value)}
 								calendarType="US"
+
 								// TODO: Makea max date and min date limit
 							/>
 							<Input onChange={this.handleTimeChange} type="time" />
+							<AppointmentTimes 
+							dateSelected={this.user.date} 
+							/>
 						</FormGroup>
-						
+
 						<div className="appointment__container">
 							{this.renderAppointment()}
 							<Button

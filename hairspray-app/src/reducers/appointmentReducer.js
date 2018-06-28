@@ -1,8 +1,15 @@
-import { SETTING_APPOINTMENT, APPOINTMENT_SET, GETTING_APPOINTMENTS, APPOINTMENTS_GOT } from "../actions";
+import {
+	SETTING_APPOINTMENT,
+	APPOINTMENT_SET,
+	GETTING_APPOINTMENTS,
+	APPOINTMENTS_GOT,
+	GETTING_ALL_APPOINTMENTS,
+	ALL_APPOINTMENTS_GOT
+} from "../actions";
 
 const initialState = {
 	appointments: [],
-  settingAppointment: false,
+	settingAppointment: false,
 	gettingAppointments: false
 };
 
@@ -15,7 +22,11 @@ export const AppointmentReducer = (state = initialState, action) => {
 		case GETTING_APPOINTMENTS:
 			return { ...state, gettingAppointments: true };
 		case APPOINTMENTS_GOT:
-			return { ...state, gettingAppointments: false, appointments: action.payload }
+			return {
+				...state,
+				gettingAppointments: false,
+				appointments: action.payload
+			};
 		default:
 			return state;
 	}
