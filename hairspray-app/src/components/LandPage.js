@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { Button, Grid, Row, Col, Image } from "react-bootstrap";
 import Header from "./Header";
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
+} from "reactstrap";
+import "./css/style.css";
 
 class LandPage extends Component {
   constructor(props) {

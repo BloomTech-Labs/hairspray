@@ -1,19 +1,36 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+import "./css/style.css";
 
 export default class Header extends Component {
   render() {
     return (
       <div>
-        <div>
-          <Link to="/signup">
-            <Button to="/signup">Sign Up</Button>
-          </Link>
-          <Link to="/signin">
-            <Button to="/signin">Sign In</Button>
-          </Link>
-        </div>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand href="/">Hairspray</NavbarBrand>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="/signup">Sign Up</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/signin">Sign In</NavLink>
+            </NavItem>
+          </Nav>
+        </Navbar>
       </div>
     );
   }
