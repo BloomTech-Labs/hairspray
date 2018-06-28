@@ -8,11 +8,12 @@ export const getAppointmentsByDateAndStylist = (date, stylist) => {
 	return dispatch => {
 		dispatch({ type: actiontype.GETTING_APPOINTMENTS });
 		axios
-			.post(`${URL}/date//stylist/appointments`, {
+			.post(`${URL}/date/stylist/appointments`, {
 				date,
 				stylist
 			})
 			.then(appointments => {
+				console.log("appointments back:", appointments.data);
 				dispatch({ type: actiontype.APPOINTMENTS_GOT, payload: appointments.data });
 			})
 			.catch(err => {

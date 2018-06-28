@@ -26,7 +26,6 @@ class UserScheduling extends Component {
 		this.dropdownOpen = false;
 		this.maxDate = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth() + 6);
 		this.minDate = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate() + 1);
-
 	}
 
 	toggle() {
@@ -138,9 +137,11 @@ class UserScheduling extends Component {
 								// TODO: Makea max date and min date limit
 							/>
 							<Input onChange={this.handleTimeChange} type="time" />
+							{this.user.stylist.name === "Please Select a Stylist" || this.user.date === "Please Select a Date" ? null :
 							<AppointmentTimes 
-							dateSelected={this.user.date} 
-							/>
+							dateSelected={this.user.date}
+							stylistSelected={this.user.stylist}
+							/>}
 						</FormGroup>
 
 						<div className="appointment__container">

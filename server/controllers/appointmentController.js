@@ -13,9 +13,7 @@ const Appointment = require("../models/Appointment.js");
 // const CronJob = require("cron").CronJob;
 
 const findAppointmentByDateAndStylist = (req, res) => {
-	// const { date, stylist } = req.body;
-	const stylist = "5b33347fbd59e11d744bfd54";
-	const date = "2018-06-30T23:00:00.000Z";
+	const { date, stylist } = req.body;
 	const dateBefore = new Date(date);
 	dateBefore.setDate(dateBefore.getDate() - 1)
 	
