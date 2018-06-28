@@ -141,6 +141,7 @@ class UserScheduling extends Component {
 							<AppointmentTimes 
 							dateSelected={this.user.date}
 							stylistSelected={this.user.stylist}
+							flag={true}
 							/>}
 						</FormGroup>
 

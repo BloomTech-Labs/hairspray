@@ -6,8 +6,9 @@ import { Button } from "reactstrap";
 class AppointmentTimes extends Component {
 	constructor(props) {
 		super();
-		this.dateSelected = props.dateSelected;
-		this.stylistSelected = props.stylistSelected;
+		this.dateSelected = "";
+		this.stylistSelected = "";
+		this.renderFlag = props.flag;
 		this.hours = [];
 		this.open = 9;
 		this.close = 21;
@@ -16,6 +17,7 @@ class AppointmentTimes extends Component {
 
 	renderAvailableTimeslots() {
 		if (this.props.appointments !== undefined) {
+			this.unavailableHours = [];
 			this.props.appointments.forEach(el => {
 				this.unavailableHours.push(el.session.slice(11, 13) + ":00");
 			});
@@ -23,19 +25,28 @@ class AppointmentTimes extends Component {
 				if (this.unavailableHours.indexOf(this.hours[i]) > -1)
 					this.hours.splice(i, 1);
 			}
-			return this.hours.map(hour => {
-				return <div><Button>{hour}</Button></div>;
+			return this.hours.map((hour, i) => {
+				return (
+					<div key={i}>
+						<Button>{hour}</Button>
+					</div>
+				);
 			});
 		}
 	}
 
 	fillWithHours() {
+		this.hours = [];
 		for (let i = this.open; i <= this.close; i++) {
 			this.hours.push(i + ":00");
 		}
 	}
 
 	componentDidMount() {
+    console.log("Did Mount");
+    console.log(this.dateSelected, this.props.dateSelected);
+    this.dateSelected = this.props.dateSelected;
+		this.stylistSelected = this.props.stylistSelected;
 		this.props.getAppointmentsByDateAndStylist(
 			this.dateSelected,
 			this.stylistSelected._id
@@ -43,20 +54,21 @@ class AppointmentTimes extends Component {
 		this.fillWithHours();
 	}
 
-  // does not rerender when recieving new props
+	// does not rerender when recieving new props
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.props.getAppointmentsByDateAndStylist(
+	// componentWillReceiveProps(nextProps) {
+	//   this.props.getAppointmentsByDateAndStylist(
 	// 		this.dateSelected,
 	// 		this.stylistSelected._id
 	// 	);
-  // }
+	// }
 
 	render() {
+		console.log("Appointment times was rerendered");
 		if (this.props.appointments === undefined)
 			return <div>Checking Appointments</div>;
 		else {
-			console.log("props are", this.props.appointments);
+			console.log("props are", this.props);
 			return (
 				<div>
 					<div>Available Times:</div>
