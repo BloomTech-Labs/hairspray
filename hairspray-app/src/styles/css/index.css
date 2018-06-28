@@ -15,9 +15,9 @@
 .scheduling .title {
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 5%;
 }
 .scheduling .form-container .form {
-  margin-top: 5%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -40,11 +40,57 @@
 .billing {
   margin-left: 15%;
 }
+.billing .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
 .feedback {
   margin-left: 15%;
 }
+.feedback .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
+.feedback .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  text-align: left;
+}
+.feedback .container .card .body {
+  padding: 30px 50px 30px 30px;
+}
 .settings {
   margin-left: 15%;
+}
+.settings .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
+.settings .update__button {
+  margin-left: 50px;
+}
+.settings .user {
+  margin: 50px;
+  font-size: 20px;
+}
+.settings .user .name {
+  margin-top: 10px;
+}
+.settings .user .email {
+  margin-top: 10px;
+}
+.settings .user .phone {
+  margin-top: 10px;
+}
+.settings .user .password {
+  margin-top: 10px;
+}
+.form__container .form .input__box {
+  width: 200px;
 }
 .App {
   text-align: center;
