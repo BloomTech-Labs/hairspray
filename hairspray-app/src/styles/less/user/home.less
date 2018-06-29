@@ -1,11 +1,75 @@
 .sidebar {
-    height: 100%;
-    width: 15%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #FFF;
-    overflow-x: hidden;
-    padding-top: 20px;
+	height: 100%;
+	width: 14%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: @color-secondary-1-0;
+	color: white;
+	overflow-x: hidden;
+	padding: 50px 0 0 20px;
+
+	a:link,
+	a:visited {
+		color: @color-primary-0;
+		text-decoration: none;
+		font-size: 22px;
+		border-radius: 5px;
+		width: 100%;
+		padding: 0 10px;
+		transition: background-color 1s;
+	}
+
+	a:hover,
+	a:active {
+		transition: all 0.5s;
+		color: @color-secondary-1-0;
+		background-color: @color-primary-3;
+	}
+}
+.welcome {
+	margin-left: 15%;
+	.title {
+		font-size: 42px;
+		margin-top: 40px;
+		padding: 0 40px;
+	}
+
+	.pic {
+		padding: 0 40px;
+	}
+}
+
+.carousel__img {
+	width: 500px;
+}
+.carousel__container {
+	margin: 0 20%;
+}
+
+.carousel-control-next-icon {
+	color: blue;
+}
+
+.landing {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-evenly;
+	.landing__nav {
+		margin: 20px;
+	}
+	.landing__carousel {
+		width: 45%;
+	}
+				.landing__button {
+					margin: 20px;
+					background-color: @rgba-primary-0;
+				}
+	
+				.landing__button:hover {
+					background-color: @rgba-primary-3;
+				}
 }

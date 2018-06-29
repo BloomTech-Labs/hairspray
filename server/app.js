@@ -8,9 +8,6 @@ const passport = require("passport");
 
 const CORS = require("cors");
 
-// Paste user api here
-
-console.log(process.env.PORT);
 const app = express();
 const port = process.env.PORT || 5000;
 const db = process.env.MONGODB_URI || "mongodb://localhost:27017/hairspray";
@@ -19,7 +16,6 @@ const routes = require("./routes/routes");
 app.use(express.static(path.join(__dirname, "../hairspray-app/build")));
 
 // connect to database
-
 mongoose
   .connect(db)
   .then(() => console.log("MongoDB is connected"))

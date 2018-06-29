@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createFeedback, toggleFeedbackForm } from "../../../actions";
+import {
+	Button,
+	Form,
+	FormGroup,
+	Label,
+	Input
+} from "reactstrap";
 import "../../../styles/feedbackForm.css";
 
 class FeedbackForm extends Component {
@@ -58,7 +65,7 @@ class FeedbackForm extends Component {
 			}
 
 			stars.push(
-				<label
+				<Label
 					key={i}
 					className={starClass}
 					onClick={() => this.rate(label, i)}
@@ -66,7 +73,7 @@ class FeedbackForm extends Component {
 					onMouseOut={() => this.star_out(label, i)}
 				>
 					★
-				</label>
+				</Label>
 			);
 		}
 		return <div>{stars}</div>;
@@ -75,59 +82,59 @@ class FeedbackForm extends Component {
 	render() {
 		return (
 			<div>
-				<button type="button" onClick={this.closeModal.bind(this)}>
-					Close
-				</button>
-				<form>
-					<section>
-						<label>Consultation</label>
+				<div className="close" onClick={this.closeModal.bind(this)}>
+					✖
+				</div>
+				<Form className="feedback__form">
+					<FormGroup>
+						<Label>Consultation</Label>
 						{this.renderStarRating("consultation")}
-						<input
+						<Input
 							name="consultation"
-							type="text"
+							type="textarea"
 							onChange={this.handleInputChange}
 						/>
-					</section>
-					<section>
-						<label>On Time</label>
+					</FormGroup>
+					<FormGroup>
+						<Label>On Time</Label>
 						{this.renderStarRating("ontime")}
-						<input
+						<Input
 							name="ontime"
-							type="text"
+							type="textarea"
 							onChange={this.handleInputChange}
 						/>
-					</section>
-					<section>
-						<label>Styling</label>
+					</FormGroup>
+					<FormGroup>
+						<Label>Styling</Label>
 						{this.renderStarRating("styling")}
-						<input
+						<Input
 							name="styling"
-							type="text"
+							type="textarea"
 							onChange={this.handleInputChange}
 						/>
-					</section>
-					<section>
-						<label>Customer Service</label>
+					</FormGroup>
+					<FormGroup>
+						<Label>Customer Service</Label>
 						{this.renderStarRating("customerservice")}
-						<input
+						<Input
 							name="customerservice"
-							type="text"
+							type="textarea"
 							onChange={this.handleInputChange}
 						/>
-					</section>
-					<section>
-						<label>Overall</label>
+					</FormGroup>
+					<FormGroup>
+						<Label>Overall</Label>
 						{this.renderStarRating("overall")}
-						<input
+						<Input
 							name="overall"
-							type="text"
+							type="textarea"
 							onChange={this.handleInputChange}
 						/>
-					</section>
-					<button onClick={() => this.submitUpdates()} type="button">
+					</FormGroup>
+					<Button className="feedback__form__button" onClick={() => this.submitUpdates()} type="button">
 						Submit
-					</button>
-				</form>
+					</Button>
+				</Form>
 			</div>
 		);
 	}
