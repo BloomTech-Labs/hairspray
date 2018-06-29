@@ -124,25 +124,25 @@ const createAppointment = (req, res) => {
 };
 
 
-setInterval(() => {
-  let timeNow = new Date();
-  console.log(Math.floor(timeNow.getTime()));
-  Appointment.find({"session":{session: Math.floor(timeNow.getTime())}}, function(err,reminders){
-    if(err) {
-      console.log(err)
-      return
-    } if(reminders.length == 0){
-    console.log('There are no reminders to be sent')
-    return
-  }
-  reminders.forEach((message) => {
-    client.messages.create({
-      body: `Your appointment with your stylist is coming up!`,
-      to:  myNumber,
-      from: twilioNumber
-    })
-  })
-}, timer);
+// setInterval(() => {
+//   let timeNow = new Date();
+//   console.log(Math.floor(timeNow.getTime()));
+//   Appointment.find({"session":{session: Math.floor(timeNow.getTime())}}, function(err,reminders){
+//     if(err) {
+//       console.log(err)
+//       return
+//     } if(reminders.length == 0){
+//     console.log('There are no reminders to be sent')
+//     return
+//   }
+//   reminders.forEach((message) => {
+//     client.messages.create({
+//       body: `Your appointment with your stylist is coming up!`,
+//       to:  myNumber,
+//       from: twilioNumber
+//     })
+//   })
+// }, timer);
 
 
 // let twilioReminder = new CronJob("0 45 15 * * *", function() {
