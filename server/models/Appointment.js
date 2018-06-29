@@ -19,7 +19,13 @@ const AppointmentSchema = Schema({
   session: {
     type: Date,
     required: true,
+    unique: true,
   },
+  service: [{
+    type: Schema.Types.ObjectId,
+    ref: "Service",
+    required: true 
+  }]
 });
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);

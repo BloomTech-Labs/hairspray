@@ -1,30 +1,24 @@
-import axios from 'axios';
+import * as actiontype from './actiontypes';
+export * from './actiontypes';
+export * from './userActions';
+export * from './serviceActions';
+export * from './feedbackActions';
+export * from './appointmentActions';
+export * from './stylistActions';
 
-const URL = 'http://localhost:5000';
-// Todo: make actions and variables for all actions
-export const TOGGLE_UPDATE_USER_FORM = "TOGGLE_UPDATE_USER_FORM";
-export const USER_UPDATING = "USER_UPDATING";
-export const USER_UPDATE_COMPLETE = "USER_UPDATE_COMPLETE";
-export const ERROR = "ERROR";
 
-export const toggleUpdateForm = () => {
-    return {
-      type: TOGGLE_UPDATE_USER_FORM
-    };
+// const URL = "https://obscure-island-58835.herokuapp.com/api";
+// const URL = "http://localhost:5000/api";
+
+// The list of action variables was getting very long,
+// so I moved them all to a seperate file 'actiontypes.js'
+// if you need to add action variables, do so in that file
+// and them import them here by preceding the variable with
+// 'actiontype.' example: actiontype.GOT_STYLIST
+
+export const authError = error => {
+  return {
+    type: actiontype.AUTHENTICATION_ERROR,
+    payload: error
   };
-
-// Change user settings
-export const userSettingsChange = updates => {
-    const { id, name, number, email, password } = updates;
-    return dispatch => {
-        dispatch({ type: USER_UPDATING });
-        axios
-            .put(`${URL}/users/${id}`, {name, number, email, password })
-            .then(updatedUser => {
-                dispatch({ type: USER_UPDATE_COMPLETE, payload: updatedUser.data});
-            })
-            .catch(err => {
-                dispatch({ type: err });
-            });
-    }
-}
+};

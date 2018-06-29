@@ -1,6 +1,9 @@
 # hairspray
 CS7 Capstone Project
 
+## Heroku link
+(https://obscure-island-58835.herokuapp.com)
+
 # Routes
 
 ### Logging in
@@ -33,3 +36,26 @@ GET - lists all appointments for a Stylist
 - /appointments/update/:id
 PUT - updates appointment by appointment ID
 DELETE - deletes appointment by appointment ID
+
+### Feedback
+- /feedback
+GET - get all feedback in database
+- /appointment/:id/feedback
+POST - create new feedback
+- /user/:id/feedback
+GET - Gets an array of all the Feedback a User has submitted
+- /stylist/:id/feedback
+GET - Gets an array of all the Feedback a Stylist has received
+- /feedback/update/:id
+PUT - Updates previously submitted feedback via Feedback ID
+DELETE - Deletes Feedback by Feedback ID
+
+### Service
+- /service
+GET - get all Services in database
+POST - create new Service
+- /service/:id/
+GET - Gets a specific Service
+- /service/update/:id
+PUT - Updates a Service via Service ID
+DELETE - Deletes a Service via Service ID

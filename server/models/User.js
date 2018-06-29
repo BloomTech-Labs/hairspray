@@ -12,6 +12,7 @@ let UserSchema = new Schema({
     type: String,
     lowercase: true,
     trim: true,
+    required: true,
     unique: true,
     sparse: true,
     validate: [
@@ -26,6 +27,7 @@ let UserSchema = new Schema({
     type: String,
     lowercase: true,
     trim: true,
+    required: true,
     index: true,
     unique: true,
     sparse: true,
@@ -36,15 +38,25 @@ let UserSchema = new Schema({
       })
     ]
   },
-  password: { type: String },
+  password: {
+    type: String,
+    validate: [
+      validate({
+        validator: "isLength",
+        arguments: [6, 80],
+        message: "Password must at least have 6 characters"
+      })
+    ]
+  },
+  cart: { type: Number, required: true, default: 0 },
   date: {
     type: Date,
     default: Date.now
   },
-  // admin: {
-  //   type: Boolean,
-  //   default: false,
-  // }
+  admin: {
+    type: Boolean,
+    default: false
+  }
 });
 
 UserSchema.pre("save", function(next) {

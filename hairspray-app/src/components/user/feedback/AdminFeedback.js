@@ -1,33 +1,130 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import './AllFeedback.css';
+import getAllFeedback from "../../../actions"
+import { Link } from "react-router-dom";
 
-class AdminFeedbackForm extends Component {
+
+class AdminFeedback extends Component {
     constructor() {
         super();
-        this.edit_feedback = "";
-        this.delete_feedback = "";
-        this.star_rating = "";
-        this.edit_client = "";
-        this.edit_stylist = "";
-        this.edit_date = "";
+        // this.edit_feedback = {};
+        // this.delete_feedback = {} ;
+        this.star_rating = {} ;
+        this.edit_client = {} ;
+        this.edit_stylist = {} ;
+        this.edit_date = {} ;
+    this.rating = null ;
+    this.temp_rating = 0 ;
+    this.feedbacks = [] ;
+    }
+    
+    handleInputChange = event => {
+        const value = event.target.value;
+        const name = event.target.name;
+        this.user.feedback[name] = value;
+    };
+
+    renderFeedback () {
+        if (this.props.getAllFeedback || this.props.feedback === undefined) {
+            return <div>Getting Feedback</div>;
+        }
     }
 
+    render() {
+        return (
+            <div>
+                <button type = "button" onClick = {this.closeModal.bind(this)}>
+                    Close 
+                </button>
+                <form>
+                    <section>
+                        <label>Stylist: Steven Magadan</label>
+                        {this.renderStarRating("Stylist")}
+                    </section>
+                </form>
+        
+            <div className = 'sidebar'>
+                <div className = 'Schedule'> 
+                    <Link to="/"></Link>
+                </div>
+                <div className = 'Feedback'>
+                    <Link to="/"></Link>
+                </div>
+                <div className = 'Billing'>
+                    <Link to="/"></Link>
+                </div>
+                <div className = 'Settings'>
+                    <Link to="/"></Link>
+                </div>
+            </div>   
+            </div>
+        )
+    }
+
+
+    // submitUpdates = () => {
+    //     this.props.createFeedback(
+    //         this.edit_feedback,
+    //         this.star_rating,
+    //         this.edit_client,
+    //         this.edit_stylist,
+    //         this.edit_date,
+    //         this.delete_feedback,
+    //     );
+    // };
+
+    // rate(label, rating) {
+    // this.user.scores[label] = rating + 1;
+    // this.temp_rating = this.user.scores[label];
+    // }
+
+    // star_over(label, rating) {
+    // this.temp_rating = this.user.scores[label];
+    // this.user.scores[label] = rating + 1;
+    // this.forceUpdate();
+    // }
+
+    // star_out(label) {
+    // this.user.scores[label] = this.temp_rating;
+    // this.forceUpdate();
+    // }
+
+    // renderStarRating(label) {
+    //     let stars = [];
+    //     for(let i = 0; i < 3; i++) {
+    // let starClass = "star_rating";
+    
+    // if (this.user.scores[label] > i && this.user.scores[label] != null) {
+    //             starClass += " is-selected ";
+    // }       
+    //         stars.push(
+    //             <label
+    //                 className = {starClass}
+    //                 onClick = {() => this.rate(label, i)}
+    //                 onMouseOver = {() => this.star_over(label, i)}
+    //                 onMouseOut = {() => this.star_out(label, i)}
+    //             >
+    //                 ★
+    //             </label>
+    //         );
+    //     }
+    //     return <div>{stars}</div>;
+    // }
+
+   
+
+    
     componentDidMount() {
         this.props.getAdminFeedback();
     }
 
-    componentWillReceiveProps() {
-        this.props.getAdminFeedback();
-    }
+    // handleEditFeedback = event => {
+    //     this.edit_feedback = event.target.value;
+    // };
 
-    handleEditFeedback = event => {
-        this.edit_feedback = event.target.value;
-    };
-
-    handleDelete = event => {
-        this.delete_feedback = event.target.value;
-    };
+    // handleDelete = event => {
+    //     this.delete_feedback = event.target.value;
+    // };
 
     handleStarRating = event => {
         this.star_rating = event.target.value;
@@ -102,10 +199,16 @@ class AdminFeedbackForm extends Component {
 
 const mapStateToProps = state => {
     return {
-      AdminFeedback: state.AdminFeedback,
-      userId: state.auth.user,
+        feedback: state.feedback,
+        feedbacks: state.feedback.feedbacks,
+        getAllFeedback: state.feedback.getAllFeedback
     };
   };
 
 
-export default connect(mapStateToProps, { getAdminFeedback })(AdminFeedbackForm);
+export default connect(
+    mapStateToProps, 
+    { 
+        getAllFeedback
+    }
+)(AdminFeedback);
