@@ -84,3 +84,4 @@ module.exports = app => {
     .put(service.PUT) // updates Service by Service ID
     .delete(service.DELETE); // deletes Service by Service ID
 };
+//Routes

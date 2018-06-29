@@ -20,12 +20,21 @@ const StylistSchema = Schema({
       })
     ]
   },
-  password: { type: String },
+  password: {
+    type: String,
+    validate: [
+      validate({
+        validator: "isLength",
+        arguments: [6, 80],
+        message: "Password must at least have 6 characters"
+      })
+    ]
+  },
   date: {
     type: Date,
     default: Date.now
   },
-  image: {type: String}
+  image: { type: String }
 });
 
 StylistSchema.pre("save", function(next) {
