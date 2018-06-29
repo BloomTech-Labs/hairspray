@@ -3,16 +3,17 @@
   z-index: 1010;
   top: 10%;
   left: 15%;
-  right: 15%;
-  bottom: 20%;
+  right: 55%;
+  bottom: 25%;
   border: none;
-  background: grey;
+  background: #F68A5F;
   overflow: auto;
   border-radius: 10px;
   outline: none;
   padding: 20px;
   display: block;
   animation: opac 0.8s;
+  color: white;
 }
 
 @keyframes opac {

@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import Stylists from "./Stylists";
 import Services from "./Services";
-import AppointmentTimes from "./AppointmentTimes";
+// import AppointmentTimes from "./AppointmentTimes";
 
 class UserScheduling extends Component {
 	constructor() {
@@ -105,9 +105,9 @@ class UserScheduling extends Component {
 	render() {
 		return (
 			<div className="scheduling">
-				<div className="title">Schedule Your Next Appointment</div>
-				<div className="form-container">
-					<Form className="form">
+				<div className="scheduling__title">Schedule Your Next Appointment</div>
+				<div className="scheduling__form-container">
+					<Form className="scheduling__form">
 						<FormGroup>
 							<Services cbFromParent={this.handleServicesChild.bind(this)} />
 						</FormGroup>
@@ -116,8 +116,9 @@ class UserScheduling extends Component {
 							<Dropdown
 								isOpen={this.dropdownOpen}
 								toggle={this.toggle.bind(this)}
+								
 							>
-								<DropdownToggle value="Please Select a Stylist" caret>
+								<DropdownToggle className="scheduling__dropdown" value="Please Select a Stylist" caret>
 									Select Stylist
 								</DropdownToggle>
 								<DropdownMenu>
@@ -137,18 +138,18 @@ class UserScheduling extends Component {
 								// TODO: Makea max date and min date limit
 							/>
 							<Input onChange={this.handleTimeChange} type="time" />
-							{this.user.stylist.name === "Please Select a Stylist" || this.user.date === "Please Select a Date" ? null :
+							{/* {this.user.stylist.name === "Please Select a Stylist" || this.user.date === "Please Select a Date" ? null :
 							<AppointmentTimes 
 							dateSelected={this.user.date}
 							stylistSelected={this.user.stylist}
 							flag={true}
-							/>}
+							/>} */}
 						</FormGroup>
 
 						<div className="appointment__container">
 							{this.renderAppointment()}
 							<Button
-								className="submitButton"
+								className="submit__button"
 								onClick={this.handleSubmit.bind(this)}
 								type="button"
 							>

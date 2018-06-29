@@ -36,6 +36,7 @@ class Services extends Component {
 								type="button"
 								onClick={this.buttonServiceHandler.bind(this)}
 								active={this.user.service._id === service._id}
+								className="services__button"
 							>
 								{service.type + ": " + service.price}
 							</Button>

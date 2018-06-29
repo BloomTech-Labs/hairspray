@@ -1,8 +1,8 @@
 import * as actiontype from "./actiontypes";
 import axios from "axios";
 
-// const URL = "https://obscure-island-58835.herokuapp.com/api";
-const URL = "http://localhost:5000/api";
+const URL = "https://obscure-island-58835.herokuapp.com/api";
+// const URL = "http://localhost:5000/api";
 
 export const getAppointmentsByDateAndStylist = (date, stylist) => {
 	return dispatch => {
@@ -13,7 +13,6 @@ export const getAppointmentsByDateAndStylist = (date, stylist) => {
 				stylist
 			})
 			.then(appointments => {
-				console.log("appointments back:", appointments.data);
 				dispatch({ type: actiontype.APPOINTMENTS_GOT, payload: appointments.data });
 			})
 			.catch(err => {

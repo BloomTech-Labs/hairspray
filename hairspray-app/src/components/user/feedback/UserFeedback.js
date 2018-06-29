@@ -9,13 +9,10 @@ import FeedbackForm from "./feedbackForm";
 import Modal from "../../misc/Modal";
 import {
   Card,
-  CardImg,
   CardText,
   CardBody,
   CardTitle,
   CardHeader,
-  CardFooter,
-  CardSubtitle,
   Button
 } from "reactstrap";
 
@@ -55,12 +52,12 @@ class UserFeedback extends Component {
     } else {
       return this.props.appointments.map((appointment, i) => {
         return (
-          <div key={i}>
+          <div className="feedback__card" key={i}>
             <Card>
-              <CardHeader className="header">
+              <CardHeader className="feedback__card__header">
                 {this.timeTrimmer(appointment.session)}
               </CardHeader>
-              <CardBody className="body">
+              <CardBody className="feedback__card__body">
                 <CardTitle>{"Stylist: " + appointment.stylist.name}</CardTitle>
                 <CardText>
 				{appointment.service.map((el, i) => {
@@ -68,6 +65,7 @@ class UserFeedback extends Component {
               })}
                 </CardText>
 				<Button
+        className="feedback__card__button"
               type="button"
               onClick={() => this.handleButton(appointment._id)}
             >
@@ -88,13 +86,13 @@ class UserFeedback extends Component {
   render() {
     return (
       <div className="feedback">
-        <div className="title">Leave Feedback For Your Appoinments</div>
+        <div className="feedback__title">Leave Feedback For Your Appoinments</div>
         {this.props.showFeedbackForm ? (
           <Modal>
             <FeedbackForm appointment={this.apppointment} />
           </Modal>
         ) : null}
-        <div className="container" >{this.renderAppointments()}</div>
+        <div className="feedback__container" >{this.renderAppointments()}</div>
       </div>
     );
   }
