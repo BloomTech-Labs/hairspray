@@ -9,7 +9,7 @@ export default class UserBilling extends Component {
 				<Checkout
 					name={"Checkout form"}
 					description={"To checkout things for stripe"}
-					amount={1}
+					amount={2000}
 				/>
 			</div>
 		);
