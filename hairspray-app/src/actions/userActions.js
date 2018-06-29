@@ -2,8 +2,8 @@ import * as actiontype from "./actiontypes";
 import axios from "axios";
 import { authError } from "./index.js";
 
-// const URL = "https://obscure-island-58835.herokuapp.com/api";
-const URL = "http://localhost:5000/api";
+const URL = "https://obscure-island-58835.herokuapp.com/api";
+// const URL = "http://localhost:5000/api";
 
 // Register a new user
 export const register = (user, history) => {
@@ -27,7 +27,7 @@ export const register = (user, history) => {
         dispatch({
           type: actiontype.USER_REGISTERED
         });
-        history.push("/user");
+        history.push("/user/home");
       })
       .catch(err => {
         dispatch(authError(`${err}, Try Again`));
@@ -48,7 +48,7 @@ export const login = (user, history) => {
         dispatch({
           type: actiontype.USER_AUTHENTICATED
         });
-        history.push("/user");
+        history.push("/user/home");
       })
       .catch(err => {
         dispatch(
@@ -107,7 +107,7 @@ export const userSettingsChange = (updates, history) => {
           payload: updatedUser.data
         });
         dispatch({ type: actiontype.TOGGLE_UPDATE_USER_FORM });
-        history.push("/user");
+        history.push("/user/home");
       })
       .catch(err => {
         dispatch({ type: err });

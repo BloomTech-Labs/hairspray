@@ -1,37 +1,62 @@
 .scheduling {
-  margin-left: 15%;
-  .title {
-    font-size: 20px;
-    font-weight: bold;
-  }
+	margin-left: 15%;
+	.scheduling__title {
+		font-size: 20px;
+		font-weight: bold;
+		margin-bottom: 5%;
+	}
 
-  .form-container {
-    .form {
-      margin-top: 5%;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: space-evenly;
-      
-      .appointment__container {
-          display: flex;
-          flex-direction: column;
-          .submitButton {
-            
-          }
+	.scheduling__form-container {
+		.scheduling__form {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			justify-content: space-evenly;
 
-        .appointment {
-          width: 200px;
-          text-align: right;
-          .image_container {
-            min-height: 150px;
-          }
+			.services__button {
+				background-color: @rgba-primary-0;
+			}
 
-          .stylist_image {
-            width: 200px;
-          }
-        }
+			.services__button:hover {
+				background-color: @rgba-primary-3;
       }
-    }
-  }
+      
+			.active {
+				background-color: @rgba-primary-4;
+      }
+      
+      .scheduling__dropdown {
+        background-color: @rgba-primary-0;
+      }
+
+      .scheduling__dropdown:hover {
+				background-color: @rgba-primary-3;
+      }
+
+			.appointment__container {
+				display: flex;
+        flex-direction: column;
+        
+				.submit__button {
+          background-color: @rgba-primary-0;
+				}
+
+        .submit__button:hover {
+          background-color: @rgba-primary-3;
+        }
+
+				.appointment {
+					width: 200px;
+					text-align: right;
+					.image_container {
+						min-height: 150px;
+					}
+
+					.stylist_image {
+						width: 200px;
+					}
+				}
+			}
+		}
+	}
 }

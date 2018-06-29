@@ -5,7 +5,7 @@ export default class UserBilling extends Component {
 	render() {
 		return (
 			<div className="billing">
-				<div>User Billing</div>
+				<div className="title">User Billing</div>
 				<Checkout
 					name={"Checkout form"}
 					description={"To checkout things for stripe"}

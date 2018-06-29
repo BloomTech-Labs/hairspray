@@ -3,6 +3,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { userSettingsChange, toggleUpdateForm } from "../../../actions";
+import {
+	Button,
+	Form,
+	FormGroup,
+	Label,
+	Input,
+	Col
+} from "reactstrap";
 
 class UserSettingsForm extends Component {
 	constructor(props) {
@@ -34,41 +42,74 @@ class UserSettingsForm extends Component {
 
 	render() {
 		return (
-			<div>
-				<form>
-					<button type="button" onClick={this.handleCloseButton.bind(this)}> 
-						Close
-					</button> 
-					<section>
-					<label>Name</label>
-					<input name="name" type="text" onChange={this.handleInputChange} />
-					</section>
-					<section>
-					<label>Number</label>
-					<input name="phone" type="text" onChange={this.handleInputChange} />
-					</section>
-					<section>
-					<label>Email</label>
-					<input name="email" type="text" onChange={this.handleInputChange} />
-					</section>
-					<section>
-					<label>Password</label>
-					<input
-						name="password"
-						type="password"
-						onChange={this.handleInputChange}
-						/>
-						</section>
-					<label>Confirm Password</label>
-					<input
-						name="confirm"
-						type="password"
-						onChange={this.handleInputChange}
-					/>
-					<button onClick={() => this.submitUpdates()} type="button">
+			<div className="form__container">
+				<div className="close" onClick={this.handleCloseButton.bind(this)}>
+					✖
+				</div>
+				<Form className="form">
+					<FormGroup row>
+						<Label sm={2}>Name</Label>
+						<Col sm={5}>
+							<Input
+								name="name"
+								type="text"
+								onChange={this.handleInputChange}
+								className="input__box1"
+							/>
+						</Col>
+					</FormGroup>
+					<FormGroup row>
+						<Label sm={2}>Number</Label>
+						<Col sm={10}>
+							<Input
+								name="phone"
+								type="text"
+								onChange={this.handleInputChange}
+								className="input__box"
+							/>
+						</Col>
+					</FormGroup>
+					<FormGroup row>
+						<Label sm={2}>Email</Label>
+						<Col sm={10}>
+							<Input
+								name="email"
+								type="text"
+								onChange={this.handleInputChange}
+								className="input__box"
+							/>
+						</Col>
+					</FormGroup>
+					<FormGroup row>
+						<Label sm={2}>Password</Label>
+						<Col sm={10}>
+							<Input
+								name="password"
+								type="password"
+								onChange={this.handleInputChange}
+								className="input__box"
+							/>
+						</Col>
+					</FormGroup>
+					<FormGroup row>
+						<Label sm={2}>Confirm Password</Label>
+						<Col sm={10}>
+							<Input
+								name="confirm"
+								type="password"
+								onChange={this.handleInputChange}
+								className="input__box"
+							/>
+						</Col>
+					</FormGroup>
+					<Button
+						className="reactStrap__button"
+						onClick={() => this.submitUpdates()}
+						type="button"
+					>
 						Submit
-					</button>
-				</form>
+					</Button>
+				</Form>
 			</div>
 		);
 	}
@@ -82,6 +123,8 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ userSettingsChange,
-		toggleUpdateForm }
+	{
+		userSettingsChange,
+		toggleUpdateForm
+	}
 )(UserSettingsForm);
