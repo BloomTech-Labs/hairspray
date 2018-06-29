@@ -148,53 +148,53 @@ class AdminFeedback extends Component {
         });
     }
 
-    render() {
-        this.props.AdminFeedback.map(feedback => {
-            return(
-                <div>
-                    <form>
-                        <label>Stylist Name</label>
-                        <input 
-                            type = "text"
-                            name = "firstname, lastname"
-                            onChange = {this.handleEditStylist}
-                        />
-                        <label>Client Name</label>
-                        <input 
-                            type = "text"
-                            name = "firstname, lastname"
-                            onChange = {this.handleEditClient}
-                        />
-                        <label>Edit Date</label>
-                        <input 
-                            type = "date"
-                            onChange = {this.handleEditDate}
-                        />
-                        <button onClick = {() => this.submitChanges()} type = "button">
-                            Submit 
-                        </button>
-                    </form>
-                    <form action = "">
-                        <label>Star Rating</label>
-                        <input
-                            button = "Edit Star Rating"
-                            onclick = {this.handleStarRating}
-                        />
-                        <label>Edit Feedback</label>
-                        <input 
-                            button = "Edit Feedback" 
-                            onclick = {this.handleEditFeedback}
-                        />
-                        <label>Delete Feedback</label>
-                        <input
-                            button = "Delete Feedback" 
-                            onclick = {this.handleDelete}
-                        />
-                    </form>
-                </div>
-            );
-        });
-    }
+    // render() {
+    //     this.props.AdminFeedback.map(feedback => {
+    //         return(
+    //             <div>
+    //                 <form>
+    //                     <label>Stylist Name</label>
+    //                     <input 
+    //                         type = "text"
+    //                         name = "firstname, lastname"
+    //                         onChange = {this.handleEditStylist}
+    //                     />
+    //                     <label>Client Name</label>
+    //                     <input 
+    //                         type = "text"
+    //                         name = "firstname, lastname"
+    //                         onChange = {this.handleEditClient}
+    //                     />
+    //                     <label>Edit Date</label>
+    //                     <input 
+    //                         type = "date"
+    //                         onChange = {this.handleEditDate}
+    //                     />
+    //                     <button onClick = {() => this.submitChanges()} type = "button">
+    //                         Submit 
+    //                     </button>
+    //                 </form>
+    //                 <form action = "">
+    //                     <label>Star Rating</label>
+    //                     <input
+    //                         button = "Edit Star Rating"
+    //                         onclick = {this.handleStarRating}
+    //                     />
+    //                     <label>Edit Feedback</label>
+    //                     <input 
+    //                         button = "Edit Feedback" 
+    //                         onclick = {this.handleEditFeedback}
+    //                     />
+    //                     <label>Delete Feedback</label>
+    //                     <input
+    //                         button = "Delete Feedback" 
+    //                         onclick = {this.handleDelete}
+    //                     />
+    //                 </form>
+    //             </div>
+    //         );
+    //     });
+    // }
 }
 
 const mapStateToProps = state => {
