@@ -44,7 +44,7 @@ module.exports = app => {
   // APPOINTMENTS FUNCTIONS
   app.route("/api/appointments").get(appointments.GET); //testing route to get all appointments in database
   app.route("/api/date/stylist/appointments").post(appointments.SEARCHBY_DATE_STYLIST);
-  app.route("/api/date/appointments").post(appointments.SEARCHBY_DATE); // all appointments for a specific date
+  app.route("/api/date/appointments").post(appointments.SEARCHBY_DATE); // all appointments by specific date
   app.route("/api/appointments/:id").get(appointments.GET_ONE); //get a specific Appointment
 
   app

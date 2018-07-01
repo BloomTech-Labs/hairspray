@@ -61,7 +61,7 @@ const findAppointmentByDate = (req, res) => {
 		.populate("service")
 		.then(appt => {
 			res.status(200).json({
-				success: "Appointment date found",
+				success: "Appointments by date found",
 				appt
 			});
 		})
