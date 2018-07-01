@@ -1,8 +1,8 @@
 import * as actiontype from './actiontypes';
 import axios from "axios";
 
-const URL = "https://obscure-island-58835.herokuapp.com/api";
-// const URL = "http://localhost:5000/api";
+// const URL = "https://obscure-island-58835.herokuapp.com/api";
+const URL = "http://localhost:5000/api";
 
 // function accepts an ID for the appointment, an object of scores, and an object of feedback notes
 export const createFeedback = (appointmentID, scores, feedback) => {
@@ -33,6 +33,19 @@ export const createFeedback = (appointmentID, scores, feedback) => {
 			.catch(err => {
 				dispatch({ type: err });
 			});
+  }
+}
+
+export const getfeedbacks = () => {
+  return dispatch => {
+
+    dispatch({ type: actiontype.GETTING_ALL_FEEDBACKS });
+    axios
+    .get(`${URL}/feedback`)
+    .then(feedbacks => {
+      console.log("feedbacks recieved", feedbacks.data);
+      dispatch({ type: actiontype.GOT_ALL_FEEDBACKS, payload: feedbacks.data });
+    })
   }
 }
 

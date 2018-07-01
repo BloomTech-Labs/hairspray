@@ -15,6 +15,7 @@ import UserHome from "./components/user/UserHome";
 import UserScheduling from "./components/user/schedule/UserScheduling";
 import UserBilling from "./components/user/UserBilling";
 import UserFeedback from "./components/user/feedback/UserFeedback";
+import AdminFeedback from "./components/user/feedback/AdminFeedback";
 import UserSettings from "./components/user/settings/UserSettings";
 import DevUsers from "./components/dev/DevUsers";
 import Welcome from "./components/user/Welcome";
@@ -36,6 +37,7 @@ ReactDOM.render(
 				<Route path="/user/feedback" component={UserFeedback} />
 				<Route path="/user/settings" component={UserSettings} />
 				<Route path="/dev/users" component={DevUsers} />
+				<Route path="/user/allFeedbacks" component={AdminFeedback} />
 				{/* <Route path="/admin" component={} /> */}
 			</div>
 		</Router>

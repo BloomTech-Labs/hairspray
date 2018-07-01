@@ -23,6 +23,10 @@ export default class UserHome extends Component {
 				<div>
 					<Link to="/user/settings">Settings</Link>
 				</div>
+
+				<div>
+					<Link to="/user/allFeedbacks">Feedback Admin</Link>
+				</div>
 			</div>
 		);
 	}
