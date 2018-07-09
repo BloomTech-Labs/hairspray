@@ -17,16 +17,16 @@ const findAppointmentByDateAndStylist = (req, res) => {
 	const { date, stylist } = req.body;
 	const dateBefore = new Date(date);
 	dateBefore.setDate(dateBefore.getDate() - 1)
-	
+
 	let today = date.slice(0, 10);
 	let before = dateBefore.toISOString().slice(0, 10);
-	
+
 	Appointment.find({
 		session: {
 			$gte: `${before}T23:00:00.000Z`,
 			$lt: `${today}T23:00:00.000Z`
 		},
-		stylist: {_id: stylist}
+		stylist: { _id: stylist }
 	})
 		.populate({ path: "user", select: "name email phone" })
 		.populate({ path: "stylist", select: "name email" })
@@ -34,6 +34,34 @@ const findAppointmentByDateAndStylist = (req, res) => {
 		.then(appt => {
 			res.status(200).json({
 				success: "Appointments found",
+				appt
+			});
+		})
+		.catch(err => {
+			res.status(400).json({ error: err });
+		});
+};
+
+const findAppointmentByDate = (req, res) => {
+	const { date } = req.body;
+	const dateBefore = new Date(date);
+	dateBefore.setDate(dateBefore.getDate() - 1)
+
+	const dateToday = date.slice(0, 10);
+	const datePrevious = dateBefore.toISOString().slice(0, 10);
+
+	Appointment.find({
+		session: {
+			$gte: `${datePrevious}T23:00:00.000Z`,
+			$lt: `${dateToday}T23:00:00.000Z`
+		},
+	})
+		.populate({ path: "user", select: "name email phone" })
+		.populate({ path: "stylist", select: "name email" })
+		.populate("service")
+		.then(appt => {
+			res.status(200).json({
+				success: "Appointments by date found",
 				appt
 			});
 		})
@@ -107,7 +135,7 @@ const createAppointment = (req, res) => {
 				.create({
 					body: `Your appointment with ${
 						stylist.name
-					} on ${apptDay} at ${apptTime} has been scheduled!`,
+						} on ${apptDay} at ${apptTime} has been scheduled!`,
 					to: myNumber, // Number to send text to. Put your number here to test
 					from: twilioNumber // From a valid Twilio number
 				})
@@ -244,5 +272,6 @@ module.exports = {
 	DELETE: deleteAppointment,
 	USER_GET: getUserAppointments,
 	STYLIST_GET: getStylistAppointments,
-	SEARCHBY_DATE_STYLIST: findAppointmentByDateAndStylist
+	SEARCHBY_DATE_STYLIST: findAppointmentByDateAndStylist,
+	SEARCHBY_DATE: findAppointmentByDate
 };
