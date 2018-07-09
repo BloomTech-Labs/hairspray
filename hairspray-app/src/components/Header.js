@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
+
 import {
   Collapse,
   Navbar,
@@ -14,7 +15,6 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import "./css/style.css";
 
 export default class Header extends Component {
   render() {
@@ -24,10 +24,14 @@ export default class Header extends Component {
           <NavbarBrand href="/">Hairspray</NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/signup">Sign Up</NavLink>
+              <Link to="/signup">
+                <NavLink>Sign Up</NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/signin">Sign In</NavLink>
+              <Link to="/signin">
+                <NavLink>Sign In</NavLink>
+              </Link>
             </NavItem>
           </Nav>
         </Navbar>
