@@ -100,24 +100,16 @@ const updateUser = (req, res) => {
   });
 };
 
+const fulfillRequest = res => (stripeErr, stripeRes) => {
+  if (stripeErr) {
+    res.status(500).send({ error: stripeErr });
+  } else {
+    res.status(200).send({ success: stripeRes });
+  }
+};
+
 const createCharge = (req, res) => {
-  const token = req.body.stripeToken;
-  const { email } = req.body;
-  stripe.customers
-    .create({
-      email: req.body.email,
-      source: token
-    })
-    .then(customer => {
-      stripe.charges.create({
-        amount: 1200,
-        currency: "usd",
-        description: "The service cost",
-        customer: customer.id
-      });
-    })
-    .then(res.json("You have completed the charge!"))
-    .catch(err => res.status(500).json(err));
+  stripe.charges.create(req.body, fulfillRequest(res));
 };
 
 module.exports = {

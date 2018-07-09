@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
 
-const SERVER = "http://localhost:5000";
+const SERVER = "https://obscure-island-58835.herokuapp.com/api";
 
 const CURRENCY = "USD";
 const successPayment = data => {

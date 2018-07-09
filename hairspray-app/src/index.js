@@ -17,6 +17,7 @@ import UserBilling from "./components/user/UserBilling";
 import UserFeedback from "./components/user/feedback/UserFeedback";
 import UserSettings from "./components/user/settings/UserSettings";
 import DevUsers from "./components/dev/DevUsers";
+import Welcome from "./components/user/Welcome";
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
@@ -29,6 +30,7 @@ ReactDOM.render(
 				<Route path="/signin" component={SignIn} />
 				<Route path="/signup" component={SignUp} />
 				<Route path="/user" component={UserHome} />
+				<Route path="/user/home" component={Welcome} />
 				<Route path="/user/scheduling" component={UserScheduling} />
 				<Route path="/user/billing" component={UserBilling} />
 				<Route path="/user/feedback" component={UserFeedback} />
