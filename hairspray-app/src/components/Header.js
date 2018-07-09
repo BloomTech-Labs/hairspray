@@ -16,20 +16,6 @@ import {
 } from "reactstrap";
 import "./css/style.css";
 
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
-
 export default class Header extends Component {
   render() {
     return (

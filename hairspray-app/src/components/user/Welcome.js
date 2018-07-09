@@ -5,7 +5,7 @@ export default class Welcome extends Component {
 		return (
 			<div className="welcome">
 				<div className="title">Welcome to Hairspray!</div>
-				<img className="pic" src="https://obscure-island-58835.herokuapp.com/images/logo.png" alt="hairspray logo"/> 
+				<img className="pic" src="https://obscure-island-58835.herokuapp.com/images/hairspray.png" alt="hairspray logo"/> 
 			</div>
 		);
 	}
