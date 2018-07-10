@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { store } from "../../index.js";
 import { Provider } from "react-redux";
-import "../../styles/modal.css";
 
 class Modal extends Component {
   componentDidMount() {
