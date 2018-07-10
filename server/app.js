@@ -45,7 +45,7 @@ app.options("*", CORS());
 routes(app);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(`${__dirname  }/hairspray-app/build/index.html`));
+  res.sendFile(path.join(__dirname+'/../hairspray-app/build/index.html'));
 });
 
 app.listen(port, () => console.log(`app running on port ${port}`));

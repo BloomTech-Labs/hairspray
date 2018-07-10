@@ -4,13 +4,13 @@ const User = require("../models/User.js");
 var settings = require("../config/settings");
 const Appointment = require("../models/Appointment.js");
 
-let timer = 5000; //Check timer for milliseconds
-const accountSid = process.env.TWILIO_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioNumber = process.env.TWILIO_NUMBER;
-const myNumber = process.env.MY_NUMBER;
-const twilio = require("twilio");
-const client = new twilio(accountSid, authToken);
+// let timer = 5000; //Check timer for milliseconds
+// const accountSid = process.env.TWILIO_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const twilioNumber = process.env.TWILIO_NUMBER;
+// const myNumber = process.env.MY_NUMBER;
+// const twilio = require("twilio");
+// const client = new twilio(accountSid, authToken);
 // const CronJob = require("cron").CronJob;
 
 const findAppointmentByDateAndStylist = (req, res) => {
