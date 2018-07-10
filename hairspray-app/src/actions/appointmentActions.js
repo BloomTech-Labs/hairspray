@@ -78,7 +78,7 @@ export const setApppointment = data => {
 export const getAppointmentsByDate = (date) => {
 	return dispatch => {
 		dispatch({ type: actiontype.GETTING_APPOINTMENTS_BY_DATE });
-		axios.post('http://localhost:5000/api/appointments/date', { date: date }) // CHANGE FOR PRODUCTION
+		axios.post('http://localhost:5000/api/appointments/date', { date: date }) // CHANGE URL FOR PRODUCTION
 			.then(response => {
 				dispatch({
 					type: actiontype.GOT_APPOINTMENTS_BY_DATE,

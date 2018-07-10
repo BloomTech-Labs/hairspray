@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Calendar from "react-calendar";
 import { getAppointmentsByDate } from "../../../actions";
-import AppointmentList from './AppointmentList';
+import AppointmentList from "./AppointmentList";
+import UserHome from "../UserHome";
+import PropTypes from "prop-types";
 
 class AdminSchedule extends Component {
     constructor(props) {
         super(props);
-        this.date = '';
+        this.date = "";
     }
 
     onChange = (date) => {
@@ -16,8 +18,12 @@ class AdminSchedule extends Component {
     }
 
     render() {
+
         return (
             <div>
+                <div className="side-nav-bar">
+                    <UserHome />
+                </div>
                 <div className="calendar">
                     <Calendar
                         onChange={value => this.onChange(value)}
@@ -31,6 +37,11 @@ class AdminSchedule extends Component {
         )
     }
 }
+
+AdminSchedule.propTypes = {
+    appointments: PropTypes.arrayOf(PropTypes.object).isRequired,
+    gettingAppointmentsByDate: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = (state) => {
     return {
