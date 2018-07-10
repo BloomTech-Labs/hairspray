@@ -65,14 +65,12 @@ const getAppointment = (req, res) => {
 		.populate({ path: "stylist", select: "name email" })
 		.populate("service")
 		.then(appt => {
-			console.log(appt);
 			res.status(200).json({
 				success: "Appointment found",
 				appt
 			});
 		})
 		.catch(err => {
-			console.log(err);
 			res.status(400).json({ error: err });
 		});
 };
