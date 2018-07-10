@@ -12,7 +12,7 @@
 }
 .sidebar a:link,
 .sidebar a:visited {
-  color: #fffd;
+  color: #fff;
   text-decoration: none;
   font-size: 22px;
   border-radius: 5px;
@@ -23,8 +23,7 @@
 .sidebar a:hover,
 .sidebar a:active {
   transition: all 0.5s;
-  color: #43779E;
-  background-color: #DC6839;
+  background-color: #6897BB;
 }
 .welcome {
   margin-left: 15%;
