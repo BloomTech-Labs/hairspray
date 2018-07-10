@@ -4,7 +4,7 @@ import Calendar from "react-calendar";
 import { getAppointmentsByDate } from "../../../actions";
 import AppointmentList from "./AppointmentList";
 import UserHome from "../UserHome";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import {
     Button,
     Form,
@@ -30,20 +30,36 @@ class AdminSchedule extends Component {
     render() {
         return (
             <div className="scheduling">
-                <div className="scheduling__title">View Your Appointments</div>
+                <div className="scheduling__title">Schedule</div>
                 <div className="scheduling__form-container">
-                    <Form className="scheduling__form">
-                        <div className="side-nav-bar">
-                            <UserHome />
-                        </div>
-                        <FormGroup>
-                            <Calendar
-                                onChange={value => this.onChange(value)}
-                            />
-
-                        </FormGroup>
-
-                        <div className="appointment__container">
+                    {/* <Form className="scheduling__form"> */}
+                    <div className="side-nav-bar">
+                        <UserHome />
+                    </div>
+                    <FormGroup>
+                        {/* TODO: move to the right a little bit */}
+                        <Calendar
+                            onChange={value => this.onChange(value)}
+                        />
+                        {/* TODO: Remove this one */}
+                        <Form className="scheduling__form">
+                            {/* <div className="appointment__container"> */}
+                            <div>1st render</div>
+                            {this.props.appointments.appt && this.props.appointments.appt.map((appointment, item) => <AppointmentList
+                                key={item}
+                                session={this.date}
+                                stylist={appointment.stylist.name}
+                                client={appointment.user.name}
+                                time={appointment.service[0].type}
+                            />)}
+                            {/* </div> */}
+                        </Form>
+                    </FormGroup>
+                    {/* </Form> */}
+                    <FormGroup>
+                        <Form className="scheduling__form">
+                            {/* <div className="appointment__container"> */}
+                            <div>2nd render</div>
                             {this.props.appointments.appt && this.props.appointments.appt.map((appointment, item) => <AppointmentList
                                 key={item}
                                 session={appointment.session}
@@ -51,8 +67,10 @@ class AdminSchedule extends Component {
                                 client={appointment.user.name}
                                 time={appointment.service[0].type}
                             />)}
-                        </div>
-                    </Form>
+                            {/* </div> */}
+                        </Form>
+                    </FormGroup>
+
                 </div>
             </div>
         );
@@ -61,10 +79,10 @@ class AdminSchedule extends Component {
 
 
 
-AdminSchedule.propTypes = {
-    appointments: PropTypes.arrayOf(PropTypes.object).isRequired,
-    gettingAppointmentsByDate: PropTypes.bool.isRequired,
-};
+// AdminSchedule.propTypes = {
+//     appointments: PropTypes.arrayOf(PropTypes.object).isRequired,
+//     gettingAppointmentsByDate: PropTypes.bool.isRequired,
+// };
 
 const mapStateToProps = (state) => {
     return {
