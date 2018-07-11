@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getfeedbacks } from "../../../actions";
 import {
-  Button,
   Card,
   CardText,
   CardHeader,
@@ -59,16 +58,15 @@ class AdminFeedback extends Component {
       return <div className="adminFeedbacks">Getting All Feedbacks</div>
     } else {
       return this.props.feedbacks.map(feedback => {
-        // console.log(feedback)
         return (
           <div className="adminFeedbacks">
             {this.renderStarRating(this.averageFeedbackScore(feedback))}
             <Card>                
-              <CardHeader className="stylist__header">
+              <CardHeader className="text-center">
                 {feedback.overallScore + " " + feedback.appointment.stylist.name}
               </CardHeader>
               <CardBody>
-                <CardText>
+                <CardText className="text-center">
                   {"consultation: " + feedback.consultation} <br />
                   {"consultationScore: "} {this.renderStarRating(feedback.consultationScore)} <br />
                   {"ontime: " + feedback.ontime} <br />
@@ -78,7 +76,7 @@ class AdminFeedback extends Component {
                   {"customerservice: " + feedback.customerservice} <br />
                   {"customerserviceScore: "} {this.renderStarRating(feedback.customerserviceScore)} <br />
                   {"overall: " + feedback.overall} <br />
-                  {"overallScore: "}{this.renderStarRating(feedback.overallScore)} <br />
+                  {"overallScore: "} {this.renderStarRating(feedback.overallScore)} <br />
                   {"date: " + feedback.date} <br />
                 </CardText>
                 <CardText>
@@ -87,7 +85,6 @@ class AdminFeedback extends Component {
                 <CardTitle>
                   {feedback.appointment.user.name}
                 </CardTitle>
-                {/* <Button color="primary" size="sm">Delete</Button> */}
               </CardBody>
             </Card>
           </div>
