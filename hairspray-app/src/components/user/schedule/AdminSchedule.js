@@ -29,47 +29,34 @@ class AdminSchedule extends Component {
 
     render() {
         return (
-            <div className="scheduling">
-                <div className="scheduling__title">Schedule</div>
-                <div className="scheduling__form-container">
+            <div className="admin__scheduling">
+                <div className="admin__scheduling__title">Schedule</div>
+                <div className="admin__scheduling__form-container">
                     {/* <Form className="scheduling__form"> */}
-                    <div className="side-nav-bar">
-                        <UserHome />
-                    </div>
-                    <FormGroup>
-                        {/* TODO: move to the right a little bit */}
-                        <Calendar
-                            onChange={value => this.onChange(value)}
-                        />
-                        {/* TODO: Remove this one */}
-                        <Form className="scheduling__form">
-                            {/* <div className="appointment__container"> */}
-                            <div>1st render</div>
-                            {this.props.appointments.appt && this.props.appointments.appt.map((appointment, item) => <AppointmentList
-                                key={item}
-                                session={this.date}
-                                stylist={appointment.stylist.name}
-                                client={appointment.user.name}
-                                time={appointment.service[0].type}
-                            />)}
-                            {/* </div> */}
-                        </Form>
-                    </FormGroup>
-                    {/* </Form> */}
-                    <FormGroup>
-                        <Form className="scheduling__form">
-                            {/* <div className="appointment__container"> */}
-                            <div>2nd render</div>
-                            {this.props.appointments.appt && this.props.appointments.appt.map((appointment, item) => <AppointmentList
-                                key={item}
-                                session={appointment.session}
-                                stylist={appointment.stylist.name}
-                                client={appointment.user.name}
-                                time={appointment.service[0].type}
-                            />)}
-                            {/* </div> */}
-                        </Form>
-                    </FormGroup>
+
+                    <span>
+                        <FormGroup>
+                            {/* TODO: move to the right a little bit */}
+                            <Form>
+                                <Calendar
+                                    onChange={value => this.onChange(value)}
+                                />
+
+                            </Form>
+                        </FormGroup>
+                    </span>
+
+
+                    <span className="appointment__container">
+
+                        {this.props.appointments.appt && this.props.appointments.appt.map((appointment, item) => <AppointmentList
+                            key={item}
+                            session={appointment.session}
+                            stylist={appointment.stylist.name}
+                            client={appointment.user.name}
+                            time={appointment.service[0].type}
+                        />)}
+                    </span>
 
                 </div>
             </div>

@@ -18,6 +18,8 @@ import UserFeedback from "./components/user/feedback/UserFeedback";
 import UserSettings from "./components/user/settings/UserSettings";
 import DevUsers from "./components/dev/DevUsers";
 import Welcome from "./components/user/Welcome";
+import AdminSchedule from "./components/user/schedule/AdminSchedule";
+
 
 export const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
@@ -36,6 +38,8 @@ ReactDOM.render(
 				<Route path="/user/feedback" component={UserFeedback} />
 				<Route path="/user/settings" component={UserSettings} />
 				<Route path="/dev/users" component={DevUsers} />
+				<Route path="/admin" component={UserHome} />
+				<Route path="/admin/schedule" component={AdminSchedule} />
 				{/* <Route path="/admin" component={} /> */}
 			</div>
 		</Router>

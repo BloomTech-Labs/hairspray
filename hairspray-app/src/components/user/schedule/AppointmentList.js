@@ -9,9 +9,9 @@ import {
 
 const AppointmentList = ({ session, stylist, client, time }) => {
     return (
-        <div>
-            <Card>
-                <CardBody inverse style={{ backgroundColor: '#f68a5f', borderColor: 'black' }}>
+        <div className="appt-list">
+            <Card className="appt-list__card">
+                <CardBody>
                     <CardText>{session}</CardText>
                     <CardText>{stylist}</CardText>
                     <CardText>{client}</CardText>
