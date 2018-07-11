@@ -60,17 +60,17 @@ class UserFeedback extends Component {
               <CardBody className="feedback__card__body">
                 <CardTitle>{"Stylist: " + appointment.stylist.name}</CardTitle>
                 <CardText>
-				{appointment.service.map((el, i) => {
-                return <div key={i}>{el.type + ": " + el.price}</div>;
-              })}
+                  {appointment.service.map((el, i) => {
+                    return <div key={i}>{el.type + ": " + el.price}</div>;
+                  })}
                 </CardText>
-				<Button
-        className="feedback__card__button"
-              type="button"
-              onClick={() => this.handleButton(appointment._id)}
-            >
-              Leave Feedback
-            </Button>
+                <Button
+                  className="feedback__card__button"
+                  type="button"
+                  onClick={() => this.handleButton(appointment._id)}
+                >
+                  Leave Feedback
+                </Button>
               </CardBody>
             </Card>
           </div>
@@ -86,13 +86,15 @@ class UserFeedback extends Component {
   render() {
     return (
       <div className="feedback">
-        <div className="feedback__title">Leave Feedback For Your Appoinments</div>
+        <div className="feedback__title">
+          Leave Feedback For Your Appoinments
+        </div>
         {this.props.showFeedbackForm ? (
           <Modal>
             <FeedbackForm appointment={this.apppointment} />
           </Modal>
         ) : null}
-        <div className="feedback__container" >{this.renderAppointments()}</div>
+        <div className="feedback__container">{this.renderAppointments()}</div>
       </div>
     );
   }
