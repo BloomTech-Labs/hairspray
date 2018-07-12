@@ -23,7 +23,8 @@ class LandPage extends Component {
     } else {
       this.props.stylists.forEach((stylist, i) => {
         this.stylists.push({
-          src: stylist.image
+          src: stylist.image,
+          caption: stylist.name
         });
       });
     }

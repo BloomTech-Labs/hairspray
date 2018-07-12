@@ -1,19 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
-
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
+  NavLink
 } from "reactstrap";
 
 export default class Header extends Component {
@@ -24,14 +15,10 @@ export default class Header extends Component {
           <NavbarBrand href="/">Hairspray</NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <Link to="/signup">
-                <NavLink>Sign Up</NavLink>
-              </Link>
+                <NavLink href="/signup">Sign Up</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/signin">
-                <NavLink>Sign In</NavLink>
-              </Link>
+                <NavLink href="/signin">Sign In</NavLink>
             </NavItem>
           </Nav>
         </Navbar>

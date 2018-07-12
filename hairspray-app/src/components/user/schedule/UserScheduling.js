@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { setApppointment } from "../../../actions";
+import {
+	setApppointment,
+	getAppointmentsByDateAndStylist
+} from "../../../actions";
 import Calendar from "react-calendar";
 import {
 	Button,
@@ -24,8 +27,18 @@ class UserScheduling extends Component {
 		this.user.time = "Please Select a Time";
 		this.user.service = { _id: "", type: "Please Select a Service", price: "" };
 		this.dropdownOpen = false;
-		this.maxDate = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth() + 6);
-		this.minDate = new Date(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate() + 1);
+		this.flag = false;
+		this.open = 9;
+		this.close = 21;
+		this.maxDate = new Date(
+			new Date().getUTCFullYear(),
+			new Date().getUTCMonth() + 6
+		);
+		this.minDate = new Date(
+			new Date().getUTCFullYear(),
+			new Date().getUTCMonth(),
+			new Date().getUTCDate() + 1
+		);
 	}
 
 	toggle() {
@@ -37,6 +50,7 @@ class UserScheduling extends Component {
 
 	handleStylistChild = data => {
 		this.user.stylist = data;
+		this.flag = false;
 	};
 
 	handleServicesChild = data => {
@@ -46,7 +60,7 @@ class UserScheduling extends Component {
 
 	handleAppointmentTimesChild = data => {
 		console.log("In UserScheduling:", data);
-	}
+	};
 
 	handleTimeChange = event => {
 		this.user.time = event.target.value;
@@ -55,14 +69,37 @@ class UserScheduling extends Component {
 
 	handleDateChange = date => {
 		this.user.date = date.toISOString().slice(0, 10);
+		this.flag = false;
 		this.forceUpdate();
 	};
+
+	getTimes() {
+		this.props.getAppointmentsByDateAndStylist(
+			this.user.date,
+			this.user.stylist._id
+		);
+			console.log("props in getTimes",this.props.appointments);
+	}
+
+	renderTimes() {
+		if(this.props.appointments === undefined || this.flag === false) {
+			this.flag = true;
+			this.getTimes();
+		} 
+		return <div>Times</div>;
+	}
 
 	renderAppointment() {
 		return (
 			<div className="appointment">
 				<div className="image_container">
-					{this.user.stylist.image === "" ? null : (
+					{this.user.stylist.image === "" ? (
+						<img
+							src="https://obscure-island-58835.herokuapp.com/images/hairspray2logo.png"
+							alt={this.user.stylist.name}
+							className="stylist_image"
+						/>
+					) : (
 						<img
 							src={this.user.stylist.image}
 							alt={this.user.stylist.name}
@@ -116,9 +153,12 @@ class UserScheduling extends Component {
 							<Dropdown
 								isOpen={this.dropdownOpen}
 								toggle={this.toggle.bind(this)}
-								
 							>
-								<DropdownToggle className="scheduling__dropdown" value="Please Select a Stylist" caret>
+								<DropdownToggle
+									className="scheduling__dropdown"
+									value="Please Select a Stylist"
+									caret
+								>
 									Select Stylist
 								</DropdownToggle>
 								<DropdownMenu>
@@ -138,12 +178,10 @@ class UserScheduling extends Component {
 								// TODO: Makea max date and min date limit
 							/>
 							<Input onChange={this.handleTimeChange} type="time" />
-							{/* {this.user.stylist.name === "Please Select a Stylist" || this.user.date === "Please Select a Date" ? null :
-							<AppointmentTimes 
-							dateSelected={this.user.date}
-							stylistSelected={this.user.stylist}
-							flag={true}
-							/>} */}
+							{this.user.stylist.name === "Please Select a Stylist" ||
+							this.user.date === "Please Select a Date"
+								? null
+								: this.renderTimes()}
 						</FormGroup>
 
 						<div className="appointment__container">
@@ -165,13 +203,16 @@ class UserScheduling extends Component {
 
 const mapStateToProps = state => {
 	return {
-		settingAppointment: state.appt.settingAppointment
+		settingAppointment: state.appt.settingAppointment,
+		appointments: state.appt.appointments.appt,
+		gettingAppointments: state.appt.gettingAppointments
 	};
 };
 
 export default connect(
 	mapStateToProps,
 	{
-		setApppointment
+		setApppointment,
+		getAppointmentsByDateAndStylist
 	}
 )(UserScheduling);

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm } from "redux-form";
 import { register } from "../actions";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 class SignUp extends Component {
   constructor() {
@@ -34,8 +34,6 @@ class SignUp extends Component {
   };
 
   render() {
-    const { handleSubmit } = this.props;
-
     return (
       <div className="signup">
         <div className="signup-form">

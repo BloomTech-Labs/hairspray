@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm } from "redux-form";
 import { login } from "../actions";
 import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
