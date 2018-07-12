@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
 	setApppointment,
-	getAppointmentsByDateAndStylist
+	getAppointmentsByDateAndStylist,
+	getAllStylists
 } from "../../../actions";
 import Calendar from "react-calendar";
 import {
@@ -12,7 +13,8 @@ import {
 	Input,
 	Dropdown,
 	DropdownToggle,
-	DropdownMenu
+	DropdownMenu,
+	DropdownItem
 } from "reactstrap";
 import Stylists from "./Stylists";
 import Services from "./Services";
@@ -39,6 +41,10 @@ class UserScheduling extends Component {
 			new Date().getUTCMonth(),
 			new Date().getUTCDate() + 1
 		);
+	}
+
+	componentDidMount() {
+		this.props.getAllStylists();
 	}
 
 	toggle() {
@@ -78,14 +84,14 @@ class UserScheduling extends Component {
 			this.user.date,
 			this.user.stylist._id
 		);
-			console.log("props in getTimes",this.props.appointments);
+		console.log("props in getTimes", this.props.appointments);
 	}
 
 	renderTimes() {
-		if(this.props.appointments === undefined || this.flag === false) {
+		if (this.props.appointments === undefined || this.flag === false) {
 			this.flag = true;
 			this.getTimes();
-		} 
+		}
 		return <div>Times</div>;
 	}
 
@@ -139,6 +145,11 @@ class UserScheduling extends Component {
 		});
 	}
 
+
+// pass in appointments to child
+// try to refactor appointment shower
+// 
+
 	render() {
 		return (
 			<div className="scheduling">
@@ -162,7 +173,14 @@ class UserScheduling extends Component {
 									Select Stylist
 								</DropdownToggle>
 								<DropdownMenu>
-									<Stylists cbFromParent={this.handleStylistChild.bind(this)} />
+									{this.props.gettingStylists ? (
+										<DropdownItem>Getting Stylists</DropdownItem>
+									) : (
+										<Stylists
+											stylists={this.props.stylists}
+											cbFromParent={this.handleStylistChild.bind(this)}
+										/>
+									)}
 								</DropdownMenu>
 							</Dropdown>
 						</FormGroup>
@@ -205,7 +223,9 @@ const mapStateToProps = state => {
 	return {
 		settingAppointment: state.appt.settingAppointment,
 		appointments: state.appt.appointments.appt,
-		gettingAppointments: state.appt.gettingAppointments
+		gettingAppointments: state.appt.gettingAppointments,
+		gettingStylists: state.stylist.gettingStylists,
+		stylists: state.stylist.stylists
 	};
 };
 
@@ -213,6 +233,7 @@ export default connect(
 	mapStateToProps,
 	{
 		setApppointment,
-		getAppointmentsByDateAndStylist
+		getAppointmentsByDateAndStylist,
+		getAllStylists
 	}
 )(UserScheduling);
