@@ -40,20 +40,20 @@ module.exports = app => {
     .get(stylists.STYLIST_GET) // get a stylist by their id
     .put(stylists.PUT) // updates Stylist by Stylist ID
     .delete(stylists.DELETE); // deletes Stylist by Stylist ID
-
-  // APPOINTMENTS FUNCTIONS
-  app.route("/api/appointments").get(appointments.GET); //testing route to get all appointments in database
-  app.route("/api/date/stylist/appointments").post(appointments.SEARCHBY_DATE_STYLIST);
-  app.route("/api/appointments/date").post(appointments.SEARCHBY_DATE); // all appointments by specific date
-  app.route("/api/appointments/:id").get(appointments.GET_ONE); //get a specific Appointment
-
-  app
+    
+    app
     .route("/api/user/:id/appointments")
     .post(appointments.POST) // create a new Appointment
     .get(appointments.USER_GET); // list all Appointments for specific User
-
-  app.route("/api/stylist/:id/appointments").get(appointments.STYLIST_GET); // list all Appointments for specific Stylist
-
+    
+    app.route("/api/stylist/:id/appointments").get(appointments.STYLIST_GET); // list all Appointments for specific Stylist
+    
+      // APPOINTMENTS FUNCTIONS
+      app.route("/api/appointments").get(appointments.GET); //testing route to get all appointments in database
+      app.route("/api/date/stylist/appointments").post(appointments.SEARCHBY_DATE_STYLIST);
+      app.route("/api/appointments/date").post(appointments.SEARCHBY_DATE); // all appointments by specific date
+      app.route("/api/appointments/:id").get(appointments.GET_ONE); //get a specific Appointment
+    
   app
     .route("/api/appointments/update/:id")
     .put(appointments.PUT) // updates Appointment by Appointment ID

@@ -13,6 +13,14 @@ class AppointmentTimes extends Component {
 		this.open = 9;
 		this.close = 21;
 		this.unavailableHours = [];
+		this.state = {
+			dateSelected: props.dateSelected,
+			stylistSelected: props.stylistSelected,
+			inherited: props,
+			appointments: props.appointments
+		};
+
+		this.updateAppointments = this.updateAppointments.bind(this);
 	}
 
 	renderAvailableTimeslots() {
@@ -35,6 +43,31 @@ class AppointmentTimes extends Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if(JSON.stringify(this.props.stylistSelected) !== JSON.stringify(nextProps.stylistSelected) || JSON.stringify(this.props.dateSelected) !== JSON.stringify(nextProps.dateSelected)) {
+		this.setState({
+			dateSelected: nextProps.dateSelected,
+			stylistSelected: nextProps.stylistSelected,
+			inherited: nextProps,
+		})
+		this.props.getAppointmentsByDateAndStylist(
+			this.props.dateSelected,
+			this.props.stylistSelected._id
+		);
+			this.setState({ appointments: nextProps.appointments });
+			this.fillWithHours();
+		}
+
+	}
+
+	updateAppointments() {
+		this.props.getAppointmentsByDateAndStylist(
+			this.props.dateSelected,
+			this.props.stylistSelected._id
+		);
+		this.fillWithHours();
+	}
+
 	fillWithHours() {
 		this.hours = [];
 		for (let i = this.open; i <= this.close; i++) {
@@ -43,32 +76,15 @@ class AppointmentTimes extends Component {
 	}
 
 	componentDidMount() {
-    console.log("Did Mount");
-    console.log(this.dateSelected, this.props.dateSelected);
-    this.dateSelected = this.props.dateSelected;
-		this.stylistSelected = this.props.stylistSelected;
-		this.props.getAppointmentsByDateAndStylist(
-			this.dateSelected,
-			this.stylistSelected._id
-		);
-		this.fillWithHours();
+		this.updateAppointments();
 	}
 
-	// does not rerender when recieving new props
-
-	// componentWillReceiveProps(nextProps) {
-	//   this.props.getAppointmentsByDateAndStylist(
-	// 		this.dateSelected,
-	// 		this.stylistSelected._id
-	// 	);
-	// }
-
 	render() {
-		console.log("Appointment times was rerendered");
+		console.log("state props", this.state.inherited);
+		console.log("Appointment times was rendered");
 		if (this.props.appointments === undefined)
 			return <div>Checking Appointments</div>;
 		else {
-			console.log("props are", this.props);
 			return (
 				<div>
 					<div>Available Times:</div>

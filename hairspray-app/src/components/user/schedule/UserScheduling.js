@@ -18,6 +18,7 @@ import {
 } from "reactstrap";
 import Stylists from "./Stylists";
 import Services from "./Services";
+import AppointmentTimes from "./AppointmentTimes";
 // import AppointmentTimes from "./AppointmentTimes";
 
 class UserScheduling extends Component {
@@ -28,8 +29,6 @@ class UserScheduling extends Component {
 		this.user.date = "Please Select a Date";
 		this.user.time = "Please Select a Time";
 		this.user.service = { _id: "", type: "Please Select a Service", price: "" };
-		this.dropdownOpen = false;
-		this.flag = false;
 		this.open = 9;
 		this.close = 21;
 		this.maxDate = new Date(
@@ -41,27 +40,44 @@ class UserScheduling extends Component {
 			new Date().getUTCMonth(),
 			new Date().getUTCDate() + 1
 		);
+		this.state = {
+			dropdownOpen: false,
+			user: {
+				stylist: { name: "Please Select a Stylist", image: "" },
+				date: "Please Select a Date",
+				time: "Please Select a Time",
+				service: { _id: "", type: "Please Select a Service", price: "" }
+			}
+		};
 	}
 
 	componentDidMount() {
+		console.log(this.state);
 		this.props.getAllStylists();
 	}
 
 	toggle() {
-		this.dropdownOpen === false
-			? (this.dropdownOpen = true)
-			: (this.dropdownOpen = false);
-		this.forceUpdate();
+		this.setState({ dropdownOpen: !this.state.dropdownOpen });
 	}
 
 	handleStylistChild = data => {
 		this.user.stylist = data;
-		this.flag = false;
+		this.setState(prevState => ({
+			user: {
+				...prevState.user,
+				stylist: data
+			}
+		}));
+		this.setState({ flag: false });
 	};
 
 	handleServicesChild = data => {
-		this.user.service = data;
-		this.forceUpdate();
+		this.setState(prevState => ({
+			user: {
+				...prevState.user,
+				service: data
+			}
+		}));
 	};
 
 	handleAppointmentTimesChild = data => {
@@ -69,86 +85,86 @@ class UserScheduling extends Component {
 	};
 
 	handleTimeChange = event => {
-		this.user.time = event.target.value;
-		this.forceUpdate();
-	};
+		this.setState(prevState => ({
+			user: {
+					...prevState.user,
+					time: event.target.value
+			}
+	}));
+};
 
-	handleDateChange = date => {
-		this.user.date = date.toISOString().slice(0, 10);
-		this.flag = false;
-		this.forceUpdate();
-	};
-
-	getTimes() {
-		this.props.getAppointmentsByDateAndStylist(
-			this.user.date,
-			this.user.stylist._id
-		);
-		console.log("props in getTimes", this.props.appointments);
-	}
-
-	renderTimes() {
-		if (this.props.appointments === undefined || this.flag === false) {
-			this.flag = true;
-			this.getTimes();
+handleDateChange = date => {
+	this.setState(prevState => ({
+		user: {
+				...prevState.user,
+				date: date.toISOString().slice(0, 10)
 		}
-		return <div>Times</div>;
-	}
+	}));
+		this.setState({ flag: false });
+	};
 
 	renderAppointment() {
 		return (
 			<div className="appointment">
 				<div className="image_container">
-					{this.user.stylist.image === "" ? (
+					{this.state.user.stylist.image === "" ? (
 						<img
 							src="https://obscure-island-58835.herokuapp.com/images/hairspray2logo.png"
-							alt={this.user.stylist.name}
+							alt={this.state.user.stylist.name}
 							className="stylist_image"
 						/>
 					) : (
 						<img
-							src={this.user.stylist.image}
-							alt={this.user.stylist.name}
+							src={this.state.user.stylist.image}
+							alt={this.state.user.stylist.name}
 							className="stylist_image"
 						/>
 					)}
 				</div>
-				<div>{this.user.stylist.name}</div>
-				<div>{this.user.date}</div>
-				<div>{this.user.time}</div>
+				<div>{this.state.user.stylist.name}</div>
+				<div>{this.state.user.date}</div>
+				<div>{this.state.user.time}</div>
 				<div>
 					{this.user.service === "" ? (
 						"Please select a service"
 					) : (
-						<div>{this.user.service.type + ": " + this.user.service.price}</div>
+						<div>
+							{this.state.user.service.type +
+								": " +
+								this.state.user.service.price}
+						</div>
 					)}
 				</div>
 			</div>
 		);
 	}
 
+	renderAppointmentTimes() {
+		return (
+			<Stylists
+				stylists={this.props.stylists}
+				cbFromParent={this.handleStylistChild.bind(this)}
+			/>
+		);
+	}
+
 	handleSubmit() {
 		if (
-			this.user.stylist === "" ||
-			this.user.date === "" ||
-			this.user.time === "" ||
-			this.user.service._id === ""
+			this.state.user.stylist === "" ||
+			this.state.user.date === "" ||
+			this.state.user.time === "" ||
+			this.state.user.service._id === ""
 		) {
 			alert("All fields required!");
 			return;
 		}
 		this.props.setApppointment({
 			history: this.props.history,
-			session: this.user.date + "T" + this.user.time + ":00.00Z",
-			stylist: this.user.stylist,
-			service: this.user.service._id
+			session: this.state.user.date + "T" + this.state.user.time + ":00.00Z",
+			stylist: this.state.user.stylist,
+			service: this.state.user.service._id
 		});
 	}
-
-
-// pass in appointments to child
-// try to refactor appointment shower
-// 
 
 	render() {
 		return (
@@ -162,7 +178,7 @@ class UserScheduling extends Component {
 
 						<FormGroup>
 							<Dropdown
-								isOpen={this.dropdownOpen}
+								isOpen={this.state.dropdownOpen}
 								toggle={this.toggle.bind(this)}
 							>
 								<DropdownToggle
@@ -176,10 +192,7 @@ class UserScheduling extends Component {
 									{this.props.gettingStylists ? (
 										<DropdownItem>Getting Stylists</DropdownItem>
 									) : (
-										<Stylists
-											stylists={this.props.stylists}
-											cbFromParent={this.handleStylistChild.bind(this)}
-										/>
+										this.renderAppointmentTimes()
 									)}
 								</DropdownMenu>
 							</Dropdown>
@@ -196,10 +209,13 @@ class UserScheduling extends Component {
 								// TODO: Makea max date and min date limit
 							/>
 							<Input onChange={this.handleTimeChange} type="time" />
-							{this.user.stylist.name === "Please Select a Stylist" ||
-							this.user.date === "Please Select a Date"
-								? null
-								: this.renderTimes()}
+							{this.state.user.stylist.name === "Please Select a Stylist" ||
+							this.state.user.date === "Please Select a Date" ? null : (
+								<AppointmentTimes
+									dateSelected={this.state.user.date}
+									stylistSelected={this.state.user.stylist}
+								/>
+							)}
 						</FormGroup>
 
 						<div className="appointment__container">
