@@ -58,7 +58,7 @@ class UserFeedback extends Component {
                 {this.timeTrimmer(appointment.session)}
               </CardHeader>
               <CardBody className="feedback__card__body">
-                <CardTitle>{"Stylist: " + appointment.stylist.name}</CardTitle>
+                {/* <CardTitle>{"Stylist: " + appointment.stylist.name}</CardTitle> */}
                 <CardText>
                   {appointment.service.map((el, i) => {
                     return <div key={i}>{el.type + ": " + el.price}</div>;
@@ -84,6 +84,7 @@ class UserFeedback extends Component {
   }
 
   render() {
+    console.log("this.props", this.props);
     return (
       <div className="feedback">
         <div className="feedback__title">
@@ -101,6 +102,7 @@ class UserFeedback extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log("state", state);
   return {
     feedback: state.feedback.feedback,
     appointments: state.appt.appointments.appt,
