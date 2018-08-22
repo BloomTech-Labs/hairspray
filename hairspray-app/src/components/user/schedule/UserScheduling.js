@@ -24,8 +24,7 @@ class UserScheduling extends Component {
     this.user.date = "Please Select a Date";
     this.user.time = "Please Select a Time";
     this.user.service = { _id: "", type: "Please Select a Service", price: "" };
-    this.user.pic1 = "";
-    this.user.examplePics = [];
+    this.user.examplePics = {};
     this.dropdownOpen = false;
     this.maxDate = new Date(
       new Date().getUTCFullYear(),
@@ -101,6 +100,7 @@ class UserScheduling extends Component {
 
   handleSubmit() {
     console.log("this.props", this.props);
+    console.log("this.user.examplePics", this.user.examplePics);
     if (
       this.user.stylist === "" ||
       this.user.date === "" ||
@@ -167,7 +167,7 @@ class UserScheduling extends Component {
 							/>} */}
             </FormGroup>
             <FormGroup>
-              <Pics />
+              <Pics cbFromParent={this.handlePicsChild.bind(this)} />
             </FormGroup>
 
             <div className="appointment__container">

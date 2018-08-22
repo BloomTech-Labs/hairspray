@@ -69,7 +69,8 @@ export const setApppointment = data => {
         session: data.session,
         user,
         stylist: data.stylist,
-        service: data.service
+        service: data.service,
+        examplePics: data.examplePics
       })
       .then(appointment => {
         dispatch({

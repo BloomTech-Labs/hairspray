@@ -11,12 +11,12 @@ class Pics extends Component {
   }
 
   handleChange = event => {
-    console.log("event.target.value", event.target.value);
     const name = event.target.name;
-    console.log("name", name);
     this.setState({
       [name]: event.target.value
     });
+
+    this.props.cbFromParent(this.state);
   };
 
   render() {
@@ -52,6 +52,11 @@ class Pics extends Component {
             />
           </label>
         </form>
+        <div>
+            <img src={} alt="pic1">Pic 1</img>
+
+
+        </div>
       </div>
     );
   }
