@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import Stylists from "./Stylists";
 import Services from "./Services";
-import Pics from "./Pics";
+import ExampleImages from "./ExampleImages";
 // import AppointmentTimes from "./AppointmentTimes";
 
 class UserScheduling extends Component {
@@ -166,10 +166,6 @@ class UserScheduling extends Component {
 							flag={true}
 							/>} */}
             </FormGroup>
-            <FormGroup>
-              <Pics cbFromParent={this.handlePicsChild.bind(this)} />
-            </FormGroup>
-
             <div className="appointment__container">
               {this.renderAppointment()}
               <Button
@@ -180,7 +176,9 @@ class UserScheduling extends Component {
                 Set Appointment
               </Button>
             </div>
+            <div />
           </Form>
+          <ExampleImages cbFromParent={this.handlePicsChild.bind(this)} />
         </div>
       </div>
     );

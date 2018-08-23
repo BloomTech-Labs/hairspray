@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Card, CardTitle, CardText, Input } from "reactstrap";
 
-class Pics extends Component {
+class ExampleImages extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,91 +49,69 @@ class Pics extends Component {
     console.log("state", this.state);
   };
 
+  getPreview = imagePreviewUrl => {
+    if (imagePreviewUrl) {
+      return <img className="example__images" src={imagePreviewUrl} />;
+    } else {
+      return (
+        <CardText className="previewText">
+          Please select an Image for Preview
+        </CardText>
+      );
+    }
+  };
+
   render() {
     // console.log("this.state", this.state);
 
-    let imagePreview1 = null;
-    let imagePreview2 = null;
-    let imagePreview3 = null;
-
-    if (this.state.imagePreviewUrl1) {
-      imagePreview1 = (
-        <img style={imageSize} src={this.state.imagePreviewUrl1} />
-      );
-    } else {
-      imagePreview1 = (
-        <div className="previewText">Please select an Image for Preview</div>
-      );
-    }
-
-    if (this.state.imagePreviewUrl2) {
-      imagePreview2 = (
-        <img style={imageSize} src={this.state.imagePreviewUrl2} />
-      );
-    } else {
-      imagePreview2 = (
-        <div className="previewText">Please select an Image for Preview</div>
-      );
-    }
-
-    if (this.state.imagePreviewUrl3) {
-      imagePreview3 = (
-        <img style={imageSize} src={this.state.imagePreviewUrl3} />
-      );
-    } else {
-      imagePreview3 = (
-        <div className="previewText">Please select an Image for Preview</div>
-      );
-    }
+    let imagePreview1 = this.getPreview(this.state.imagePreviewUrl1);
+    let imagePreview2 = this.getPreview(this.state.imagePreviewUrl2);
+    let imagePreview3 = this.getPreview(this.state.imagePreviewUrl3);
 
     return (
-      <div style={picsContainer}>
-        <div>Add 3 URL links to photos of example hairstyles. (Optional)</div>
-        <form>
-          <label>
-            Pic1:
-            <input
+      <div>
+        <div>(Optional) Upload 3 example hairstyle images.</div>
+        <div className="example__images__form-container">
+          <Card>
+            <CardTitle>Image 1</CardTitle>
+            <Input
               name="file1"
               type="file"
               value={this.state.pic1}
               onChange={e => this.handleChange(e)}
             />
-            <div>{imagePreview1}</div>
-          </label>
-          <label>
-            Pic2:
-            <input
+            <div className="example__images-container">
+              <div className="example__images">{imagePreview1}</div>
+            </div>
+          </Card>
+          <Card>
+            <CardTitle>Image 2</CardTitle>
+            <Input
               name="file2"
               type="file"
               value={this.state.pic2}
               onChange={e => this.handleChange(e)}
             />
-            <div>{imagePreview2}</div>
-          </label>
-          <label>
-            Pic3:
-            <input
+            <div className="example__images-container">
+              <div className="example__images">{imagePreview2}</div>
+            </div>
+          </Card>
+          <Card>
+            <CardTitle>Image 3</CardTitle>
+            <Input
               name="file3"
               type="file"
               value={this.state.pic3}
               onChange={e => this.handleChange(e)}
             />
-            <div style={picsContainer}>{imagePreview3}</div>
-          </label>
-        </form>
+            <div className="example__images-container">
+              <div className="example__images">{imagePreview3}</div>
+            </div>
+          </Card>
+        </div>
       </div>
     );
   }
 }
 
-const picsContainer = {
-  width: "300px",
-  height: "400px"
-};
-
-const imageSize = {
-  maxHeight: "400px",
-  maxWidth: "300px"
-};
-
-export default Pics;
+export default ExampleImages;
