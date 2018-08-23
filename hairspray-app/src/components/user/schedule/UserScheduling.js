@@ -54,6 +54,7 @@ class UserScheduling extends Component {
   };
 
   handlePicsChild = data => {
+    console.log("data", data);
     this.user.examplePics = data;
   };
 
@@ -99,7 +100,6 @@ class UserScheduling extends Component {
   }
 
   handleSubmit() {
-    console.log("this.props", this.props);
     console.log("this.user.examplePics", this.user.examplePics);
     if (
       this.user.stylist === "" ||
