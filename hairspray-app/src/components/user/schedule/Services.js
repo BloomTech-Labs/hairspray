@@ -21,7 +21,6 @@ class Services extends Component {
   }
 
   render() {
-    console.log("this.props in services file", this.props);
     if (this.props.gettingService) {
       return <div>Getting Services</div>;
     } else if (this.props.services) {
@@ -48,7 +47,6 @@ class Services extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state in services file", state);
   return {
     gettingService: state.services.gettingService,
     services: state.services.services

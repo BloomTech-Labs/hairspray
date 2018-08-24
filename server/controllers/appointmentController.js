@@ -108,7 +108,6 @@ const getAppointment = (req, res) => {
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
 // Will hook up user's number when closer to production build
 const createAppointment = (req, res) => {
-  console.log("req.body.examplePics", req.body.examplePics);
   const user = req.params.id;
   const { stylist, session, service, examplePics } = req.body;
   const appointment = new Appointment({

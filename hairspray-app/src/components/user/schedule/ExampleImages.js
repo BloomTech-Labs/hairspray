@@ -17,8 +17,6 @@ class ExampleImages extends Component {
   handleChange = event => {
     event.preventDefault();
 
-    console.log("event.target", event.target);
-
     let reader = new FileReader();
     let file = event.target.files[0];
     let fileName = event.target.name;
@@ -46,7 +44,6 @@ class ExampleImages extends Component {
       this.props.cbFromParent(image);
     };
     reader.readAsDataURL(file);
-    console.log("state", this.state);
   };
 
   getPreview = imagePreviewUrl => {
@@ -62,7 +59,6 @@ class ExampleImages extends Component {
   };
 
   render() {
-    // console.log("this.state", this.state);
 
     let imagePreview1 = this.getPreview(this.state.imagePreviewUrl1);
     let imagePreview2 = this.getPreview(this.state.imagePreviewUrl2);

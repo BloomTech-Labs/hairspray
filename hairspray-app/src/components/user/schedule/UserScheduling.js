@@ -54,7 +54,6 @@ class UserScheduling extends Component {
   };
 
   handlePicsChild = data => {
-    console.log("data", data);
     this.user.examplePics = data;
   };
 
@@ -73,7 +72,6 @@ class UserScheduling extends Component {
   };
 
   renderAppointment() {
-    console.log("this.user in renderappointment", this.user);
     return (
       <div className="appointment">
         <div className="image_container">
@@ -120,7 +118,6 @@ class UserScheduling extends Component {
   }
 
   render() {
-    console.log("this.user", this.user);
     return (
       <div className="scheduling">
         <div className="scheduling__title">Schedule Your Next Appointment</div>
@@ -186,7 +183,6 @@ class UserScheduling extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     settingAppointment: state.appt.settingAppointment
   };
