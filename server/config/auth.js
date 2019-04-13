@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET
 
-const getTokenForUser = userObject => {
-  return jwt.sign(userObject, SECRET, { expiresIn: '1h' });
+const userToken = user => {
+  return jwt.sign(user, SECRET, { expiresIn: '1h' });
+};
+
+const stylistToken = stylist => {
+  return jwt.sign(stylist, SECRET, { expiresIn: '1h' });
 };
 
 const getToken = () => jwt.sign(0, SECRET);
@@ -27,7 +31,8 @@ const validateToken = (req, res, next) => {
 };
 
 module.exports = {
-  getTokenForUser,
+  userToken,
+  stylistToken,
   validateToken,
   getToken
 };

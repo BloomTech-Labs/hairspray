@@ -5,6 +5,7 @@ const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const User = require("./models/User");
+const Stylist = require("./models/Stylist");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,7 +22,8 @@ mongoose
     // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
     // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
     // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
-    User.collection.remove();
+    User.collection.deleteMany();
+    Stylist.collection.deleteMany();
     console.log("TABLES DROPPED");
   })
   .catch(err => console.log(err));

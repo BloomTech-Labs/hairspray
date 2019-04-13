@@ -32,14 +32,14 @@ module.exports = app => {
 
   // STYLISTS
   app
-    .route("/api/stylist")
+    .route("/api/stylists")
     // testing route to get a list of all stylists in database
     .get(stylists.GET) 
     // create a new stylist
     .post(stylists.POST); 
 
   app
-    .route("/api/stylist/:id")
+    .route("/api/stylists/:id")
     // get a stylist by their id
     .get(stylists.STYLIST_GET) 
     // updates Stylist by Stylist ID

@@ -41,14 +41,18 @@ const StylistSchema = Schema({
   services: [Schema.Types.ObjectId]
 });
 
-StylistSchema.pre('save', (next) => {
-  bcrypt.hash(this.password, 10).then(hash => {
-    this.password = hash;
-    next();
-  });
+StylistSchema.pre('save', function(next) {
+  console.log(this.password)
+  bcrypt
+    .hash(this.password, 10)
+    .then(hash => {
+      this.password = hash;
+      next();
+    })
+    .catch(err => next(err));
 });
 
-StylistSchema.methods.checkPassword = (potentialPassword, cb) => {
+StylistSchema.methods.checkPassword = function(potentialPassword, cb) {
   bcrypt.compare(potentialPassword, this.password).then(isMatch => {
     cb(null, isMatch);
   });
