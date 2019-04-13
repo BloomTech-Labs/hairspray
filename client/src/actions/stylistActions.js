@@ -1,8 +1,7 @@
-import * as actiontype from "./actiontypes";
+import { actiontype } from './actiontypes';
 import axios from "axios";
 
-const URL = "https://obscure-island-58835.herokuapp.com/api";
-// const URL = "http://localhost:5000/api";
+const URL = process.env.REACT_APP_API_URL;
 
 // Stylist Actions
 

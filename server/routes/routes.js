@@ -12,76 +12,103 @@ const express = require("express");
 const { validateToken } = require("../config/auth");
 
 module.exports = app => {
-  // USERS FUNCTIONS
+  // login a user and return a JWT
+  app.route("/api/login").post(users.userLogin); 
+  app.route("/api/charge").post(validateToken, users.createCharge);
+  //Admin routes
+  // checks if user is an Admin, then gives priveledge to view all users
+  app.route("/api/users").get(validateToken, users.getUsers); 
+
+  // USERS
   app
     .route("/api/signup")
-    .post(users.createUser) // create a new User
-    .get(users.getUsers); // testing route to get all users in database
-  // .get(validateToken, getUsers); // commented out for now, just to test easier in postman
-  app.route("/api/login").post(users.userLogin); // login a user and return a JWT
+    // create a new User
+    .post(users.createUser) 
+    // testing route to get all users in database
+    .get(users.getUsers); 
+
   app
     .route("/api/users/:id")
     .put(validateToken, users.updateUser)
-    .get(users.getUser); // get a specific User
-  app.route("/api/charge").post(validateToken, users.createCharge);
+    // get a specific User
+    .get(users.getUser); 
   // TODO: DELETE to erase user
 
-  //Admin routes
-  app.route("/api/users").get(validateToken, users.getUsers); // checks if user is an Admin, then gives priveledge to view all users
-
-  // STYLISTS FUNCTIONS
+  // STYLISTS
   app
     .route("/api/stylist/")
-    .get(stylists.GET) // testing route to get a list of all stylists in database
-    .post(stylists.POST); // create a new stylist
+    // testing route to get a list of all stylists in database
+    .get(stylists.GET) 
+    // create a new stylist
+    .post(stylists.POST); 
 
   app
     .route("/api/stylist/:id")
-    .get(stylists.STYLIST_GET) // get a stylist by their id
-    .put(stylists.PUT) // updates Stylist by Stylist ID
-    .delete(stylists.DELETE); // deletes Stylist by Stylist ID
+    // get a stylist by their id
+    .get(stylists.STYLIST_GET) 
+    // updates Stylist by Stylist ID
+    .put(stylists.PUT) 
+    // deletes Stylist by Stylist ID
+    .delete(stylists.DELETE); 
 
-  // APPOINTMENTS FUNCTIONS
+  // APPOINTMENTS
   app.route("/api/appointments").get(appointments.GET); //testing route to get all appointments in database
   app.route("/api/date/stylist/appointments").post(appointments.SEARCHBY_DATE_STYLIST);
-  app.route("/api/appointments/date").post(appointments.SEARCHBY_DATE); // all appointments by specific date
+  // all appointments by specific date
+  app.route("/api/appointments/date").post(appointments.SEARCHBY_DATE); 
   app.route("/api/appointments/:id").get(appointments.GET_ONE); //get a specific Appointment
 
   app
     .route("/api/user/:id/appointments")
-    .post(appointments.POST) // create a new Appointment
-    .get(appointments.USER_GET); // list all Appointments for specific User
+    // create a new Appointment
+    .post(appointments.POST) 
+    // list all Appointments for specific User
+    .get(appointments.USER_GET); 
 
-  app.route("/api/stylist/:id/appointments").get(appointments.STYLIST_GET); // list all Appointments for specific Stylist
+  // list all Appointments for specific Stylist
+  app.route("/api/stylist/:id/appointments").get(appointments.STYLIST_GET); 
 
   app
     .route("/api/appointments/update/:id")
-    .put(appointments.PUT) // updates Appointment by Appointment ID
-    .delete(appointments.DELETE); // deletes Appointment by Appointment ID
+    // updates Appointment by Appointment ID
+    .put(appointments.PUT) 
+    // deletes Appointment by Appointment ID
+    .delete(appointments.DELETE); 
 
   // FEEDBACK FUNCTIONS
-  app.route("/api/feedback").get(feedback.GET); // testing route to get all feedback in database
+  // testing route to get all feedback in database
+  app.route("/api/feedback").get(feedback.GET); 
 
-  app.route("/api/appointment/:id/feedback").post(feedback.POST); // create a new Feedback
+  // create a new Feedback
+  app.route("/api/appointment/:id/feedback").post(feedback.POST); 
 
-  app.route("/api/user/:id/feedback").get(feedback.USER_GET); // list all Feedback for specific User
+  // list all Feedback for specific User
+  app.route("/api/user/:id/feedback").get(feedback.USER_GET); 
 
-  app.route("/api/stylist/:id/feedback").get(feedback.STYLIST_GET); // list all Feedback for specific Stylist
+  // list all Feedback for specific Stylist
+  app.route("/api/stylist/:id/feedback").get(feedback.STYLIST_GET); 
   app
     .route("/api/feedback/update/:id")
-    .put(feedback.PUT) // updates Feedback by Feedback ID
-    .delete(feedback.DELETE); // deletes Feedback by Feedback ID
+    // updates Feedback by Feedback ID
+    .put(feedback.PUT) 
+    // deletes Feedback by Feedback ID
+    .delete(feedback.DELETE); 
 
   // SERVICES FUNCTIONS
   app
     .route("/api/service")
-    .get(service.GET) // testing route to get all Services in database
-    .post(service.POST); // create a new Service
+    // testing route to get all Services in database
+    .get(service.GET) 
+    // create a new Service
+    .post(service.POST); 
 
-  app.route("/api/service/:id").get(service.SERVICE_GET); // Get specific Service
+    // Get specific Service
+  app.route("/api/service/:id").get(service.SERVICE_GET); 
   app
     .route("/api/service/update/:id")
-    .put(service.PUT) // updates Service by Service ID
-    .delete(service.DELETE); // deletes Service by Service ID
+    // updates Service by Service ID
+    .put(service.PUT) 
+    // deletes Service by Service ID
+    .delete(service.DELETE); 
 };
 //Routes
