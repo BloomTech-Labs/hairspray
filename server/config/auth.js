@@ -1,9 +1,8 @@
-const jwt = require("jsonwebtoken");
-const { secret } = require("../config/settings");
+const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET
 
 const getTokenForUser = userObject => {
-  // creating a JWT and returning it.
-  return jwt.sign(userObject, secret, { expiresIn: "1h" });
+  return jwt.sign(userObject, SECRET, { expiresIn: '1h' });
 };
 
 const validateToken = (req, res, next) => {
@@ -11,16 +10,15 @@ const validateToken = (req, res, next) => {
   if (!token) {
     res
       .status(422)
-      .json({ error: "No authorization token found on Authorization header" });
+      .json({ error: 'No token found on Authorization header.' });
   }
-  jwt.verify(token, secret, (authError, decoded) => {
+  jwt.verify(token, SECRET, (authError, decoded) => {
     if (authError) {
       res
         .status(403)
-        .json({ error: "Token invalid, please login", message: authError });
+        .json({ error: 'Token invalid', message: authError });
       return;
     }
-    // sets the decoded JWT/user object on the request object for use in next middleware.
     req.decoded = decoded;
     next();
   });
