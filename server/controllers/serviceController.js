@@ -1,27 +1,26 @@
 const Service = require("../models/Service.js");
 
-// testing endpoint to see all services
-const getAllServices = (req, res) => {
-	Service.find({})
-		.then(services => {
-			res.status(200).send(services);
-		})
-		.catch(err => {
-			res.status(400).send({ error: err });
-		});
-};
-
 // endpoint to create a new service and save to database
 const createService = (req, res) => {
 	const { type, price } = req.body;
 	const service = new Service({ type, price });
 	service
 		.save()
-		.then(service => {
+		.then(() => {
 			res.status(200).json({
-				success: "Service saved",
-				service
+				success: "Service saved"
 			});
+		})
+		.catch(err => {
+			res.status(400).send({ error: err });
+		});
+};
+
+// testing endpoint to see all services
+const getAllServices = (req, res) => {
+	Service.find({})
+		.then(services => {
+			res.status(200).send(services);
 		})
 		.catch(err => {
 			res.status(400).send({ error: err });
