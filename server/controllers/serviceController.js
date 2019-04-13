@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-var settings = require("../config/settings");
 const Service = require("../models/Service.js");
 
 // testing endpoint to see all services

@@ -1,8 +1,4 @@
-const mongoose = require("mongoose");
-const User = require("../models/User.js");
-var settings = require("../config/settings");
 const Feedback = require("../models/Feedback.js");
-const Appointments = require("../models/Appointment");
 
 // testing function to see all stylists
 const getAllFeedbacks = (req, res) => {
@@ -19,9 +15,6 @@ const getAllFeedbacks = (req, res) => {
 		});
 };
 
-// function to create a new feedback and save to database
-// user id should be passed in through :id params
-// must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
 const createFeedback = (req, res) => {
 	const appointment = req.params.id;
 	const consultationScore = req.body.consultationScore;

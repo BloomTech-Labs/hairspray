@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-var settings = require("../config/settings");
 const Stylist = require("../models/Stylist.js");
 
 // testing endpoint to see all stylists

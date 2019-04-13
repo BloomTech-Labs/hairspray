@@ -1,19 +1,9 @@
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+
 const User = require("../models/User.js");
-var settings = require("../config/settings");
-var jwt = require("jsonwebtoken");
-const { requireAuth, getTokenForUser } = require("../config/auth");
+
+const { getTokenForUser } = require("../config/auth");
 const bcrypt = require("bcrypt");
 const stripe = require("stripe")("sk_test_vY2PFCv47VGRTiS3Cb9c7uky");
-const keyPublish = process.env.PUBLISHABLE_KEY;
-
-// User.create({
-//   name: "Admin",
-//   phone: "3104567683",
-//   email: "admin@admin.com",
-//   password: "automatichash"
-// });
 
 const createUser = (req, res) => {
   const { name, phone, email, password } = req.body;
