@@ -3,7 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
-const helmet = require('helmet')
+const helmet = require('helmet');
+const User = require("./models/User");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -15,11 +16,18 @@ app.use(express.static(path.join(__dirname, '../hairspray-app/build')));
 // connect to database
 mongoose
   .connect(db, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB is connected'))
+  .then(() => {
+    console.log('MongoDB is connected');
+    // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
+    // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
+    // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
+    User.collection.remove();
+    console.log("TABLES DROPPED");
+  })
   .catch(err => console.log(err));
 
 app.use(express.json());
-app.use(helmet())
+app.use(helmet());
 app.use(cors());
 
 const whitelist = [
@@ -42,4 +50,4 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/hairspray-app/build/index.html'));
 });
 
-app.listen(port, () => console.log(`app running on port ${port}`));
+app.listen(port, () => console.log(`App running at http://localhost:${port}`));

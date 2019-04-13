@@ -5,6 +5,8 @@ const getTokenForUser = userObject => {
   return jwt.sign(userObject, SECRET, { expiresIn: '1h' });
 };
 
+const getToken = () => jwt.sign(0, SECRET);
+
 const validateToken = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -26,5 +28,6 @@ const validateToken = (req, res, next) => {
 
 module.exports = {
   getTokenForUser,
-  validateToken
+  validateToken,
+  getToken
 };

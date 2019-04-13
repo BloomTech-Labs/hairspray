@@ -1,44 +1,42 @@
-
-const User = require("../models/User.js");
-
-const { getTokenForUser } = require("../config/auth");
-const bcrypt = require("bcrypt");
-const stripe = require("stripe")("sk_test_vY2PFCv47VGRTiS3Cb9c7uky");
+const User = require('../models/User.js');
+const { getTokenForUser } = require('../config/auth');
+const bcrypt = require('bcrypt');
+const stripe = require('stripe')('sk_test_vY2PFCv47VGRTiS3Cb9c7uky');
 
 const createUser = (req, res) => {
-  const { name, phone, email, password } = req.body;
-  const user = new User({ name, phone, email, password });
-  user.save((err, user) => {
-    if (err) {
-      return res.status(400).send({ err });
-    }
-    const token = getTokenForUser({
-      username: email
-    });
-    res.status(200).json({
-      success: "User was saved",
-      user,
-      token
-    });
-  });
+  if (!req.body.user)
+    return res.status(500).json({ error: 'Error with User information' });
+  const newUser = req.body.user;
+  const user = new User(newUser);
+  user
+    .save(user)
+    .then(success => {
+      const token = res.status(200).json({
+        success: 'User was saved',
+        token: getTokenForUser({
+          username: success.email
+        })
+      });
+    })
+    .catch(err => res.status(500).send({ error: err.message }));
 };
 
 const userLogin = (req, res) => {
   const { email, password } = req.body;
   User.findOne({ email }, (err, user) => {
     if (err) {
-      res.status(500).json({ error: "Invalid Username/Password" });
+      res.status(500).json({ error: 'Invalid Username/Password' });
       return;
     }
     if (user === null) {
-      res.status(422).json({ error: "No user with that username in our DB" });
+      res.status(422).json({ error: 'No user with that username in our DB' });
       return;
     }
     const userID = user._id;
     user.checkPassword(password, (nonMatch, hashMatch) => {
       // This is an example of using our User.method from our model.
       if (nonMatch !== null) {
-        res.status(422).json({ error: "passwords dont match" });
+        res.status(422).json({ error: 'passwords dont match' });
         return;
       }
       if (hashMatch) {

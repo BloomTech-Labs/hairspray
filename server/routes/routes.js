@@ -1,17 +1,13 @@
-/* eslint-disable */
-
-// const userControllerStrategy = require("../controllers/userController");
-// shortened var name for cleaner looking code, but we can revert if you like
 const users = require("../controllers/userController");
 const stylists = require("../controllers/stylistController");
 const appointments = require("../controllers/appointmentController");
 const feedback = require("../controllers/feedbackController");
 const service = require("../controllers/serviceController");
-
-const express = require("express");
-const { validateToken } = require("../config/auth");
+const { validateToken, getToken } = require("../config/auth");
 
 module.exports = app => {
+
+  app.route('/api/getToken').get((req, res) => res.send(getToken()));
   // login a user and return a JWT
   app.route("/api/login").post(users.userLogin); 
   app.route("/api/charge").post(validateToken, users.createCharge);
@@ -21,7 +17,7 @@ module.exports = app => {
 
   // USERS
   app
-    .route("/api/signup")
+    .route("/api/users")
     // create a new User
     .post(users.createUser) 
     // testing route to get all users in database
@@ -36,7 +32,7 @@ module.exports = app => {
 
   // STYLISTS
   app
-    .route("/api/stylist/")
+    .route("/api/stylist")
     // testing route to get a list of all stylists in database
     .get(stylists.GET) 
     // create a new stylist
