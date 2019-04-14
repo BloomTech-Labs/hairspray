@@ -36,13 +36,12 @@ const StylistSchema = Schema({
   },
   name: { required: true, type: String },
   avatar: { type: String },
-  appointments: [Schema.Types.ObjectId],
-  feedback: [Schema.Types.ObjectId],
-  services: [Schema.Types.ObjectId]
+  appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointments' }],
+  feedback: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }],
+  services: [{ type: Schema.Types.ObjectId, ref: 'Service' }]
 });
 
 StylistSchema.pre('save', function(next) {
-  console.log(this.password)
   bcrypt
     .hash(this.password, 10)
     .then(hash => {

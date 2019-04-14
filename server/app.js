@@ -4,13 +4,13 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
-const User = require("./models/User");
-const Stylist = require("./models/Stylist");
+const User = require('./models/User');
+const Stylist = require('./models/Stylist');
 
 const app = express();
 const port = process.env.PORT || 5000;
 const db = process.env.MONGODB_URI || 'mongodb://localhost:27017/hairspray';
-const routes = require('./routes/routes');
+const routes = require('./routes');
 
 app.use(express.static(path.join(__dirname, '../hairspray-app/build')));
 
@@ -19,12 +19,17 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => {
     console.log('MongoDB is connected');
-    // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
-    // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
-    // FOR TESTING ONLY - POTENTIALLY DROPS ALL USERS FROM DATABASE
-    User.collection.deleteMany();
-    Stylist.collection.deleteMany();
-    console.log("TABLES DROPPED");
+    // FOR TESTING ONLY - DROPS ALL USERS FROM DATABASE
+    // FOR TESTING ONLY - DROPS ALL STYLISTS FROM DATABASE
+    db === 'mongodb://localhost:27017/hairspray'
+      ? User.collection.deleteMany()
+      : null;
+    db === 'mongodb://localhost:27017/hairspray'
+      ? Stylist.collection.deleteMany()
+      : null;
+    db === 'mongodb://localhost:27017/hairspray'
+      ? console.log('TABLES DROPPED')
+      : null;
   })
   .catch(err => console.log(err));
 

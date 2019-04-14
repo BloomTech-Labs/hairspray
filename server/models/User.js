@@ -48,8 +48,8 @@ let UserSchema = new Schema({
       })
     ]
   },
-  appointments: [Schema.Types.ObjectId],
-  feedback: [Schema.Types.ObjectId],
+  appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointments' }],
+  feedback: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }],
   verify: {
     type: String,
     trim: true,

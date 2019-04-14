@@ -1,6 +1,6 @@
 const users = require('../controllers/userController');
 const router = require('express').Router();
-const { validateToken, getToken } = require('../config/auth');
+const { validateToken } = require('../config/auth');
 
 // router.route('/').get(validateToken, users.getUsers);
 
