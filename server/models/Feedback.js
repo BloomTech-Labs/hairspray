@@ -1,54 +1,34 @@
-const mongoose = require("mongoose");
-const validate = require("mongoose-validator");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const FeedbackSchema = Schema({
   // The user the Feedback belongs to
   appointment: {
     type: Schema.Types.ObjectId,
-    ref: "Appointment",
+    ref: 'Appointment',
     required: true,
-    unique: true,
+    unique: true
   },
   consultation: {
-    type: String
-  },
-  consultationScore: {
-    type: Number,
-    required: true
+    feedback: { type: String, required: true },
+    score: { type: Number, required: true }
   },
   ontime: {
-    type: String
-  },
-  ontimeScore: {
-    type: Number,
-    required: true
+    feedback: { type: String, required: true },
+    score: { type: Number, required: true }
   },
   styling: {
-    type: String
+    feedback: { type: String, required: true },
+    score: { type: Number, required: true }
   },
-  stylingScore: {
-    type: Number,
-    required: true
-  },
-  customerservice: {
-    type: String
-  },
-  customerserviceScore: {
-    type: Number,
-    required: true
+  customer_service: {
+    feedback: { type: String, required: true },
+    score: { type: Number, required: true }
   },
   overall: {
-    type: String
-  },
-  overallScore: {
-    type: Number,
-    required: true
-  },
-  date: {
-    type: Date,
-    default: Date.now
+    feedback: { type: String, required: true },
+    score: { type: Number, required: true }
   }
 });
 
-module.exports = mongoose.model("Feedback", FeedbackSchema);
+module.exports = mongoose.model('Feedback', FeedbackSchema);
