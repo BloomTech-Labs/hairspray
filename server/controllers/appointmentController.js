@@ -3,6 +3,8 @@ const Appointment = require('../models/Appointment.js');
 
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
 const createAppointment = (req, res) => {
+  if (!req.body.appointment)
+    return res.status(500).json({ error: 'No Appointment submitted' });
   const { appointment } = req.body;
   const newAppointment = new Appointment(appointment);
   newAppointment

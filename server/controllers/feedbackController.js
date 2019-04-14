@@ -1,6 +1,8 @@
 const Feedback = require('../models/Feedback.js');
 
 const createFeedback = (req, res) => {
+  if (!req.body.feedback)
+    return res.status(500).json({ error: 'No Feedback submitted' });  
   const { feedback } = req.body;
 
   const newFeedback = new Feedback(feedback);
