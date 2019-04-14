@@ -1,20 +1,5 @@
 const Feedback = require("../models/Feedback.js");
 
-// testing function to see all stylists
-const getAllFeedbacks = (req, res) => {
-	Feedback.find({})
-		.populate({
-			path: "appointment",
-			populate: { path: "user stylist" }
-		})
-		.then(feedback => {
-			res.send(feedback);
-		})
-		.catch(err => {
-			res.status(400).send({ error: err });
-		});
-};
-
 const createFeedback = (req, res) => {
 	const appointment = req.params.id;
 	const consultationScore = req.body.consultationScore;
@@ -31,11 +16,6 @@ const createFeedback = (req, res) => {
 
 	const feedback = new Feedback({
 		appointment,
-		consultationScore,
-		ontimeScore,
-		stylingScore,
-		customerserviceScore,
-		overallScore,
 		consultation,
 		ontime,
 		styling,
@@ -44,11 +24,26 @@ const createFeedback = (req, res) => {
 	});
 	feedback
 		.save()
-		.then(feedback => {
+		.then(() => {
 			res.status(200).json({
-				success: "Feedback saved",
-				feedback
+				success: "Feedback saved"
 			});
+		})
+		.catch(err => {
+			res.status(400).send({ error: err });
+		});
+};
+
+
+// testing function to see all stylists
+const getAllFeedbacks = (req, res) => {
+	Feedback.find({})
+		.populate({
+			path: "appointment",
+			populate: { path: "user stylist" }
+		})
+		.then(feedback => {
+			res.send(feedback);
 		})
 		.catch(err => {
 			res.status(400).send({ error: err });

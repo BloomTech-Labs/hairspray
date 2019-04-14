@@ -1,18 +1,17 @@
 const appointments = require('../controllers/appointmentController');
 const router = require('express').Router();
 
-router.route('/api/appointments/date').post(appointments.SEARCHBY_DATE);
+router.route('/date').post(appointments.SEARCHBY_DATE);
 router
-  .route('/api/appointments/user/:id/')
+  .route('/')
   .post(appointments.POST)
-  .get(appointments.USER_GET);
-router.route('/api/appointments/stylist/:id').get(appointments.STYLIST_GET);
-router
-  .route('/api/appointments/date/stylist/:id')
-  .post(appointments.SEARCHBY_DATE_STYLIST);
+  .get(appointments.GET);
+router.route('/stylist/:id').get(appointments.STYLIST_GET);
+router.route('/date/stylist/:id').post(appointments.SEARCHBY_DATE_STYLIST);
 
 router
-  .route('/api/appointments/:id')
+  .route('/:id')
+  .get(appointments.GET_ONE)
   .put(appointments.PUT)
   .delete(appointments.DELETE);
 
