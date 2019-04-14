@@ -3,14 +3,9 @@ const Appointment = require('../models/Appointment.js');
 
 // must pass in a stylist and date in format "2018-08-22T12:12:12.764Z"
 const createAppointment = (req, res) => {
-  const { user, stylist, session, service } = req.body;
-  const appointment = new Appointment({
-    user,
-    stylist: stylist._id,
-    session,
-    service
-  });
-  appointment
+  const { appointment } = req.body;
+  const newAppointment = new Appointment(appointment);
+  newAppointment
     .save()
     .then(() => {
       // .then(appt => {
