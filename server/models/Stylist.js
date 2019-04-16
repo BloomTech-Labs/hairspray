@@ -1,22 +1,22 @@
-const mongoose = require('mongoose');
-const validate = require('mongoose-validator');
-var bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const validate = require("mongoose-validator");
+var bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
 const StylistSchema = Schema({
+  name: { required: true, type: String },
   email: {
     type: String,
     lowercase: true,
     trim: true,
-    required: true,
     index: true,
     unique: true,
     sparse: true,
     validate: [
       validate({
-        validator: 'isEmail',
-        message: 'This is not a valid email address'
+        validator: "isEmail",
+        message: "This is not a valid email"
       })
     ]
   },
@@ -24,9 +24,9 @@ const StylistSchema = Schema({
     type: String,
     validate: [
       validate({
-        validator: 'isLength',
+        validator: "isLength",
         arguments: [6, 80],
-        message: 'Password must at least have 6 characters'
+        message: "Password must at least have 6 characters"
       })
     ]
   },
@@ -34,27 +34,23 @@ const StylistSchema = Schema({
     type: Date,
     default: Date.now
   },
-  name: { required: true, type: String },
-  avatar: { type: String },
-  appointments: [{ type: Schema.Types.ObjectId, ref: 'Appointments' }],
-  feedback: [{ type: Schema.Types.ObjectId, ref: 'Feedback' }],
-  services: [{ type: Schema.Types.ObjectId, ref: 'Service' }]
+  image: { type: String }
 });
 
-StylistSchema.pre('save', function(next) {
-  bcrypt
-    .hash(this.password, 10)
-    .then(hash => {
-      this.password = hash;
-      next();
-    })
-    .catch(err => next(err));
+StylistSchema.pre("save", function(next) {
+  bcrypt.hash(this.password, 11, (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    next();
+  });
 });
 
 StylistSchema.methods.checkPassword = function(potentialPassword, cb) {
-  bcrypt.compare(potentialPassword, this.password).then(isMatch => {
+  // check passwords
+  bcrypt.compare(potentialPassword, this.password, (err, isMatch) => {
+    if (err) return cb(err);
     cb(null, isMatch);
   });
 };
 
-module.exports = mongoose.model('Stylist', StylistSchema);
+module.exports = mongoose.model("Stylist", StylistSchema);

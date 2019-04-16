@@ -1,0 +1,283 @@
+.sidebar {
+  height: 100%;
+  width: 14%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #BFB29B;
+  color: white;
+  overflow-x: hidden;
+  padding: 50px 0 0 20px;
+}
+.sidebar a:link,
+.sidebar a:visited {
+  color: #fff;
+  text-decoration: none;
+  font-size: 22px;
+  border-radius: 5px;
+  width: 100%;
+  padding: 0 10px;
+  transition: background-color 1s;
+}
+.sidebar a:hover,
+.sidebar a:active {
+  transition: all 0.5s;
+  background-color: #E5DCCB;
+}
+.welcome {
+  margin-left: 15%;
+}
+.welcome .title {
+  font-size: 42px;
+  margin-top: 40px;
+  padding: 0 40px;
+}
+.welcome .pic {
+  max-width: 650px;
+  padding: 0 40px;
+  margin: auto;
+}
+.carousel__img {
+  width: 500px;
+}
+.carousel__container {
+  margin: 0 20%;
+}
+.carousel-control-next-icon {
+  color: #000;
+}
+.landing {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.landing .landing__nav {
+  margin: 20px;
+}
+.landing .landing__carousel {
+  width: 40%;
+}
+.landing .landing__button {
+  margin: 20px;
+  background-color: #796A4D;
+}
+.landing .landing__button:hover {
+  background-color: #BFB29B;
+}
+.scheduling {
+  margin-left: 15%;
+}
+.scheduling .scheduling__title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
+.scheduling .scheduling__form-container .scheduling__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+.scheduling .scheduling__form-container .scheduling__form .services__button {
+  background-color: #BFB29B;
+}
+.scheduling .scheduling__form-container .scheduling__form .services__button:hover {
+  background-color: #9E8F73;
+}
+.scheduling .scheduling__form-container .scheduling__form .active {
+  background-color: #9E8F73;
+}
+.scheduling .scheduling__form-container .scheduling__form .scheduling__dropdown {
+  background-color: #BFB29B;
+}
+.scheduling .scheduling__form-container .scheduling__form .scheduling__dropdown:hover {
+  background-color: #9E8F73;
+}
+.scheduling .scheduling__form-container .scheduling__form .appointment__container {
+  display: flex;
+  flex-direction: column;
+}
+.scheduling .scheduling__form-container .scheduling__form .appointment__container .submit__button {
+  background-color: #BFB29B;
+}
+.scheduling .scheduling__form-container .scheduling__form .appointment__container .submit__button:hover {
+  background-color: #9E8F73;
+}
+.scheduling .scheduling__form-container .scheduling__form .appointment__container .appointment {
+  width: 200px;
+  text-align: right;
+}
+.scheduling .scheduling__form-container .scheduling__form .appointment__container .appointment .image_container {
+  min-height: 150px;
+}
+.scheduling .scheduling__form-container .scheduling__form .appointment__container .appointment .stylist_image {
+  width: 200px;
+}
+.billing {
+  margin-left: 15%;
+}
+.billing .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
+.feedback {
+  margin-left: 15%;
+}
+.feedback .feedback__title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
+.feedback .feedback__form .feedback__form__button {
+  background-color: #BFAA9B;
+}
+.feedback .feedback__form .feedback__form__button:hover {
+  background-color: #9E8573;
+}
+.feedback .feedback__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  text-align: left;
+}
+.feedback .feedback__container .feedback__card .feedback__card__body {
+  padding: 30px 50px 30px 30px;
+}
+.feedback .feedback__container .feedback__card .feedback__card__button {
+  background-color: #BFAA9B;
+}
+.feedback .feedback__container .feedback__card .feedback__card__button:hover {
+  background-color: #9E8573;
+}
+.settings {
+  margin-left: 15%;
+}
+.settings .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
+.settings .update__button {
+  margin-left: 50px;
+  background-color: #BFAA9B;
+}
+.settings .update__button:hover {
+  background-color: #9E8573;
+}
+.settings .user {
+  margin: 50px;
+  font-size: 20px;
+}
+.settings .user .name {
+  margin-top: 10px;
+}
+.settings .user .email {
+  margin-top: 10px;
+}
+.settings .user .phone {
+  margin-top: 10px;
+}
+.settings .user .password {
+  margin-top: 10px;
+}
+.form__container .form .input__box {
+  width: 200px;
+  margin-left: 20px;
+}
+.form__container .form .input__box1 {
+  margin-left: 28px;
+  width: 200px;
+}
+.reactStrap__button {
+  background-color: #796A4D;
+}
+/* LESS - http://lesscss.org style sheet */
+/* Palette color codes */
+/* Palette URL: http://paletton.com/#uid=60q0u0k62nZ1uCF3AsK8NjSbAfe */
+/* Feel free to copy&paste color codes to your application */
+/* MIXINS */
+/* As hex codes */
+/* Main Primary color */
+/* Main Secondary color (1) */
+/* Main Secondary color (2) */
+/* Main Complement color */
+/* As RGBa codes */
+/* Main Primary color */
+/* Main Secondary color (1) */
+/* Main Secondary color (2) */
+/* Main Complement color */
+/* Generated by Paletton.com Â© 2002-2014 */
+/* http://paletton.com */
+.signin {
+  max-width: 350px;
+  margin: 50px auto;
+}
+.signup {
+  max-width: 350px;
+  margin: 50px auto;
+}
+.App {
+  text-align: center;
+  font-family: Roboto;
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+.App-title {
+  font-size: 1.5em;
+}
+.App-intro {
+  font-size: large;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.modal {
+  position: fixed;
+  z-index: 1010;
+  top: 10%;
+  left: 15%;
+  right: 55%;
+  bottom: 25%;
+  border: none;
+  background: #9E8573;
+  overflow: auto;
+  border-radius: 10px;
+  outline: none;
+  padding: 20px;
+  display: block;
+  animation: opac 0.8s;
+  color: white;
+}
+@keyframes opac {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (min-width: 150px) and (max-width: 600px) {
+  .modal {
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+  }
+}

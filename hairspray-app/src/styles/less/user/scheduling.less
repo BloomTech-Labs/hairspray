@@ -1,0 +1,62 @@
+.scheduling {
+	margin-left: 15%;
+	.scheduling__title {
+		font-size: 20px;
+		font-weight: bold;
+		margin-bottom: 5%;
+	}
+
+	.scheduling__form-container {
+		.scheduling__form {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			justify-content: space-evenly;
+
+			.services__button {
+				background-color: @color-secondary-1-0;
+			}
+
+			.services__button:hover {
+				background-color: @color-secondary-1-3;
+      }
+      
+			.active {
+				background-color: @color-secondary-1-3;
+      }
+      
+      .scheduling__dropdown {
+        background-color: @color-secondary-1-0;
+      }
+
+      .scheduling__dropdown:hover {
+				background-color: @color-secondary-1-3;
+      }
+
+			.appointment__container {
+				display: flex;
+        flex-direction: column;
+        
+				.submit__button {
+          background-color: @color-secondary-1-0;
+				}
+
+        .submit__button:hover {
+          background-color: @color-secondary-1-3;
+        }
+
+				.appointment {
+					width: 200px;
+					text-align: right;
+					.image_container {
+						min-height: 150px;
+					}
+
+					.stylist_image {
+						width: 200px;
+					}
+				}
+			}
+		}
+	}
+}
