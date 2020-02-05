@@ -5,7 +5,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #BFB29B;
+  background-color: #bfb29b;
   color: white;
   overflow-x: hidden;
   padding: 50px 0 0 20px;
@@ -23,7 +23,7 @@
 .sidebar a:hover,
 .sidebar a:active {
   transition: all 0.5s;
-  background-color: #E5DCCB;
+  background-color: #e5dccb;
 }
 .welcome {
   margin-left: 15%;
@@ -62,10 +62,10 @@
 }
 .landing .landing__button {
   margin: 20px;
-  background-color: #796A4D;
+  background-color: #796a4d;
 }
 .landing .landing__button:hover {
-  background-color: #BFB29B;
+  background-color: #bfb29b;
 }
 .scheduling {
   margin-left: 15%;
@@ -82,40 +82,89 @@
   justify-content: space-evenly;
 }
 .scheduling .scheduling__form-container .scheduling__form .services__button {
-  background-color: #BFB29B;
+  background-color: #bfb29b;
 }
-.scheduling .scheduling__form-container .scheduling__form .services__button:hover {
-  background-color: #9E8F73;
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .services__button:hover {
+  background-color: #9e8f73;
 }
 .scheduling .scheduling__form-container .scheduling__form .active {
-  background-color: #9E8F73;
+  background-color: #9e8f73;
 }
-.scheduling .scheduling__form-container .scheduling__form .scheduling__dropdown {
-  background-color: #BFB29B;
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .scheduling__dropdown {
+  background-color: #bfb29b;
 }
-.scheduling .scheduling__form-container .scheduling__form .scheduling__dropdown:hover {
-  background-color: #9E8F73;
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .scheduling__dropdown:hover {
+  background-color: #9e8f73;
 }
-.scheduling .scheduling__form-container .scheduling__form .appointment__container {
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .appointment__container {
   display: flex;
   flex-direction: column;
 }
-.scheduling .scheduling__form-container .scheduling__form .appointment__container .submit__button {
-  background-color: #BFB29B;
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .appointment__container
+  .submit__button {
+  background-color: #bfb29b;
 }
-.scheduling .scheduling__form-container .scheduling__form .appointment__container .submit__button:hover {
-  background-color: #9E8F73;
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .appointment__container
+  .submit__button:hover {
+  background-color: #9e8f73;
 }
-.scheduling .scheduling__form-container .scheduling__form .appointment__container .appointment {
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .appointment__container
+  .appointment {
   width: 200px;
   text-align: right;
 }
-.scheduling .scheduling__form-container .scheduling__form .appointment__container .appointment .image_container {
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .appointment__container
+  .appointment
+  .image_container {
   min-height: 150px;
 }
-.scheduling .scheduling__form-container .scheduling__form .appointment__container .appointment .stylist_image {
+.scheduling
+  .scheduling__form-container
+  .scheduling__form
+  .appointment__container
+  .appointment
+  .stylist_image {
   width: 200px;
 }
+
+.example__images__form-container {
+  display: flex;
+}
+
+.example__images-container {
+  width: 400px;
+  height: 400px;
+}
+
+.example__images {
+  max-width: 400px;
+  max-height: 400px;
+}
+
 .billing {
   margin-left: 15%;
 }
@@ -133,10 +182,10 @@
   margin-bottom: 5%;
 }
 .feedback .feedback__form .feedback__form__button {
-  background-color: #BFAA9B;
+  background-color: #bfaa9b;
 }
 .feedback .feedback__form .feedback__form__button:hover {
-  background-color: #9E8573;
+  background-color: #9e8573;
 }
 .feedback .feedback__container {
   display: flex;
@@ -148,10 +197,10 @@
   padding: 30px 50px 30px 30px;
 }
 .feedback .feedback__container .feedback__card .feedback__card__button {
-  background-color: #BFAA9B;
+  background-color: #bfaa9b;
 }
 .feedback .feedback__container .feedback__card .feedback__card__button:hover {
-  background-color: #9E8573;
+  background-color: #9e8573;
 }
 .settings {
   margin-left: 15%;
@@ -163,10 +212,10 @@
 }
 .settings .update__button {
   margin-left: 50px;
-  background-color: #BFAA9B;
+  background-color: #bfaa9b;
 }
 .settings .update__button:hover {
-  background-color: #9E8573;
+  background-color: #9e8573;
 }
 .settings .user {
   margin: 50px;
@@ -193,7 +242,7 @@
   width: 200px;
 }
 .reactStrap__button {
-  background-color: #796A4D;
+  background-color: #796a4d;
 }
 /* LESS - http://lesscss.org style sheet */
 /* Palette color codes */
@@ -256,7 +305,7 @@
   right: 55%;
   bottom: 25%;
   border: none;
-  background: #9E8573;
+  background: #9e8573;
   overflow: auto;
   border-radius: 10px;
   outline: none;

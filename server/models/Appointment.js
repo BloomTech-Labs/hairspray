@@ -7,25 +7,32 @@ const AppointmentSchema = Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    required: true
   },
   // The Stylist for the Appointment
   stylist: {
     type: Schema.Types.ObjectId,
     ref: "Stylist",
-    required: true,
+    required: true
   },
   // The date and time for the Appointment
   session: {
     type: Date,
     required: true,
-    unique: true,
+    unique: true
   },
-  service: [{
-    type: Schema.Types.ObjectId,
-    ref: "Service",
-    required: true 
-  }]
+  service: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Service",
+      required: true
+    }
+  ],
+  examplePics: {
+    type: Object,
+    ref: "Pics",
+    required: false
+  }
 });
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);
